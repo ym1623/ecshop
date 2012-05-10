@@ -1,0 +1,10 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--{if $action neq 'login'}-->
+<ul class="usernav clearfix">
+<li><a href="merchant.php?act=group" {if $action eq 'group'}class="on"{/if}>团购项目<span></span></a></li>
+<li><a href="merchant.php?act=order" {if $action eq 'order'}class="on"{/if}>订单列表<span></span></a></li>
+<li><a href="merchant.php?act=coupons" {if $action eq 'coupons'}class="on"{/if}>券列表<span></span></a></li>
+<li><a href="merchant.php?act=settings" {if $action eq 'settings'}class="on"{/if}>商户资料<span></span></a></li>
+<li style="float:right;" class="shbut"><a href="#" class="openWin" onclick="openHtml('.openWin','#setCard','380','消费验证');return false;">消费验证</a><!--{if $suppliers_id gt '0'}--><a href="merchant.php?act=logout" >退出</a><!--{/if}--></li>
+</ul>
+<!-- {/if} -->

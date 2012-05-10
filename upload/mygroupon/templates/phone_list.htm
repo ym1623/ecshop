@@ -1,0 +1,112 @@
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+  <form action="javascript:searchPhone()" name="searchForm">
+{$lang.phone_val}：<input name="phone"  type="text" />
+<select name="city_id">
+        <option value='0'>{$lang.city_name}</option>
+        <!--{foreach from=$city_list item=city}-->
+        <option value="{$city.city_id}">{$city.city_name}</option>
+        <!--{/foreach}-->
+        </select>
+     <select name="stat">
+        <option value='-1'>{$lang.stat.name}</option>
+        <!--{foreach from=$stat_list item=stat key=statid}-->
+        <!--{if $statid ge '0'}-->
+        <option value="{$statid}">{$stat}</option>
+        <!--{/if}-->
+        <!--{/foreach}-->
+        </select>   
+    <input type="submit" value="{$lang.query_phone}" class="button" />
+  <input type="button" name="export" value="{$lang.export}" onclick="export_phone()" class="button" />
+ </form> 
+</div>
+<form method="post" action="phone_list.php" name="listForm">
+<div class="list-div" id="listDiv">
+{/if}
+<table cellspacing='1' cellpadding='3'>
+<tr>
+<th width="5%"><input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox"><a href="javascript:listTable.sort('id'); ">{$lang.id}</a>{$sort_id}</th>
+<th><a href="javascript:listTable.sort('phone'); ">{$lang.phone_val}</a>{$sort_phone}</th>
+<th><a href="javascript:listTable.sort('city_id'); ">{$lang.city_name}</a>{$sort_city_id}</th>
+
+<th width="15%"><a href="javascript:listTable.sort('stat'); ">{$lang.stat.name}</a>{$sort_stat}</th>
+</tr>
+{foreach from=$phonedb item=val}
+<tr>
+  <td><input name="checkboxes[]" type="checkbox" value="{$val.id}" />{$val.id}</td>
+  <td align="center">{$val.phone}</td>
+    <td align="center">{$val.city_name}</td>
+  <td align="center">{$lang.stat[$val.stat]}</td>
+</tr>
+{foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+{/foreach}
+</table>
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td>
+      <input type="hidden" name="act" value="" />
+      <input type="button" id="btnSubmit1" value="{$lang.button_exit}" disabled="true" class="button" onClick="javascript:document.listForm.act.value='batch_exit';document.listForm.submit();" />
+      <input type="button" id="btnSubmit2" value="{$lang.button_remove}" disabled="true" class="button" onClick="javascript:document.listForm.act.value='batch_remove';document.listForm.submit();" />
+      <input type="button" id="btnSubmit3" value="{$lang.button_unremove}" disabled="true" class="button" onClick="javascript:document.listForm.act.value='batch_unremove';document.listForm.submit();" />
+    </td>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+{if $full_page}
+</div>
+<div class="list-div">
+<table cellspacing="1">
+<tr><td align="right" width="20%">{$lang.sms_content}</td><td align="left"><textarea rows="6" cols="50" name="sms_content"></textarea></td><td width="50%" align="left"><input type="button" id="btnSubmit4" value="{$lang.send_sms}" disabled="true" class="button" onClick="send_sms();" />
+</td></tr>
+</table>
+</div>
+</form>
+<script type="Text/Javascript" language="JavaScript">
+listTable.recordCount = {$record_count};
+listTable.pageCount = {$page_count};
+{foreach from=$filter item=item key=key}
+listTable.filter.{$key} = '{$item}';
+{/foreach}
+<!--
+onload = function()
+{
+  // 开始检查订单
+  startCheckOrder();
+}
+function searchPhone()
+{
+        listTable.filter['city_id'] = Utils.trim(document.forms['searchForm'].elements['city_id'].value);
+		listTable.filter['stat'] = Utils.trim(document.forms['searchForm'].elements['stat'].value);
+        listTable.filter['phone'] = Utils.trim(document.forms['searchForm'].elements['phone'].value);
+        listTable.filter['page'] = 1;
+        listTable.loadList();
+}
+function export_phone()
+{ 
+  var city_id = Utils.trim(document.forms['searchForm'].elements['city_id'].value);
+  
+  location.href='phone_list.php?act=export&city_id=' + city_id;
+}
+function send_sms()
+{ 
+  if (document.forms['listForm'].elements['sms_content'].value != '')
+  {
+    document.forms['listForm'].elements['act'].value = 'send_sms';
+    document.forms['listForm'].submit();
+  }
+  else
+  {
+  	 alert('请输入短信内容');
+	 return false;
+  }
+}
+
+//-->
+</script>
+{include file="pagefooter.htm"}
+{/if}

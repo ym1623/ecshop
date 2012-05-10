@@ -1,0 +1,49 @@
+<FilesMatch "\.(bak|inc|lib|sh|tpl|lbi|dwt)$">
+    order deny,allow
+    deny from all
+</FilesMatch>
+
+RewriteEngine On
+#RewriteBase /
+
+#RewriteRule ^index.html$    index\.php [L]
+RewriteRule ^team.html$    team\.php [L]
+RewriteRule ^stage.html$   stage\.php [L]
+RewriteRule ^seconds.html$   seconds\.php [L]
+RewriteRule ^hots.html$   hots\.php [L]
+RewriteRule ^help.html$    help\.php [L]
+RewriteRule ^subscribe.html$    subscribe\.php [L]
+RewriteRule ^partner.html$   partner\.php [L]
+RewriteRule ^topman.html$   topman\.php [L]
+RewriteRule ^forum.html$   forum\.php [L]
+RewriteRule ^partner-cityid-([0-9]+)\.html$  partner\.php\?cityid=$1[QSA,L]
+RewriteRule ^brander-([0-9]+)\.html$  brander\.php\?id=$1 [QSA,L]
+RewriteRule ^stage-([0-9]+)\.html$  stage\.php\?page=$1 [QSA,L]
+RewriteRule ^stage-cityid-([0-9]+)\.html$  stage\.php\?cityid=$1[QSA,L]
+RewriteRule ^stage-catid-([0-9]+)\.html$  stage\.php\?catid=$1[QSA,L]
+RewriteRule ^stage-catid-([0-9]+)-([0-9]+)\.html$  stage\.php\?catid=$1&page=$2 [QSA,L]
+RewriteRule ^stage-cityid-([0-9]+)-([0-9]+)\.html$  stage\.php\?cityid=$1&page=$2 [QSA,L]
+
+RewriteRule ^seconds-([0-9]+)\.html$  seconds\.php\?page=$1 [QSA,L]
+RewriteRule ^seconds-cityid-([0-9]+)\.html$  seconds\.php\?cityid=$1[QSA,L]
+RewriteRule ^seconds-catid-([0-9]+)-([0-9]+)\.html$  seconds\.php\?catid=$1&page=$2 [QSA,L]
+RewriteRule ^seconds-cityid-([0-9]+)-([0-9]+)\.html$  seconds\.php\?cityid=$1&page=$2 [QSA,L]
+RewriteRule ^hots-([0-9]+)\.html$  hots\.php\?page=$1 [QSA,L]
+RewriteRule ^hots-cityid-([0-9]+)\.html$  hots\.php\?cityid=$1[QSA,L]
+RewriteRule ^hots-catid-([0-9]+)-([0-9]+)\.html$  hots\.php\?catid=$1&page=$2 [QSA,L]
+RewriteRule ^hots-cityid-([0-9]+)-([0-9]+)\.html$  hots\.php\?cityid=$1&page=$2 [QSA,L]
+RewriteRule ^team-([0-9]+)\.html$  team\.php\?id=$1 [QSA,L]
+RewriteRule ^team-cityid-([0-9]+)\.html$  team\.php\?cityid=$1 [QSA,L]
+RewriteRule ^team-u-([0-9]+)\.html$  team\.php\?u=$1 [QSA,L]
+RewriteRule ^thread-([0-9]+)\.html$  thread\.php\?fid=$1 [QSA,L]
+RewriteRule ^thread-fid-([0-9]+)-([0-9]+)\.html$  thread\.php\?fid=$1&page=$2 [QSA,L]
+RewriteRule ^forum-type-all-([0-9]+).html$   forum\.php?type=all&page=$1 [L]
+RewriteRule ^forum-type-city-([0-9]+).html$   forum\.php?type=city&page=$1 [L]
+RewriteRule ^forum-type-public-([0-9]+).html$   forum\.php?type=public&page=$1 [L]
+RewriteRule ^forum-type-transferbuy-([0-9]+).html$   forum\.php?type=transferbuy&page=$1 [L]
+
+RewriteRule ^help-([0-9]+)\.html$  help\.php\?id=$1 [QSA,L]
+RewriteRule ^ask-([0-9]+)\.html$  ask\.php\?gid=$1 [QSA,L]
+RewriteRule ^ask-([0-9]+)-([0-9]+)\.html$  ask\.php\?gid=$1&page=$2 [QSA,L]
+
+RewriteRule ^invite-([0-9]+)\.html$  invite\.php\?gid=$1 [QSA,L]

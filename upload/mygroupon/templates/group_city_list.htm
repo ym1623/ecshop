@@ -1,0 +1,93 @@
+<!-- $Id: brand_list.htm 15898 2009-05-04 07:25:41Z liuhui $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js,../js/transport.js"}
+<!-- 品牌搜索 -->
+<div class="form-div">
+  <form action="javascript:search_city()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    {$lang.keyword} <input type="text" name="city_name" size="15" />
+    <input type="submit" value="{$lang.button_search}" class="button" />
+  </form>
+</div>
+<form method="post" action="" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>{$lang.city_name}</th>
+      <th>{$lang.city_desc}</th>
+      <th>{$lang.is_open}</th>
+      <th>{$lang.is_select}</th>
+      <th><a href="javascript:listTable.sort('city_sort'); ">{$lang.group_sort}</a></th>
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$city_list item=city}
+    <tr>
+      <td class="first-cell">
+        {$city.city_name|escape:html}</span>
+      </td>
+      <td align="left">{$city.city_desc|truncate:36}</td>
+      <td align="center"><img src="images/{if $city.is_open}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_open', {$city.city_id})" /></td>
+         <td align="center">
+         <img src="images/{if $city.city_id eq $city_id}yes{else}no{/if}.gif" onclick="select_city({$city.city_id});" /></td>
+             <td align="center"><span onclick="listTable.edit(this, 'edit_sort_order', {$city.city_id})">{$city.city_sort}</span></td>
+      <td align="center">
+        <a href="group_city.php?act=edit&id={$city.city_id}" title="{$lang.edit}">{$lang.edit}</a> |
+        <a href="javascript:;" onclick="listTable.remove({$city.city_id}, '{$lang.drop_confirm}')" title="{$lang.edit}">{$lang.remove}</a> 
+      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+    {/foreach}
+    <tr>
+      <td align="right" nowrap="true" colspan="6">
+      {include file="page.htm"}
+      </td>
+    </tr>
+  </table>
+
+{if $full_page}
+<!-- end brand list -->
+</div>
+</form>
+
+<script type="text/javascript" language="javascript">
+  <!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+      // 开始检查订单
+      startCheckOrder();
+  }
+  {/literal}
+  function search_city()
+  {
+        listTable.filter['city_name'] = Utils.trim(document.forms['searchForm'].elements['city_name'].value);
+        listTable.filter['page'] = 1;
+        
+        listTable.loadList();
+ }
+  function select_city(city_id)
+  {
+	 if (city_id > 0)
+	 { 
+  	   Ajax.call('group_city.php?is_ajax=1&act=select_city', 'city_id=' + city_id, listTable.listCallback, "GET", "JSON");
+	 }
+  }
+
+  //-->
+</script>
+
+{include file="pagefooter.htm"}
+{/if}

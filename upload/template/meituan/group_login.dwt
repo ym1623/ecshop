@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix" style="margin-top:20px;">
+<div class="box-top3"></div>
+<div class="sect">
+<h1 class="title2">请注册或登录</h1>
+<div class="logandsig clearfix" style="padding:20px;">
+<form action="buy.php?a=login" method="post" name="loginForm" id="loginForm" class="lf" style="width:51.9%">
+<table class="loginbox dataTab" width="100%">
+<tbody>
+<tr>
+<td align="right" width="100" height="40"><strong>Email／用户名</strong></td><td><input type="text" class="txt" name="username" id="username" size="40" /></td>
+</tr>
+<tr>
+<td align="right">密&nbsp;&nbsp;码</td><td><input type="password" name="password" class="txt" id="password" size="40" /></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td style="font-size:12px;"><input type="checkbox" checked="" class="f-check" id="autologin" name="auto-login" value="1" /> 下次自动登录</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="hidden" value="signin" name="act" />
+<input type="submit" class="but" value="登 陆" name="submit" /></td>
+</tr>
+<tr>
+<td colspan="2" style="padding-top:30px;">
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+<form action="buy.php?a=login" method="post" name="registerForm" id="registerForm" class="rf" style="width:48%">
+<table class="signup dataTab" width="100%">
+<tr>
+<td align="right" valign="top"><strong>Email</strong></td>
+<td>
+<input name="useremail" type="text" class="txt" id="useremail" size="48" /><span>输入您的Email地址</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>用户名</strong></td>
+<td>
+<input name="username" type="text" class="txt" id="username" size="48" /><span>4-16 个字符，一个汉字为两个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>密码</strong></td>
+<td>
+<input name="password_reg" class="txt" type="password" id="password_reg" size="48" /><span>最少 4 个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>确认密码</strong></td>
+<td>
+<input name="confirm_password" class="txt" type="password" id="confirm_password" size="48" /><span>再次输入密码</span>
+</td>
+</tr>
+<tr>
+  <td></td>
+  <td><input type="submit" class="but" value="注 册" />
+  <input name="act" type="hidden" value="signup" />
+  </td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+<!--/sect-->
+<div class="box-bottom3"></div>
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

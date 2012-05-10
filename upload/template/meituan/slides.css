@@ -1,0 +1,7 @@
+.slides{position:relative;overflow:hidden;width:460px;height:290px;}
+.slides img{width:460px;height:290px;}
+.slide-pic li.cur{display:block;}
+.slide-li{position:absolute;right:3px;bottom:3px;}
+.slide-li li{float:left;width:20px;height:20px;line-height:20px;margin-left:1px;text-align:center;}
+.op li{color:#000;background:#fff;opacity:0.6;filter:alpha(opacity=60);}
+.op li.cur{color:#fff;background:#44ABAF;}

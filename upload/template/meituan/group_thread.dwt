@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<ul class="usernav clearfix">
+<li><a href="forum.php" {if $type eq 'all'}class="on"{/if}>所有<span></span></a></li>
+<li><a href="forum.php?type=city" {if $type eq 'city'}class="on"{/if}>{$city_info.city_name}讨论区<span></span></a></li>
+<li><a href="forum.php?type=public" {if $type eq 'public'}class="on"{/if}>公共讨论区<span></span></a></li>
+<li><a href="forum.php?type=transferbuy" {if $type eq 'transferbuy'}class="on"{/if}>转让求购区<span></span></a></li>
+</ul>
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">话题讨论区<span class="add"><a href="forum.php?act=new">＋发表新话题</a></span></h1>
+<table class="forum-disc" width="100%">
+<tr>
+<td><strong>{$forum_arr.forum_title}</strong><p>{$forum_arr.forum_content}</p>
+<div align="right"><font color="#399" style="font-size:12px;">回复:{$forum_arr.replay_num} | 查看:{$forum_arr.click_num} | 作者:{$forum_arr.user_name} | 发表时间:{$forum_arr.add_time}</font></div>
+</td>
+</tr>
+<!-- {foreach from=$forumlist item=forum} -->
+<tr>
+<td><div style="padding-bottom:10px;">{$forum.forumcontent}</div>
+<p align="right"><font color="#399">{$forum.username} | {$forum.add_time}</font></p>  
+</td>
+</tr>
+<!-- {/foreach} -->
+</table>
+<!--/forum-disc-->
+<div class="pages">
+<!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+<h1 class="title2">我要回复</h1>
+<div class="askform">
+<form name="formtopic" method="post" action="thread.php" id="formMsg">
+<table class="dataTab" width="100%">
+<tbody>
+<tr>
+<td>
+<textarea id="seller_content" name="forumcontent" style="height:60px;" class="area" cols="90"></textarea>
+<p style="color:#666;">您最多输入110个汉字，还可以输入 <b><font color="#ff0000" id="num">110</font></b> 个字</p>
+</td></tr>
+<tr><td>
+<input type="hidden" value="add_topic" name="act" />
+<input type="hidden" value="{$fid}" name="fid" />
+<input type="submit" value="好了，提交" class="but" />
+</td></tr>
+</tbody>
+</table>
+</form>
+</div>
+<!--askform-->
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="uside-top"></div>
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_vote.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!--{if $class_list}-->
+<ul class="usernav clearfix">
+<li><a href="{$class_url}" {if $catid eq '0'}class="on"{/if}>所有<span></span></a></li>
+<!--{foreach from=$class_list item=class}-->
+<li><a href="{$class.url}" {if $class.cid eq $catid}class="on"{/if}>{$class.class_name}<span></span></a></li>
+<!--{/foreach}-->
+</ul>
+<!--{/if}-->
+
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">{$city_info.city_name}近期团购</h1>
+<ul id="deals-list" class="clearfix">
+<!--{foreach from=$group_list item=group_buy} 循环团购活动开始 -->
+<li><p class="time">{$group_buy.formated_start_date}</p>
+<h4><a href="{$group_buy.url}">{$group_buy.group_name|escape:html}</a></h4>
+<a href="{$group_buy.url}" class="thumb"><img src="{$group_buy.group_image}" border="0"  width="200" height="121" alt="{$group_buy.group_name|escape:html}" /><!--{if $group_buy.is_finished eq '0'}--><div class="isopen"></div><!--{/if}--></a>
+<div class="info"><p class="total"><strong class="count">{$group_buy.orders_num}</strong>人购买</p><p class="price">原价：<strong class="old">{$group_buy.formated_market_price}</strong><br />折扣：<strong class="discount">{$group_buy.rebate}折</strong><br />现价：<strong>{$group_buy.formated_cur_price}</strong><br />节省：<strong>{$group_buy.formated_rebate_price}</strong><br />商家让利：<strong>{$group_buy.formated_all_rebate}</strong></p></div>
+</li><!--{/foreach}--> 
+</ul>
+<!--/deals-list-->
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem --></div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_gonggao.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_dream.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_seller.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

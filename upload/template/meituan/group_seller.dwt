@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">提供团购信息</h1>
+<div class="askform">
+<strong>如果您是商家、网上商城，想在{$group_shopname}组织团购，请填写</strong>
+<form name="formMsg" id="formMsg" method="post" action="seller.php">
+<table class="dataTab" width="100%" style="margin-top:15px;">
+<tbody>
+<tr>
+<td width="120" align="right" valign="top"><strong>您的称呼</strong></td>
+<td><input class="txt" type="text" value="" name="seller_name" id="seller_name" size="60" /></td>
+</tr>
+<tr><td align="right" valign="top"><strong>您的电话</strong></td><td><input class="txt" type="text" value="" name="seller_phone" id="seller_phone" size="60" /></td></tr>
+<tr><td align="right" valign="top"><strong>其他联系方式</strong></td><td><input class="txt" type="text" value="" name="other_phone" id="other_phone" size="60" /><span>请留下您的手机、QQ号或邮箱，方便联系</span></td></tr>
+<tr><td align="right" valign="top"><strong>城市</strong></td><td>
+<select name="city_id" id="city_id">
+<option value="0">请选择城市</option>
+<!--{foreach from=$group_city item=city}-->
+<option {if $city.city_id eq $cityid}selected="selected"{/if} value="{$city.city_id}">{$city.city_name}</option>
+<!--{/foreach}-->
+<option value="-1">其他城市</option>
+</select>
+</td></tr>
+<tr>
+<td align="right" valign="top"><strong>团购内容</strong></td><td>
+<textarea class="area" rows="3" cols="80" maxlength="110" id="seller_content" name="seller_content"></textarea>
+<p style="color:#666;">您最多输入110个汉字，还可以输入 <b><font color="#ff0000" id="num">110</font></b> 个字</p>
+</td></tr>
+<tr><td></td><td>
+<input type="hidden" value="add_seller" name="act" />
+<input type="submit" value="好了，提交" class="but" />
+</td></tr>
+</tbody></table>
+</form>
+</div>
+<!--askform-->
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<!--/side-today-->
+<div class="sideblock">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>您有好产品吗？您在为销售发愁吗？加入我们...</strong>
+<p>如果您有好的产品，并且希望通过我们扩大销售，推广产品，请在这里留下您的联系方式和产品简要描述，我们的销售人员会第一时间和您联系！</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-yaoqing-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

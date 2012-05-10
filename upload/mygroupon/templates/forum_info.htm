@@ -1,0 +1,120 @@
+<!-- $Id: comment_info.htm 16854 2009-12-07 06:20:09Z sxc_shop $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<!-- comment content list -->
+<div class="main-div">
+  <table width="100%">
+    <tr>
+      <td>
+      {$forum_info.forum_title}
+    </td>
+    </tr>
+    <tr>
+      <td><hr color="#dadada" size="1"></td>
+    </tr>
+    <tr>
+      <td>
+        <div style="overflow:hidden; word-break:break-all;">{$forum_info.forum_content}</div>
+      </td>
+    </tr>
+    <tr><td>  <div align="right"><b>{$lang.forum_name}</b>:{if $forum_info.city_id eq '0'}{$lang.forum_public}{else}{$forum_info.city_name}{/if},&nbsp;&nbsp;<b>{$lang.forum_class}</b>:{$forum.class_name|default:$lang.forum_public},&nbsp;&nbsp;<b>{$lang.reply_num}</b>:{$forum_info.replay_num},&nbsp;&nbsp;<b>{$lang.click_num}</b>:{$forum_info.click_num},&nbsp;&nbsp;<b>{$lang.user_name}</b>:{if $forum_info.user_name}{$forum_info.user_name}{else}{$lang.anonymous}{/if},&nbsp;&nbsp;
+        <b>{$lang.form_ip}</b>: {$forum_info.ip_address},&nbsp;&nbsp;<b>{$lang.forum_time}</b>: {$forum_info.add_time}</div>
+</td></tr>
+    <tr>
+      <td align="center">
+        {if $forum_info.forum_status eq "0"}
+        <input type="button" onclick="location.href='forum_manage.php?act=check&check=allow&id={$forum_info.forum_id}'" value="{$lang.allow}" class="button" />
+        {else}
+        <input type="button" onclick="location.href='forum_manage.php?act=check&check=forbid&id={$forum_info.forum_id}'" value="{$lang.forbid}" class="button" />
+        {/if}
+    </td>
+    </tr>
+  </table>
+</div>
+<!-- reply content list -->
+<div class="main-div" id="listDiv">
+{/if}
+  <form method="POST" action="forum_manage.php?act=batch_drop" name="listForm" onsubmit="return confirm_bath()">
+  <table width="100%">
+    <tr>
+    <th width="50"align="left">
+      <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox">
+      <a href="javascript:listTable.sort('forum_id'); ">{$lang.record_id}</a> {$sort_forum_id}</th>
+    <th>{$lang.reply_content}</th>
+    <th><a href="javascript:listTable.sort('add_time'); ">{$lang.reply_time}</a>{$sort_add_time}</th>
+    <th><a href="javascript:listTable.sort('user_name'); ">{$lang.user_name}</a>{$sort_user_name}</th>
+     <th>{$lang.form_ip}</th>
+    <th>{$lang.forum_flag}</th>
+    <th>{$lang.handler}</th>
+  </tr>
+  {foreach from=$forum_list item=forum}
+  <tr>
+    <td width="50"><input value="{$forum.forum_id}" name="checkboxes[]" type="checkbox">{$forum.forum_id}</td>
+   <td align="left" width="700">{$forum.forum_content}</td>
+    <td align="center">{$forum.add_time}</td>
+    <td align="center">{if $forum.user_name}{$forum.user_name}{else}{$lang.anonymous}{/if}</td>
+    <td align="center">{$forum.ip_address}</td>
+    <td align="center">
+    <img src="images/{if $forum.forum_status}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'set_show', {$forum.forum_id})" />
+    </td>
+    <td align="center">
+      <a href="javascript:" onclick="listTable.remove({$forum.forum_id}, '{$lang.drop_confirm}','remove_replay')">{$lang.remove}</a>
+    </td>
+  </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="6">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+    <table cellpadding="4" cellspacing="0">
+    <tr>
+      <td>
+      <div>
+      <select name="sel_action">
+        <option value="remove">{$lang.drop_select}</option>
+        <option value="allow">{$lang.allow}</option>
+        <option value="deny">{$lang.forbid}</option>
+      </select>
+      <input type="hidden" name="act" value="batch" />
+      <input type="submit" name="drop" id="btnSubmit" value="{$lang.button_submit}" class="button" disabled="true" /></div></td>
+      <td align="right">{include file="page.htm"}</td>
+    </tr>
+  </table>
+ </form> 
+ {if $full_page} 
+</div>
+
+{insert_scripts files="validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+  listTable.query = 'replay_query';
+  cfm = new Object();
+  cfm['allow'] = '{$lang.cfm_allow}';
+  cfm['remove'] = '{$lang.cfm_remove}';
+  cfm['deny'] = '{$lang.cfm_deny}';
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+  {literal}
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("content",  no_content);
+    return validator.passed();
+}
+onload = function() {
+    // 开始检查订单
+    startCheckOrder();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}
+{/if}

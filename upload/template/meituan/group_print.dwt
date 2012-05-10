@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>{$group_cardname}</title>
+<meta content="text/html; charset=utf-8" http-equiv=content-type>
+<meta content=ie=emulateie7 http-equiv=x-ua-compatible>
+<style type="text/css">
+*{padding:0;margin:0px;}
+body {background:#fff;font-size:12px;}
+table{border-collapse:collapse; border-spacing:0;}
+td{padding:5px 10px;}
+.bb{border-bottom:1px dashed #DEDEDE;}
+.c1{color:#f00;font-weight:bold;}
+.c1 span{font-size:14px;font-family:arial;}
+#cardBox{width:616px;height:327px;line-height:1.75;padding:30px 20px 10px 19px;margin:50px auto 20px;border:2px solid #dedede;background:#fcfcfc;}
+#logo{border-bottom:3px solid #999;padding-bottom:10px;}
+#teamtitle{font-size:18px;font-weight:bold;color:#333;font-family:"微软雅黑";padding:15px 10px;}
+@media print    
+{
+.noprint {
+	display: none
+}
+}
+</style>
+<meta name=generator content="mshtml 8.00.7600.16588"></head>
+<body>
+<div id="cardBox">
+<div id="logo"><img src="images/logo.png" alt="" /></div>
+<div id="teamtitle" class="p10 bb">{$group_arr.group_name}</div>
+<table width="100%">
+	<tr>
+		<td class="bb">券有效期：{$group_arr.past_time}（包含当日）</td>
+		<td class="bb c1">券号密码：<span>{$card_arr.card_sn}</span> <span>{$card_arr.card_password}</span></td>
+	</tr>
+	<tr>
+		<td class="bb">商家名称：{$suppliers_arr.suppliers_name}</td>
+		<td class="bb">咨询电话：{$suppliers_arr.phone}</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="bb">商家地址：{$suppliers_arr.address}</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right" class="c1">*注：{$group_cardname}使用后，将直接由商家回收处理！</td>
+	</tr>
+</table>
+</div>
+<div style="text-align:center;margin:20px" class="noprint">
+<button style="padding:10px 20px;font-size:16px;cursor:pointer;" onclick="window.print();">打印{$group_cardname}</button>
+</div>
+</body>
+</html>

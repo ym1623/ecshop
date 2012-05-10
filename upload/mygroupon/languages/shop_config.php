@@ -1,0 +1,380 @@
+<?php
+/**
+ * ECSHOP 管理中心商店设置语言文件
+ * ============================================================================
+ * 版权所有 2005-2010 上海商派网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.ecshop.com；
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
+ * 使用；不允许对程序代码以任何形式任何目的的再发布。
+ * ============================================================================
+ * $Author: liuhui $
+ * $Id: shop_config.php 17138 2010-04-27 06:18:33Z liuhui $
+ */
+
+require(ROOT_PATH.GROUPON_PATH.'/sms_url.php');
+$_LANG['cfg_name']['group_config'] = '团购配置';
+$_LANG['cfg_name']['group_shipping'] = '默认配送方式';
+$_LANG['cfg_name']['group_shopname'] = '团购商店名称';
+$_LANG['cfg_name']['group_shoptitle'] = '团购商店标题';
+$_LANG['cfg_name']['group_shopdesc'] = '团购商店描述';
+$_LANG['cfg_name']['group_shopaddress'] = '团购商店地址';
+$_LANG['cfg_name']['group_qq'] = '团购商店QQ';
+$_LANG['cfg_name']['group_email'] = '团购商店客服Email';
+$_LANG['cfg_name']['group_phone'] = '团购商店客服电话';
+$_LANG['cfg_name']['group_logo'] = '团购商店logo';
+$_LANG['cfg_name']['group_notice'] = '团购公告';
+$_LANG['cfg_name']['group_rewrite'] = '团购地址重写';
+$_LANG['cfg_range']['group_rewrite'][0] = '禁用';
+$_LANG['cfg_range']['group_rewrite'][1] = '起用';
+$_LANG['cfg_name']['group_comment'] = '团购评论是否需要审核';
+$_LANG['cfg_range']['group_comment']['0'] = '不需要审核';
+$_LANG['cfg_range']['group_comment']['1'] = '需要审核';
+$_LANG['cfg_name']['group_rebate'] = '团购是否自动返利';
+$_LANG['cfg_range']['group_rebate']['0'] = '自动返利';
+$_LANG['cfg_range']['group_rebate']['1'] = '人工审核';
+$_LANG['cfg_name']['group_statscode'] = '团购统计代码';
+$_LANG['cfg_name']['make_group_card'] = '生成团购卷的时机';
+$_LANG['cfg_range']['make_group_card']['0'] = '订单付款之后';
+$_LANG['cfg_range']['make_group_card']['1'] = '发货时';
+$_LANG['cfg_name']['send_group_sms'] = '发送团购卷短信时机';
+$_LANG['cfg_range']['send_group_sms']['0'] = '订单付款之后';
+$_LANG['cfg_range']['send_group_sms']['1'] = '发货时';
+$_LANG['cfg_name']['send_sms_num'] = '短信限发次数';
+$_LANG['cfg_desc']['send_sms_num'] = '0为不限制发送次数';
+$_LANG['cfg_name']['left_group_num'] = '右侧团购数量';
+$_LANG['cfg_name']['show_groupclass'] = '团购分类显示';
+$_LANG['cfg_range']['show_groupclass']['1'] = '往期团购';
+$_LANG['cfg_range']['show_groupclass']['2'] = '秒杀抢团';
+$_LANG['cfg_range']['show_groupclass']['3'] = '品牌商户';
+$_LANG['cfg_name']['group_secondspay'] = '秒杀支付方式';
+$_LANG['cfg_range']['group_secondspay']['0'] = '仅使用余额支付';
+$_LANG['cfg_range']['group_secondspay']['1'] = '可使用线上支付方式';
+$_LANG['cfg_name']['topman_num'] = '团购达人显示数量';
+
+$_LANG['cfg_desc']['left_group_num'] = '0为不限制团购数量';
+$_LANG['cfg_name']['group_cardname'] = '团购卷名称';
+$_LANG['cfg_name']['group_member_email'] = '注册时是否发送邮件';
+$_LANG['cfg_desc']['group_member_email'] = '会员注册之后会立即发送一封验证或者欢迎邮件(邮件内容自定)';
+
+$_LANG['cfg_range']['group_member_email']['0'] = '否';
+$_LANG['cfg_range']['group_member_email']['1'] = '是';
+
+$_LANG['cfg_name']['groupindex'] = '默认首页';
+
+$_LANG['cfg_range']['groupindex']['0'] = 'team.php';
+$_LANG['cfg_range']['groupindex']['1'] = 'index.php';
+$_LANG['cfg_desc']['groupindex'] = '目录中的index.php.bak改成index.php之后,再选择index.php项';
+
+$_LANG['cfg_name']['lang'] = '系统语言';
+$_LANG['cfg_name']['shop_closed'] = '暂时关闭网站';
+$_LANG['cfg_name']['icp_file'] = 'ICP 备案证书文件';
+$_LANG['cfg_name']['rewrite'] = 'URL重写';
+$_LANG['cfg_name']['enable_order_check'] = '是否开启新订单提醒';
+$_LANG['cfg_name']['date_format'] = '日期格式';
+$_LANG['cfg_name']['time_format'] = '时间格式';
+$_LANG['cfg_name']['currency_format'] = '货币格式';
+$_LANG['cfg_name']['comments_number'] = '评论数量';
+$_LANG['cfg_name']['order_number'] = '订单显示数量';
+$_LANG['cfg_name']['shop_address'] = '详细地址';
+$_LANG['cfg_name']['ym'] = 'Yahoo Messenger';
+$_LANG['cfg_name']['cache_time'] = '缓存存活时间（秒）';
+$_LANG['cfg_name']['msn'] = 'MSN Messenger';
+$_LANG['cfg_name']['service_email'] = '客服邮件地址';
+$_LANG['cfg_name']['send_mail_on'] = '是否开启自动发送邮件';
+$_LANG['cfg_name']['auto_generate_gallery'] = '上传商品是否自动生成相册图';
+$_LANG['cfg_name']['retain_original_img'] = '上传商品时是否保留原图';
+$_LANG['cfg_name']['member_email_validate'] = '是否开启会员邮件验证';
+$_LANG['cfg_name']['message_board'] = '是否启用留言板功能';
+$_LANG['cfg_name']['message_check'] = '用户留言是否需要审核';
+$_LANG['cfg_name']['icp_number'] = 'ICP证书或ICP备案证书号';
+$_LANG['cfg_name']['enable_gzip']     = '是否启用Gzip模式';
+$_LANG['cfg_name']['test_mail_address']  = '邮件地址';
+$_LANG['cfg_name']['send'] = '发送测试邮件';
+$_LANG['test_mail_title'] = '测试邮件';
+$_LANG['cfg_name']['email_content']  = '您好！这是一封检测邮件服务器设置的测试邮件。收到此邮件，意味着您的邮件服务器设置正确！您可以进行其它邮件发送的操作了！';
+$_LANG['cfg_name']['sms'] = '短信设置';
+$_LANG['cfg_name']['sms_shop_mobile'] = '商家的手机号码';
+$_LANG['cfg_name']['timezone'] = '默认时区';
+$_LANG['cfg_name']['visit_stats'] = '站点访问统计';
+$_LANG['cfg_desc']['group_logo'] = '请在上传前将图片的文件名命名为logo.gif';
+
+$_LANG['cfg_desc']['smtp'] = '设置邮件服务器基本参数';
+$_LANG['cfg_desc']['rewrite'] = 'URL重写是一种搜索引擎优化技术，可以将动态的地址模拟成静态的HTML文件。需要Apache的支持。';
+$_LANG['cfg_desc']['smtp_host'] = '邮件服务器主机地址。如果本机可以发送邮件则设置为localhost';
+$_LANG['cfg_desc']['smtp_user'] = '发送邮件所需的认证帐号，如果没有就为空着';
+$_LANG['cfg_desc']['bought_goods'] = '显示多少个购买此商品的人还买过哪些商品';
+$_LANG['cfg_desc']['currency_format'] = '显示商品价格的格式，%s将被替换为相应的价格数字。';
+$_LANG['cfg_desc']['image_height'] = '如果您的服务器支持GD，在您上传商品图片的时候将自动将图片缩小到指定的尺寸。';
+$_LANG['cfg_desc']['watermark'] = '水印文件须为gif格式才可支持透明度设置。';
+$_LANG['cfg_desc']['watermark_alpha'] = '水印的透明度，可选值为0-100。当设置为100时则为不透明。';
+$_LANG['cfg_desc']['invoice_content'] = '客户要求开发票时可以选择的内容。例如：办公用品。每一行代表一个选项。';
+$_LANG['cfg_desc']['stats_code'] = '您可以将其他访问统计服务商提供的代码添加到每一个页面。';
+$_LANG['cfg_desc']['cache_time'] = '前台页面缓存的存活时间，以秒为单位。';
+$_LANG['cfg_desc']['qq'] = '如果您有多个客服的QQ号码，请在每个号码之间使用半角逗号（,）分隔。';
+$_LANG['cfg_desc']['msn'] = '如果您有多个客服的MSN号码，请在每个号码之间使用半角逗号（,）分隔。';
+$_LANG['cfg_desc']['ym'] = '如果您有多个客服的 Yahoo Messenger 号码，请在每个号码之间使用半角逗号（,）分隔。';
+$_LANG['cfg_desc']['ww'] = '如果您有多个客服的淘宝旺旺号码，请在每个号码之间使用半角逗号（,）分隔。';
+$_LANG['cfg_desc']['shop_logo'] = '请在上传前将图片的文件名命名为logo.gif';
+$_LANG['cfg_desc']['enable_gzip'] = '启用Gzip模式可压缩发送页面大小，加快网页传输。需要php支持Gzip。如果已经用Apache等对页面进行Gzip压缩，请禁止该功能。';
+$_LANG['cfg_desc']['skype'] = '如果您有多个客服的Skype号码，请在每个号码之间使用半角逗号（,）分隔。提示：你需要在你的Skype隐私设置中启用状态显示功能';
+$_LANG['cfg_desc']['attr_related_number'] = '在商品详情页面显示多少个属性关联的商品。';
+$_LANG['cfg_desc']['user_notice'] = '该信息将在用户中心欢迎页面显示';
+$_LANG['cfg_desc']['comment_factor'] = '选取较高的评论条件可以有效的减少垃圾评论的产生。只有用户订单完成后才认为该用户有购买行为';
+$_LANG['cfg_desc']['min_goods_amount'] = '达到此购物金额，才能提交订单。';
+$_LANG['cfg_desc']['search_keywords'] = '首页显示的搜索关键字,请用半角逗号(,)分隔多个关键字';
+$_LANG['cfg_desc']['shop_notice'] = '以上内容将显示在首页商店公告中,注意控制公告内容长度不要超过公告显示区域大小。';
+$_LANG['cfg_desc']['bgcolor'] = '颜色请以#FFFFFF格式填写';
+$_LANG['cfg_desc']['cart_confirm'] = '允许您设置用户点击“加入购物车”后是否提示以及随后的动作。';
+$_LANG['cfg_desc']['use_how_oos'] = '使用缺货处理时前台订单确认页面允许用户选择缺货时处理方法。';
+$_LANG['cfg_desc']['send_service_email'] = '网店信息中的客服邮件地址不为空时，该选项有效。';
+$_LANG['cfg_desc']['send_mail_on'] = '启用该选项登录后台时，会自动发送邮件队列中尚未发送的邮件';
+$_LANG['cfg_desc']['sms_shop_mobile'] = '请先注册手机短信服务再填写手机号码';
+
+$_LANG['cfg_range']['cart_confirm'][1] = '提示用户，点击“确定”进购物车';
+$_LANG['cfg_range']['cart_confirm'][2] = '提示用户，点击“取消”进购物车';
+$_LANG['cfg_range']['cart_confirm'][3] = '直接进入购物车';
+$_LANG['cfg_range']['cart_confirm'][4] = '不提示并停留在当前页面';
+$_LANG['cfg_range']['shop_closed']['0'] = '否';
+$_LANG['cfg_range']['shop_closed']['1'] = '是';
+$_LANG['cfg_range']['licensed']['0'] = '否';
+$_LANG['cfg_range']['licensed']['1'] = '是';
+$_LANG['cfg_range']['send_mail_on']['on'] = '开启';
+$_LANG['cfg_range']['send_mail_on']['off'] = '关闭';
+$_LANG['cfg_range']['member_email_validate']['1'] = '开启';
+$_LANG['cfg_range']['member_email_validate']['0'] = '关闭';
+$_LANG['cfg_range']['message_board']['1'] = '开启';
+$_LANG['cfg_range']['message_board']['0'] = '关闭';
+$_LANG['cfg_range']['auto_generate_gallery']['1'] = '是';
+$_LANG['cfg_range']['auto_generate_gallery']['0'] = '否';
+$_LANG['cfg_range']['retain_original_img']['1'] = '是';
+$_LANG['cfg_range']['retain_original_img']['0'] = '否';
+$_LANG['cfg_range']['watermark_place']['0'] = '无';
+$_LANG['cfg_range']['watermark_place']['1'] = '左上';
+$_LANG['cfg_range']['watermark_place']['2'] = '右上';
+$_LANG['cfg_range']['watermark_place']['3'] = '居中';
+$_LANG['cfg_range']['watermark_place']['4'] = '左下';
+$_LANG['cfg_range']['watermark_place']['5'] = '右下';
+$_LANG['cfg_range']['use_storage']['1'] = '是';
+$_LANG['cfg_range']['use_storage']['0'] = '否';
+$_LANG['cfg_range']['rewrite']['0'] = '禁用';
+$_LANG['cfg_range']['rewrite']['1'] = '简单重写';
+$_LANG['cfg_range']['rewrite']['2'] = '复杂重写';
+$_LANG['cfg_range']['can_invoice']['0'] = '不能';
+$_LANG['cfg_range']['can_invoice']['1'] = '能';
+$_LANG['cfg_range']['top10_time']['0'] = '所有';
+$_LANG['cfg_range']['top10_time']['1'] = '一年';
+$_LANG['cfg_range']['top10_time']['2'] = '半年';
+$_LANG['cfg_range']['top10_time']['3'] = '三个月';
+$_LANG['cfg_range']['top10_time']['4'] = '一个月';
+$_LANG['cfg_range']['use_integral']['1'] = '使用';
+$_LANG['cfg_range']['use_integral']['0'] = '不使用';
+$_LANG['cfg_range']['use_bonus']['1'] = '使用';
+$_LANG['cfg_range']['use_bonus']['0'] = '不使用';
+$_LANG['cfg_range']['use_surplus']['1'] = '使用';
+$_LANG['cfg_range']['use_surplus']['0'] = '不使用';
+$_LANG['cfg_range']['use_how_oos']['1'] = '使用';
+$_LANG['cfg_range']['use_how_oos']['0'] = '不使用';
+$_LANG['cfg_range']['send_confirm_email']['1'] = '发送邮件';
+$_LANG['cfg_range']['send_confirm_email']['0'] = '不发送邮件';
+$_LANG['cfg_range']['order_pay_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_pay_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_unpay_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_unpay_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_ship_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_ship_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_unship_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_unship_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_receive_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_receive_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_cancel_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_cancel_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_return_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_return_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['order_invalid_note']['1'] = '必须填写备注';
+$_LANG['cfg_range']['order_invalid_note']['0'] = '无需填写备注';
+$_LANG['cfg_range']['when_dec_storage']['0'] = '下定单时';
+$_LANG['cfg_range']['when_dec_storage']['1'] = '发货时';
+$_LANG['cfg_range']['send_ship_email']['1'] = '发送邮件';
+$_LANG['cfg_range']['send_ship_email']['0'] = '不发送邮件';
+$_LANG['cfg_range']['send_cancel_email']['1'] = '发送邮件';
+$_LANG['cfg_range']['send_cancel_email']['0'] = '不发送邮件';
+$_LANG['cfg_range']['send_invalid_email']['1'] = '发送邮件';
+$_LANG['cfg_range']['send_invalid_email']['0'] = '不发送邮件';
+$_LANG['cfg_range']['mail_charset']['UTF8'] = '国际化编码（utf8）';
+$_LANG['cfg_range']['mail_charset']['GB2312'] = '简体中文';
+$_LANG['cfg_range']['mail_charset']['BIG5'] = '繁体中文';
+$_LANG['cfg_range']['comment_check']['0'] = '不需要审核';
+$_LANG['cfg_range']['comment_check']['1'] = '需要审核';
+$_LANG['cfg_range']['message_check']['0'] = '不需要审核';
+$_LANG['cfg_range']['message_check']['1'] = '需要审核';
+$_LANG['cfg_range']['comment_factor']['0'] = '所有用户';
+$_LANG['cfg_range']['comment_factor']['1'] = '仅登录用户';
+$_LANG['cfg_range']['comment_factor']['2'] = '有过一次以上购买行为用户';
+$_LANG['cfg_range']['comment_factor']['3'] = '仅购买过该商品用户';
+$_LANG['cfg_range']['enable_gzip']['1'] = '启用';
+$_LANG['cfg_range']['enable_gzip']['0'] = '禁用';
+$_LANG['cfg_range']['price_format']['0'] = '不处理';
+$_LANG['cfg_range']['price_format']['1'] = '保留不为 0 的尾数';
+$_LANG['cfg_range']['price_format']['2'] = '不四舍五入，保留一位小数';
+$_LANG['cfg_range']['price_format']['3'] = '不四舍五入，不保留小数';
+$_LANG['cfg_range']['price_format']['4'] = '先四舍五入，保留一位小数';
+$_LANG['cfg_range']['price_format']['5'] = '先四舍五入，不保留小数 ';
+$_LANG['cfg_range']['sort_order_type']['0'] = '按上架时间';
+$_LANG['cfg_range']['sort_order_type']['1'] = '按商品价格';
+$_LANG['cfg_range']['sort_order_type']['2'] = '按最后更新时间';
+$_LANG['cfg_range']['sort_order_method']['0'] = '降序排列';
+$_LANG['cfg_range']['sort_order_method']['1'] = '升序排列';
+$_LANG['cfg_range']['show_order_type'][0] = '列表显示';
+$_LANG['cfg_range']['show_order_type'][1] = '表格显示';
+$_LANG['cfg_range']['show_order_type'][2] = '文本显示';
+$_LANG['cfg_range']['help_open'][0] = '关闭';
+$_LANG['cfg_range']['help_open'][1] = '打开';
+$_LANG['cfg_range']['page_style'][0] = '默认经典';
+$_LANG['cfg_range']['page_style'][1] = '流行页码';
+
+$_LANG['cfg_range']['anonymous_buy']['0'] = '不允许';
+$_LANG['cfg_range']['anonymous_buy']['1'] = '允许';
+$_LANG['cfg_range']['one_step_buy']['0'] = '否';
+$_LANG['cfg_range']['one_step_buy']['1'] = '是';
+$_LANG['cfg_range']['show_goodssn']['1'] = '显示';
+$_LANG['cfg_range']['show_goodssn']['0'] = '不显示';
+$_LANG['cfg_range']['show_brand']['1'] = '显示';
+$_LANG['cfg_range']['show_brand']['0'] = '不显示';
+$_LANG['cfg_range']['show_goodsweight']['1'] = '显示';
+$_LANG['cfg_range']['show_goodsweight']['0'] = '不显示';
+$_LANG['cfg_range']['show_goodsnumber']['1'] = '显示';
+$_LANG['cfg_range']['show_goodsnumber']['0'] = '不显示';
+$_LANG['cfg_range']['show_addtime']['1'] = '显示';
+$_LANG['cfg_range']['show_addtime']['0'] = '不显示';
+$_LANG['cfg_range']['goodsattr_style']['1'] = '单选按钮';
+$_LANG['cfg_range']['goodsattr_style']['0'] = '下拉列表';
+$_LANG['cfg_range']['show_marketprice']['1'] = '显示';
+$_LANG['cfg_range']['show_marketprice']['0'] = '不显示';
+$_LANG['cfg_range']['sms_order_placed']['1'] = '发短信';
+$_LANG['cfg_range']['sms_order_placed']['0'] = '不发短信';
+$_LANG['cfg_range']['sms_order_payed']['1'] = '发短信';
+$_LANG['cfg_range']['sms_order_payed']['0'] = '不发短信';
+$_LANG['cfg_range']['sms_order_shipped']['1'] = '发短信';
+$_LANG['cfg_range']['sms_order_shipped']['0'] = '不发短信';
+$_LANG['cfg_range']['cron_method']['0'] = '否';
+$_LANG['cfg_range']['cron_method']['1'] = '是';
+$_LANG['cfg_range']['enable_order_check']['0'] = '否';
+$_LANG['cfg_range']['enable_order_check']['1'] = '是';
+$_LANG['cfg_range']['enable_order_check']['0'] = '否';
+$_LANG['cfg_range']['enable_order_check']['1'] = '是';
+$_LANG['cfg_range']['stock_dec_time']['0'] = '发货时';
+$_LANG['cfg_range']['stock_dec_time']['1'] = '下订单时';
+$_LANG['cfg_range']['send_service_email']['0'] = '否';
+$_LANG['cfg_range']['send_service_email']['1'] = '是';
+$_LANG['cfg_range']['show_goods_in_cart']['1'] = '只显示文字';
+$_LANG['cfg_range']['show_goods_in_cart']['2'] = '只显示图片';
+$_LANG['cfg_range']['show_goods_in_cart']['3'] = '显示文字与图片';
+$_LANG['cfg_range']['show_attr_in_cart']['0'] = '否';
+$_LANG['cfg_range']['show_attr_in_cart']['1'] = '是';
+$_LANG['cfg_range']['shop_reg_closed']['0'] = '否';
+$_LANG['cfg_range']['shop_reg_closed']['1'] = '是';
+$_LANG['cfg_range']['timezone']['-12'] = '(GMT -12:00) Eniwetok, Kwajalein';
+$_LANG['cfg_range']['timezone']['-11'] = '(GMT -11:00) Midway Island, Samoa';
+$_LANG['cfg_range']['timezone']['-10'] = '(GMT -10:00) Hawaii';
+$_LANG['cfg_range']['timezone']['-9'] = '(GMT -09:00) Alaska';
+$_LANG['cfg_range']['timezone']['-8'] = '(GMT -08:00) Pacific Time (US &amp; Canada), Tijuana';
+$_LANG['cfg_range']['timezone']['-7'] = '(GMT -07:00) Mountain Time (US &amp; Canada), Arizona';
+$_LANG['cfg_range']['timezone']['-6'] = '(GMT -06:00) Central Time (US &amp; Canada), Mexico City';
+$_LANG['cfg_range']['timezone']['-5'] = '(GMT -05:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito';
+$_LANG['cfg_range']['timezone']['-4'] = '(GMT -04:00) Atlantic Time (Canada), Caracas, La Paz';
+$_LANG['cfg_range']['timezone']['-3.5'] = '(GMT -03:30) Newfoundland';
+$_LANG['cfg_range']['timezone']['-3'] = '(GMT -03:00) Brassila, Buenos Aires, Georgetown, Falkland Is';
+$_LANG['cfg_range']['timezone']['-2'] = '(GMT -02:00) Mid-Atlantic, Ascension Is., St. Helena';
+$_LANG['cfg_range']['timezone']['-1'] = '(GMT -01:00) Azores, Cape Verde Islands';
+$_LANG['cfg_range']['timezone']['0'] = '(GMT) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia';
+$_LANG['cfg_range']['timezone']['1'] = '(GMT +01:00) Amsterdam, Berlin, Brussels, Madrid, Paris, Rome';
+$_LANG['cfg_range']['timezone']['2'] = '(GMT +02:00) Cairo, Helsinki, Kaliningrad, South Africa';
+$_LANG['cfg_range']['timezone']['3'] = '(GMT +03:00) Baghdad, Riyadh, Moscow, Nairobi';
+$_LANG['cfg_range']['timezone']['3.5'] = '(GMT +03:30) Tehran';
+$_LANG['cfg_range']['timezone']['4'] = '(GMT +04:00) Abu Dhabi, Baku, Muscat, Tbilisi';
+$_LANG['cfg_range']['timezone']['4.5'] = '(GMT +04:30) Kabul';
+$_LANG['cfg_range']['timezone']['5'] = '(GMT +05:00) Ekaterinburg, Islamabad, Karachi, Tashkent';
+$_LANG['cfg_range']['timezone']['5.5'] = '(GMT +05:30) Bombay, Calcutta, Madras, New Delhi';
+$_LANG['cfg_range']['timezone']['5.75'] = '(GMT +05:45) Katmandu';
+$_LANG['cfg_range']['timezone']['6'] = '(GMT +06:00) Almaty, Colombo, Dhaka, Novosibirsk';
+$_LANG['cfg_range']['timezone']['6.5'] = '(GMT +06:30) Rangoon';
+$_LANG['cfg_range']['timezone']['7'] = '(GMT +07:00) Bangkok, Hanoi, Jakarta';
+$_LANG['cfg_range']['timezone']['8'] = '(GMT +08:00) Beijing, Hong Kong, Perth, Singapore, Taipei';
+$_LANG['cfg_range']['timezone']['9'] = '(GMT +09:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk';
+$_LANG['cfg_range']['timezone']['9.5'] = '(GMT +09:30) Adelaide, Darwin';
+$_LANG['cfg_range']['timezone']['10'] = '(GMT +10:00) Canberra, Guam, Melbourne, Sydney, Vladivostok';
+$_LANG['cfg_range']['timezone']['11'] = '(GMT +11:00) Magadan, New Caledonia, Solomon Islands';
+$_LANG['cfg_range']['timezone']['12'] = '(GMT +12:00) Auckland, Wellington, Fiji, Marshall Island';
+
+$_LANG['cfg_range']['upload_size_limit']['-1'] = '服务默认设置';
+$_LANG['cfg_range']['upload_size_limit']['0'] = '0KB';
+$_LANG['cfg_range']['upload_size_limit']['64'] = '64KB';
+$_LANG['cfg_range']['upload_size_limit']['128'] = '128KB';
+$_LANG['cfg_range']['upload_size_limit']['256'] = '256KB';
+$_LANG['cfg_range']['upload_size_limit']['512'] = '512KB';
+$_LANG['cfg_range']['upload_size_limit']['1024'] = '1MB';
+$_LANG['cfg_range']['upload_size_limit']['2048'] = '2MB';
+$_LANG['cfg_range']['upload_size_limit']['4096'] = '4MB';
+$_LANG['cfg_range']['visit_stats']['on'] = '开启';
+$_LANG['cfg_range']['visit_stats']['off'] = '关闭';
+
+$_LANG['rewrite_confirm_apache'] = "URL Rewrite 功能要求您的 Web Server 必须是 Apache，\\n并且起用了 rewrite 模块。\\n同时请您确认是否已经将htaccess.txt文件重命名为.htaccess。\\n如果服务器上还有其他的重写规则请去掉注释,请将RewriteBase行的注释去掉,并将路径设置为服务器请求的绝对路径";
+$_LANG['rewrite_confirm_iis'] = "URL Rewrite 功能要求您的 Web Server 必须安装IIS，\\n并且起用了 ISAPI Rewrite 模块。\\n如果您使用的是ISAPI Rewrite商业版，请您确认是否已经将httpd.txt文件重命名为httpd.ini。如果您使用的是ISAPI Rewrite免费版，请您确认是否已经将httpd.txt文件内的内容复制到ISAPI Rewrite安装目录中httpd.ini里。";
+$_LANG['gzip_confirm'] = "GZip 功能需要您的服务器支持 zlib 扩展库。\\n如果您发现开启Gzip后页面出现乱码，可能是您的服务器已经开启了Gzip，您不需要在 ECSHOP 中再次开启。";
+$_LANG['retain_original_confirm'] = "如果您不保留商品原图，在“图片批量处理”的时候，\\n将不会重新生成不包含原图的商品图片。请慎重使用该功能！";
+$_LANG['msg_invalid_file'] = '您上传了一个非法的文件类型。该文件名为：%s';
+$_LANG['smtp_ssl_confirm'] = '此功能要求您的php必须支持OpenSSL模块, 如果您要使用此功能，请联系您的空间商确认支持此模块';
+
+/* 邮件设置语言项 */
+$_LANG['cfg_name']['mail_service'] = '邮件服务';
+$_LANG['cfg_desc']['mail_service'] = '如果您选择了采用服务器内置的 Mail 服务，您不需要填写下面的内容。';
+$_LANG['cfg_range']['mail_service'][0] = '采用服务器内置的 Mail 服务';
+$_LANG['cfg_range']['mail_service'][1] = '采用其他的 SMTP 服务';
+
+$_LANG['cfg_name']['smtp_host'] = '发送邮件服务器地址(SMTP)';
+$_LANG['cfg_name']['smtp_port'] = '服务器端口';
+$_LANG['cfg_name']['smtp_user'] = '邮件发送帐号';
+$_LANG['cfg_name']['smtp_pass'] = '帐号密码';
+$_LANG['cfg_name']['smtp_mail'] = '邮件回复地址';
+$_LANG['cfg_name']['mail_charset'] = '邮件编码';
+$_LANG['cfg_name']['smtp_ssl'] = '邮件服务器是否要求加密连接(SSL)';
+$_LANG['cfg_range']['smtp_ssl'][0] = '否';
+$_LANG['cfg_range']['smtp_ssl'][1] = '是';
+
+$_LANG['mail_settings_note'] = '如果您的服务器支持 Mail 函数（具体信息请咨询您的空间提供商）。我们建议您使用系统的 Mail 函数。<br />当您的服务器不支持 Mail 函数的时候您也可以选用 SMTP 作为邮件服务器。';
+
+$_LANG['save_success'] = '保存商店设置成功。';
+$_LANG['mail_save_success'] = '邮件服务器设置成功。';
+$_LANG['sendemail_success'] = '恭喜！测试邮件已成功发送到 ';
+$_LANG['sendemail_false'] = '邮件发送失败，请检查您的邮件服务器设置！';
+
+$_LANG['js_languages']['smtp_host_empty']   = '您没有填写邮件服务器地址!';
+$_LANG['js_languages']['smtp_port_empty']   = '您没有填写服务器端口!';
+$_LANG['js_languages']['reply_email_empty'] = '您没有填写邮件回复地址!';
+$_LANG['js_languages']['test_email_empty']  = '您没有填写发送测试邮件的地址!';
+$_LANG['js_languages']['email_address_same']  = '邮件回复地址与发送测试邮件的地址不能相同!';
+
+$_LANG['cfg_name']['wap']   = 'WAP设置';
+$_LANG['cfg_name']['wap_config']    = '是否使用WAP功能';
+$_LANG['cfg_range']['wap_config'][0] = '关闭';
+$_LANG['cfg_range']['wap_config'][1] = '开启';
+$_LANG['cfg_name']['wap_logo']      = 'WAP LOGO上传';
+$_LANG['cfg_desc']['wap_logo']      = '为了更好地兼容各种手机类型，LOGO 最好为png图片';
+
+$_LANG['back_shop_config'] = '返回商店设置';
+$_LANG['back_mail_settings'] = '返回邮件服务器设置';
+$_LANG['mail_settings'] = '邮件服务器设置';
+
+$_LANG['sms_url'] = '<a href="'.$url.'" target="_blank">点此注册手机短信服务</a>';
+
+$_LANG['cfg_name']['group_name'] = '团购站名称';
+$_LANG['cfg_name']['group_title'] = '团购站标题';
+$_LANG['cfg_name']['group_format'] = '团购货币格式';
+$_LANG['cfg_desc']['group_format'] = '显示商品价格的格式，%s将被替换为相应的价格数字。';
+
+$_LANG['cfg_name']['showmode'] = '首页展现模式';
+$_LANG['cfg_range']['showmode']['0'] = '单一模式';
+$_LANG['cfg_range']['showmode']['1'] = '多团模式';
+
+?>

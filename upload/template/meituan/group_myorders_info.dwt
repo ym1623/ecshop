@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!-- #BeginLibraryItem "/library/group_user_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">订单详情</h1>
+<p class="dnum">订单编号：<strong>{$order.order_sn}</strong>&nbsp;&nbsp;&nbsp;&nbsp;下单时间：{$order.order_time}</p>
+<table class="carttable">
+<tr>
+<th height="40" width="120">团购项目</th>
+<th>数量</th>
+<th>&nbsp;</th>
+<th>价格</th>
+<th>&nbsp;</th>
+<th>总价</th>
+<th>递送方式 （{$group_cardname}/快递）</th>
+</tr>
+<tr>
+<td align="center">
+<a target="_blank" href="{$goods.group_url}"><img width="100" src="{$goods.group_image}" /><!--{if $goods.goods_attr neq ''}--><br />(选中{$goods.goods_attr})<!--{/if}--></a>
+</td>
+<td align="center">{$goods.goods_number}</td>
+<td align="center">x</td>
+<td align="center">{$goods.formated_goods_price}</td>
+<td align="center">=</td>
+<td align="center"><strong class="c1">{$goods.formated_subtotal}</strong></td>
+<td align="center">
+<!--{if $goods.is_real eq '2'}-->
+<span>快递</span>
+<!--{else}-->
+<ol>
+<!--{foreach from=$group_cards item=card name=name}-->
+<li>{$smarty.foreach.name.iteration}、<span class="c1">{$card.card_sn} - {$card.card_password}</span></li>
+<!--{/foreach}-->
+</ol>
+<!--{/if}-->
+</td>
+</tr>
+</table>
+<table class="carttable" width="100%">
+<tbody>
+<tr>
+<td class="label" width="120">订单总金额：</td>
+<td align="right">= <strong class="c1" style="font-size:18px;">{$order.formated_order_amount}</strong></td>
+</tr>
+<tr>
+<td class="label" width="120">已支付金额：</td>
+<td align="right">= <strong class="c1" style="font-size:18px;">{$order.formated_pay_amount}</strong></td>
+</tr>
+<tr>
+<td class="label">订单状态：</td>
+<td align="right"><strong>{$order.pay_status}&nbsp;&nbsp;{if $order.is_pay eq 0}<a href="check.php?id={$order.order_id}">点击付款</a>{/if}</strong></td>
+</tr>
+<!--存在实物商品-->
+<!--{if $goods.is_real eq '2'}-->
+<tr>
+<td class="label">手机号码：</td>
+<td>{$order.mobile|escape}</td>
+</tr>
+<tr>
+<td class="label">收件人：</td>
+<td>{$order.consignee|escape}</td>
+</tr>
+<tr>
+<td class="label">收件地址：</td>
+<td>{$order.address|escape}</td>
+</tr>
+<tr>
+<td class="label">备 注：</td>
+<td>{$order.postscript|escape}</td>
+</tr>
+<!--{else}-->
+<tr>
+<td class="label">手机号码：</td>
+<td>{$order.mobile|escape}</td>
+</tr>
+<tr>
+<td class="label">备 注：</td>
+<td>{$order.postscript|escape}</td>
+</tr>
+<!--{/if}-->
+<!--存在实物商品-->
+</tbody>
+</table>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock uside-top">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>我已支付成功，为什么没有{$group_cardname}？</strong>
+<p>因为还没有到达最低团购人数，一旦凑够人数，您就会看到{$group_cardname}了。</p>
+<strong>什么是已过期订单？</strong>
+<p>如果某个订单未及时付款，那么等团购结束时就无法再付款了，这种订单就是过期订单。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/sideblock-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+
+</html>

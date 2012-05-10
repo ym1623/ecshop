@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,group.js,group_region.js,jquery.lightbox.js,jquery-ecg.js'}
+<script type="text/javascript">
+var attr_num = {$attr_num};
+var shipping_id = {$shipping_id};
+</script>
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2" style="margin-bottom:5px;">提交订单</h1>
+<table class="dataTab carttable" width="100%">
+<tr><th height="40">项目</th><th>数量</th><th>&nbsp;</th><th>价格</th><th>&nbsp;</th><th>总价</th></tr>
+<tr>
+<td align="left" width="300">{$group_arr.goods_name}</td>
+<td align="center">
+<div id="Numinput" class="clearfix">
+<input type="text" onfocus="this.select()" onkeyup="update({$group_arr.rec_id},{$group_arr.goods_id});" value="{$group_arr.goods_number}" id="group_num" class="txt lf" size="5" style="width:45px;text-align:center;font-weight:bold;" />
+<a href="javascript:update({$group_arr.rec_id},{$group_arr.goods_id})" rel="add" class="numadjust add"></a><a href="javascript:update({$group_arr.rec_id},{$group_arr.goods_id})" rel="del" class="numadjust del"></a>
+</div><font id='limitnum' style="color:#F00"></font>
+</td>
+<td align="center">x</td>
+<td align="center" id='goods_price'>{$group_arr.formated_goods_price}</td>
+<td align="center" width="20">=</td>
+<td align="center" width="100"><strong id='subtotal'>{$group_arr.formated_subtotal}</strong></td>
+</tr>
+<tr>
+<td><b>快递：</b></td>
+<td colspan="3" align="center"><font color="#E95C10" id="free_money"><!--{if $group_arr.free_money gt 0}-->满 {$group_arr.formated_free_money} 免邮费<!--{/if}--></font></td>
+<td align="center">=</td>
+<td align="center"><strong id="shipping_fee">{$group_arr.formated_shipping_fee}</strong></td>
+</tr>
+<tr>
+<td><b>订单总额：</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">=</td>
+<td align="center"><strong id="total_order" class="c1" style="font-size:18px;">{$group_arr.formated_goods_amount}</strong></td>
+</tr>
+</table>
+<!--{if $group_arr.goods_amount ge '0'}-->
+<!--{if $group_attr}-->
+<h2 class="title2" style="font-size:14px;">商品属性&nbsp;&nbsp;&nbsp;<font id='show_attr' color="#FF0000"></font></h2>
+<form name="frm_attr" id="frm_attr">
+<table class="goodattr">
+<!-- {foreach from=$group_attr item=spec key=spec_key} -->
+<tr><td width="120" align="right">请选择{$spec.name}：</td><td>
+ <!-- {if $spec.attr_type eq 1} -->
+ <!-- {foreach from=$spec.values item=value key=key} -->
+ <input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $value.selected eq '1'}checked='checked'{/if} onclick="update({$group_arr.rec_id},{$group_arr.goods_id});"/> {$value.label}[{$value.format_price}]&nbsp;
+ <!-- {/foreach} -->
+ <!-- {else} -->
+ <!-- {foreach from=$spec.values item=value key=key} -->
+ <input type="checkbox" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $value.selected eq '1'}checked='checked'{/if} onclick="update({$group_arr.rec_id},{$group_arr.goods_id});" /> {$value.label}[{$value.format_price}]&nbsp;
+  <!-- {/foreach} -->
+ <!-- {/if} -->
+</td>
+</tr>
+<!--{/foreach}-->
+</table>
+</form>
+<!--{/if}-->
+<h1 class="title2" style="margin-bottom:20px;">收件人信息</h1>
+<!--{if $goods_type eq '1' or $goods_type eq '3'}-->
+<form action="buy.php" method="post" name="group_address" id="group_phone" {if $group_attr}onsubmit="return get_attr('{$attr_num}')"{/if}>
+<table class="dataTab" width="100%">
+<tr>
+<td align="right" valign="top" width="120"><strong>手机号</strong></td>
+<td><input type="text" value="{$consignee.mobile}" name="mobile" class="txt" id="mobile" /><span>手机号码获得{$group_cardname}的重要方式，请准确填写！</span>
+</td>
+</tr>
+<!--{else}-->
+<form action="buy.php" method="post" name="group_address" id="group_address" {if $group_attr}onsubmit="return get_attr('{$attr_num}')"{/if}>
+<table class="dataTab" width="100%">
+<tr>
+<td align="right" valign="top" width="120"><strong>收件人</strong></td>
+<td>
+<input type="text" value="{$consignee.consignee}" name="consignee" class="txt" size="60" id="consignee" /><span>这里填写您的真实姓名，仅作接收快递时使用。</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>手机号</strong></td>
+<td><input type="text" value="{$consignee.mobile}" name="mobile" class="txt" /><span>手机号码是我们联系你的最重要的联系方式</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>省市区</strong></td>
+<td>
+   <select name="country" id="selCountries" onchange="region.changed(this, 1, 'selProvinces')" style="border:1px solid #ccc;">
+        <option value="0">请选择国家</option>
+        <!-- {foreach from=$country_list item=country} -->
+        <option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')" style="border:1px solid #ccc;">
+        <option value="0">请选择省区</option>
+        <!-- {foreach from=$province_list item=province} -->
+        <option value="{$province.region_id}" {if $consignee.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="city" id="selCities" onchange="region.changed(this, 3, 'selDistricts')" style="border:1px solid #ccc;">
+        <option value="0">请选择城市</option>
+        <!-- {foreach from=$city_list item=city} -->
+        <option value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="district" id="selDistricts" {if $consignee.district lte '0'}style="display:none"{/if} {if $shipping_id gt 0}onchange="shipping_free()"{else}onchange="region.set_address()"{/if}>
+        <option value="0">请选择市区</option>
+                <!-- {foreach from=$district_list item=district} -->
+        <option value="{$district.region_id}" {if $consignee.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+        <!-- {/foreach} -->
+
+      </select></td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>收件地址</strong></td>
+<td>
+<input type="text" class="txt" size="60" name="address" value="{$consignee.address}" id="address" /><span>选择地区并补全地址</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>邮政编码</strong></td>
+<td>
+<input type="text" class="txt" name="zipcode" value="{$consignee.zipcode}" id="zipcode" /></td>
+</tr>
+<!--{/if}-->
+<tr>
+<td align="right" valign="top"><strong>附言</strong></td>
+<td>
+<textarea name="postscript" style="height:60px;" class="area" cols="90" />{$postscript}</textarea></td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+  <input type="hidden" name="a" value="address" />
+  <input type="hidden" name="address_id" value="{$consignee.address_id}" />
+  <input type="submit" class="but" value="确认无误购买" />
+  </td>
+</tr>
+</table>
+</form>
+<!--{/if}-->
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock side-flow">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">账户余额</h1>
+<p>您的帐户余额：<span>{$group_arr.formated_user_money}</span></p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-flow-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

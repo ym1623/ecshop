@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix" style="margin-top:20px;">
+<style type="text/css">
+.shtable{width:98%;margin:10px auto 0;font-size:12px;line-height:1.7;color:#666;}
+.shtable th{color:#000;font-size:14px;}
+.shtable a{color:#333;}
+.shtable td,.shtable th{padding:15px 10px;border:1px solid #EDEDED;}
+.shtable span{color:#7DB933;font-weight:bold;}
+.usernav li.shbut a{height:24px;line-height:24px;background:#63C5C8;font-weight:bold;font-size:14px;color:#fff;border-color:#82D0D4 #4D989B #54A3A7 #92D6D9;border-style:solid;border-width:2px;margin-right:10px;}
+.usernav li.shbut a:hover{color:#fff;}
+</style>
+<!-- #BeginLibraryItem "/library/group_merchant_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top3"></div>
+<!--{if $action eq 'settings'}-->
+<div class="sect">
+<h1 class="title2" style="margin-bottom:30px;">修改商户信息</h1>
+<form id="merchantEdit" name="merchantEdit" action="merchant.php" method="post">
+<table class="dataTab" width="100%">
+<tr>
+<td align="right" valign="top" width="120"><strong>商户名/用户名</strong></td>
+<td>
+<input type="text" name="user_name" value="{$suppliers.user_name}" class="txt" disabled="disabled" size="60" /><span>登录及找回密码用，不会公开</span>
+</td>
+</tr>
+<tr><td align="right" valign="top"><strong>新密码</strong></td>
+<td><input type="password" value="" class="txt" name="password" id="password" size="60" /><span>请输入4 - 6 位密码</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>重新输入密码</strong></td>
+<td>
+<input type="password" class="txt" name="config_password" id="config_password" size="60" /><span>重新输入密码</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>网站地址</strong></td>
+<td>
+<input type="text" class="txt" name='website' value="{$suppliers.website}" size="60" />
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>联系电话</strong></td>
+<td>
+<input type="text" class="txt" name='phone' value="{$suppliers.phone}" />
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>商家地址</strong></td>
+<td>
+<input type="text" class="txt" value="{$suppliers.address}" name="address" size="60" />
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>开户行银行</strong></td>
+<td>
+<input type="text" class="txt" name='open_banks' value="{$suppliers.open_banks}" size="60" />
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>开户名</strong></td>
+<td>
+<input type="text" class="txt" name='banks_user' value='{$suppliers.banks_user}' size="60" />
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>开户账号</strong></td>
+<td>
+<input type="text" class="txt" name='banks_account' value='{$suppliers.banks_account}' size="60" />
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type='hidden' value='act_settings' name='act' />
+<input type="submit" class="but" value="修改" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<!--{/if}-->
+<!--{if $action eq 'group'}-->
+<div class="sect">
+<h1 class="title2">团购项目列表</h1>
+<table class="carttable" width="100%">
+<tr bgcolor="#EBF4F2" style="font-weight:bold;">
+<th height="40">项目</th>
+<th>日期</th>
+<th>成交情况</th>
+<th>价格</th>
+<th>支付统计</th>
+<th align="center">状态</th>
+<th>限购数量</td>
+<th>操作</th>
+</tr>
+<!--项目循环开始-->
+<!--{foreach from=$group_list item=group}-->
+<tr>
+<td valign="top" width="160"><strong style="color:#000;">{$group.group_id}</strong> - <a href="{$group.group_url}">{$group.group_name}</a></td>
+<td align="center">
+{$group.start_time}<br />至<br />{$group.end_time}
+</td>
+<td valign="top">
+全部订单：<span>{$group.total_order}</span><br />
+付款订单：<span>{$group.actual_order}</span><br />
+购买份数：<span>{$group.actual_goods}</span></td>
+<td valign="top">
+市场价：<span class="money">{$group.formated_market_price}</span><br />
+团购价：<span class="money">{$group.formated_cur_price}</span></td>
+<td valign="top">
+在线支付：<span class="money">{$group.formated_actual_money}</span><br />
+余额支付：<span class="money">{$group.formated_actual_surplus}</span><br />
+支付总额：<span class="money">{$group.formated_actual_amount}</span><br />
+代金卷抵用：<span class="money">{$group.formated_actual_bonus}</span></td>
+<td align="center">{$group.cur_status}
+</td>
+<td valign="top">最低：<!--{if $group.lower_orders gt '0'}--><span>{$group.lower_orders}</span>份<!--{else}-->不限<!--{/if}--> <br />
+  最高：<!--{if $group.upper_orders gt '0'}--><span>{$group.upper_orders}</span>份<!--{else}-->不限<!--{/if}--></td>
+<td align="center" style="font-weight:bold;">
+<!--{if $group.goods_type eq '2'}-->
+<a href="merchant.php?act=order&id={$group.group_id}">订单列表</a> 
+<!--{else}-->
+<a href="merchant.php?act=coupons&id={$group.group_id}">券列表</a> | <a href="merchant.php?act=stats&id={$group.group_id}" class="but-tj">综合统计</a>
+<!--{/if}--></td>
+</tr>
+<!--{/foreach}-->
+<!--项目循环开始-->
+</table>
+</div>
+<!--{/if}-->
+<!--{if $action eq 'coupons'}-->
+<div class="sect">
+<h1 class="title2">团购卷列表
+<div style="font-size:12px;position:absolute;top:10px;right:20px;">
+<form action="merchant.php?act=coupons" method="post">
+<label>团购券号：</label>
+<input type="text" class="txt" name="card_sn" />
+<input type="submit" value="查 询" />
+</form>
+</div>
+</h1>
+<table class="carttable" width="100%">
+<tr bgcolor="#EBF4F2" style="font-weight:bold;">
+<th height="40">团购编号</th>
+<th>券号</th>
+<th>密码</th>
+<th>订单号</th>
+<th>有效期</th>
+<th>状态</td>
+</tr>
+<!--项目循环开始-->
+<!--{foreach from=$coupons_list item=coupons}-->
+<tr>
+<td align="center"><strong style="color:#000;">{$coupons.card_id}</strong></td>
+<td align="center">{$coupons.card_sn}</td>
+<td align="center">{if $coupons.card_stat neq '0'}{$coupons.card_password}{else}******{/if}</td>
+<td align="center">{$coupons.order_sn}</td>
+<td align="center">{$coupons.end_date}</td>
+<td align="center">{$coupons.card_stat_name}</span></td>
+</tr>
+<!--{/foreach}-->
+</table>
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem --></div>
+</div>
+<!--{/if}-->
+<!--{if $action eq 'order'}-->
+<div class="sect">
+<h1 class="title2">订单列表
+<div style="font-size:12px;position:absolute;top:10px;right:20px;">
+<form action="merchant.php?act=order" method="post">
+<label>订单号：</label>
+<input type="text" class="txt" name="ordersn" />
+<input type="submit" value="查 询" />
+</form>
+</div>
+</h1>
+<table class="carttable" width="100%">
+<tr bgcolor="#EBF4F2" align="left" height="40">
+<th>订单号</th>
+<th>商品名称</th>
+<th align="center" width="35">数量</th>
+<th>收件人/电话/收件地址</th>
+<th>备注</th>
+<th width="120">状态 / 操作</td>
+</tr>
+<!--项目循环开始-->
+<!--{foreach from=$order_list item=order}-->
+<tr>
+<td align="left">{$order.order_sn}</td>
+<td class="c1">{$order.goods_name}</td>
+<td align="center" class="c1">{$order.goods_num}</td>
+<td>收件人：{$order.consignee}<br />电话号：{$order.mobile}<br />地址：{$order.address}</td>
+<td class="c1">{$order.postscript}</td>
+<td>已付款,{if $order.shipping_status eq '0'}{if $is_ship eq '1'}<a href="#" class="openInvoice c1" onclick="deli_order({$order.order_sn})">点击发货</a>{else}未发货{/if}{else}已发货{if $order.invoice_no}<br />({$order.invoice_no}){/if}{/if}</td>
+</tr>
+<!--{/foreach}-->
+</table>
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem --></div>
+</div>
+<div class="disnone">
+	<div id="setInvoice" class="win">
+		<form name="invoiceForm" action="merchant.php" method="POST" id="invoiceForm" >
+		<table class="dataTab" width="100%">
+		<tr>
+		<td class="label">发货单：</td><td><input type="text" value="" class="txt" size="40" name="invoice" id="invoice" /></td>
+		</tr>
+		<tr>
+		<td></td><td><input type="hidden" value="" class="txt" size="40" name="ordersn" id="ordersn" /><input type="button" onclick="shipments();" value="确认发货" /> <input type="reset" value="重 置" /></td>
+		</tr>
+		</table>
+		</form>
+		<p id="tip" class="tip">提示：<span class="c1">输入发货单(例：格式,***公司:快递单号)</span></p>
+	</div>
+</div>
+<!--{/if}-->
+<!--{if $action eq 'stats'}-->
+<!-- 商家后台消费详情 -->
+<div class="sect">
+<h1 class="title2">统计概况</h1>
+<table width="100%" class="carttable">
+	<tr>
+		<td bgcolor="#EBF4F2"><strong>套餐名称：</strong><a href="{$stats.url}" target="_blank">{$stats.goods_name}</a>（上线时间：{$stats.formated_start_date}）</td>
+		<td align="right" bgcolor="#EBF4F2"><strong>商户名：{$suppliers_name}</strong></td>
+	</tr>
+</table>
+<table width="100%" class="carttable">
+	<tr>
+		<td colspan="3" style="border-bottom:2px solid #dedede;"><strong>统计概况</strong></td>
+	</tr>
+	<tr>
+		<td width="160"></td>
+		<td><strong>消费券数</strong></td>
+		<td><strong>消费金额（券金额）</strong></td>
+	</tr>
+	<tr>
+		<td bgcolor="#EBF4F2"><strong>今 日：</strong></td>
+		<td bgcolor="#EBF4F2"><strong class="c1">{$stats.tcount}</strong></td>
+		<td bgcolor="#EBF4F2"><strong class="c1">{$stats.tprice}</strong></td>
+	</tr>
+	<tr>
+		<td bgcolor="#EBF4F2"><strong>昨 日：</strong></td>
+		<td bgcolor="#EBF4F2"><strong class="c1">{$stats.ocount}</strong></td>
+		<td bgcolor="#EBF4F2"><strong class="c1">{$stats.oprice}</strong></td>
+	</tr>
+	<tr>
+		<td><strong>历史统计：</strong></td>
+		<td>{$stats.ascount}</td>
+		<td>{$stats.asprice}</td>
+	</tr>
+</table>
+<table class="carttable">
+	<tr>
+		<td>
+<div class="tip" style="padding:0 10px;">
+<table width="100%">
+	<tr>
+		<td>总销售券数：<strong>{$stats.acount}</strong> 张</td>
+		<td>已消费券数：<strong class="c1">{$stats.ascount}</strong> 张</td>
+		<td>剩余券数：{$stats.nucount} 张</td>
+		<td>单价：{$stats.formated_group_price}/券</td>
+		<td>有效期至：{$stats.formated_past_date}</td>
+	</tr>
+</table>
+</div>
+</td>
+	</tr>
+</table>
+<!--{if $smallmer}-->
+<table width="100%" class="carttable">
+	<tr>
+		<th height="40">分店名称</th>
+		<th align="center">今日到店（券）</th>
+		<th align="center">总计到店（券）</th>
+		<th align="center">共消费额（券金额）</th>
+	</tr>
+    <!--{foreach from=$smallmer item=sup}-->
+	<tr>
+		<td>{$sup.suppliers_name}</td>
+		<td align="center">{$sup.tcount}</td>
+		<td align="center">{$sup.ocount}</td>
+		<td align="center">{$sup.oprice}</td>
+	</tr>
+    <!--{/foreach}-->
+</table>
+<!--{/if}-->
+</div>
+<!-- 商家后台消费详情 -->
+<!--{/if}-->
+<!--{if $action eq 'login'}-->
+<div class="sect">
+<h1 class="title2" style="margin-bottom:20px;">商家登陆</h1>
+<form name="formLogin" action="merchant.php" method="post" id="merchnatForm">
+<table class="dataTab" width="100%">
+<tbody>
+<tr>
+<td align="right" width="120"><strong>商户名</strong></td><td><input type="text" class="txt" name="username" id="username" size="60" /></td>
+</tr>
+<tr>
+<td align="right"><strong>密&nbsp;&nbsp;码</strong></td><td><input type="password" name="password" class="txt" id="password" size="60" /></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="hidden" value="act_login" name="act" />
+<input type="submit" class="but" value="登陆" name="submit" /></td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+<!--{/if}-->
+<!--/sect-->
+<div class="box-bottom3"></div>
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+<div class="disnone">
+	<div id="setCard" class="win">
+		<form name="cardForm" action="merchant.php" method="POST" id="cardForm">
+		<table class="dataTab" width="100%">
+        <!--{if $smallsuppliers}-->
+        <tr>
+		<td class="label">分 店：</td><td>
+        <select name="suid" id="suid" disabled="" onchange="SetSuid(this.value);">
+        <option value="0" selected="selected">请选择分店</option>
+        <!--{foreach from=$smallsuppliers item=sup}-->
+        <option value="{$sup.suppliers_id}">{$sup.suppliers_name}</option>
+        <!--{/foreach}-->
+        </select>&nbsp;&nbsp;
+        <a href="javascript:UpdateSuid();">点击修改</a>
+        </td>
+		</tr>
+        <!--{/if}-->
+		<tr>
+		<td class="label">券 号：</td><td><input type="text" value="" class="txt" size="40" name="card_sn" id="card_sn" /></td>
+		</tr>
+		<tr>
+		<td class="label">密 码：</td><td><input type="text" value="" class="txt" size="40" name="card_pass" id="card_pass" /></td>
+		</tr>
+		<tr>
+		<td></td><td><input type="submit" value="消费验证" /> <input type="reset" value="重 置" /></td>
+		</tr>
+		</table>
+		</form>
+		<p id="tip" class="tip">提示：<span class="c1">输入用户提供的券号和密码进行验证</span></p>
+	</div>
+</div>
+<!--{if $smallsuppliers}-->
+<script language="javascript">
+function SetSuid(value)
+{
+    var Days = 30; //此 cookie 将被保存 30 天
+    var exp  = new Date();    //new Date("December 31, 9998");
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = "suid="+ escape (value) + ";expires=" + exp.toGMTString();
+	if (value>0)
+	{
+	 document.getElementById('suid').disabled="disabled";
+	}
+	else
+	{
+	  document.getElementById('suid').disabled="";
+	}
+}
+function getCookie(name)//    
+{
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+     if(arr != null) return unescape(arr[2]); return 0;
+}
+function UpdateSuid()//删除cookie
+{
+	var name='suid';
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+	document.getElementById('suid').disabled='';
+}
+function SelectSuidItem()
+{
+	var objSelect = document.getElementById('suid');
+	var ItemValue = getCookie('suid');
+     for(var i=0;i<objSelect.options.length;i++)
+     {
+         if(objSelect.options[i].value == ItemValue)
+         {
+            objSelect.options[i].selected = true;
+             break;
+         }
+     }      
+	if (ItemValue > 0)
+	{
+	  document.getElementById('suid').disabled="disabled";	
+	}
+	else
+	{
+	  document.getElementById('suid').disabled="";
+	}
+}
+onload = function()
+{
+ SelectSuidItem();
+}
+</script>
+<!--{/if}-->
+</body>
+</html>

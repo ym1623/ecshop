@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!-- #BeginLibraryItem "/library/group_user_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">我的答疑</h1>
+<ul class="asklist">
+<!-- {foreach from=$comments item=comment} -->             
+<li>
+<p class="user">
+<strong>
+<a href="{$comment.group_url}">团购项目：{$comment.group_name|truncate:30}</a></strong><span>{$comment.end_time}</span>
+</p>
+<p class="text">{$comment.content}</p>
+  <!-- {if $comment.re_content} --> 
+<p class="reply"><strong>回复：</strong>{$comment.re_content}</p>
+ <!-- {/if} -->
+</li>
+<!--{/foreach}-->
+</ul>
+<!--/ask-list-->
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock uside-top">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>更方便的查看您所有的留言！</strong>
+<p>这里包括您在{$group_shopname}上所有的留言内容，您可以方便的管理留言及查看回复状态。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/sideblock-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+
+</html>

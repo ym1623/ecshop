@@ -1,0 +1,191 @@
+<!-- $Id: agency_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+  <form action="javascript:search_suppliers()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    {$lang.suppliers_name} <input type="text" name="suppliers_name" size="15" />
+    <select name="cid"><option value="0">{$lang.label_cat_suppliers}</option>
+<!-- {foreach from=$cat_list item=cat} -->
+<option value="{$cat.cid}">{$cat.class_name}</option>
+<!-- {/foreach} -->
+</select>
+
+<select name="city_id" style="border:1px solid #ccc;">
+
+<option value="0">{$lang.please_select_city}</option>
+
+<!-- {foreach from=$city_list item=city} -->
+
+<option value="{$city.city_id}">{$city.city_name}</option>
+
+<!-- {/foreach} -->
+
+</select>
+
+    <input type="submit" value="{$lang.button_search}" class="button" />
+  </form>
+</div>
+
+<form method="post" action="" name="listForm" onsubmit="return confirm(batch_drop_confirm);">
+<div class="list-div" id="listDiv">
+{/if}
+  <table cellpadding="3" cellspacing="1" id="list-table">
+    <tr>
+      <th> <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+          <a href="javascript:listTable.sort('suppliers_id'); ">{$lang.record_id}</a>{$sort_suppliers_id} </th>
+      <th><a href="javascript:listTable.sort('suppliers_name'); ">{$lang.suppliers_name}</a>{$sort_suppliers_name}</th>
+       <th>{$lang.linkman}</th>
+      <th>{$lang.phone}</th>
+       <th>{$lang.label_is_show}</th>
+      <th>{$lang.suppliers_check}</th>
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$suppliers_list item=suppliers}
+  <tr id="{$suppliers.suppliers_id}" class="0">
+      <td><img src="images/tree_minus.gif" id="icon_{$suppliers.suppliers_id}" width="11" height="11" border="0" onclick="rowClicked(this)"/><input type="checkbox" name="checkboxes[]" value="{$suppliers.suppliers_id}" />
+        {$suppliers.suppliers_id}
+        </td>
+      <td class="first-cell">
+        <span onclick="javascript:listTable.edit(this, 'edit_suppliers_name', {$suppliers.suppliers_id})">{$suppliers.suppliers_name|escape:html}      </span></td>
+          <td>{$suppliers.linkman}</td>
+      <td>{$suppliers.phone}</td>
+            			<td align="center"><img src="images/{if $suppliers.is_show eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'is_show', {$suppliers.suppliers_id})" style="cursor:pointer;"/></td>
+
+			<td align="center"><img src="images/{if $suppliers.is_check eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'is_check', {$suppliers.suppliers_id})" style="cursor:pointer;"/></td>
+      <td align="center">
+        <a href="suppliers.php?act=edit&id={$suppliers.suppliers_id}" title="{$lang.edit}">{$lang.edit}</a> |
+        <a href="javascript:void(0);" onclick="listTable.remove({$suppliers.suppliers_id}, '{$lang.drop_confirm}')" title="{$lang.remove}">{$lang.remove}</a>      </td>
+    </tr>
+     {foreach from=$suppliers.lower_suppliers item=lower}
+  <tr id="{$lower.suppliers_id}" class="1">
+      <td><img src="images/tree_arrow.gif" id="icon_{$lower.suppliers_id}" width="11" height="11" border="0" onclick="rowClicked(this)"/><input type="checkbox" name="checkboxes[]" value="{$lower.suppliers_id}" />
+        {$lower.suppliers_id}
+        </td>
+      <td class="first-cell">
+        <span onclick="javascript:listTable.edit(this, 'edit_suppliers_name', {$lower.suppliers_id})">{$lower.suppliers_name|escape:html}      </span></td>
+          <td>{$lower.linkman}</td>
+      <td>{$lower.phone}</td>
+      			<td align="center"><img src="images/{if $lower.is_show eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'is_show', {$lower.suppliers_id})" style="cursor:pointer;"/></td>
+
+			<td align="center"><img src="images/{if $lower.is_check eq 1}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'is_check', {$lower.suppliers_id})" style="cursor:pointer;"/></td>
+      <td align="center">
+        <a href="suppliers.php?act=edit&id={$lower.suppliers_id}" title="{$lang.edit}">{$lang.edit}</a> |
+        <a href="javascript:void(0);" onclick="listTable.remove({$lower.suppliers_id}, '{$lang.drop_confirm}')" title="{$lang.remove}">{$lang.remove}</a>      </td>
+    </tr>
+    {/foreach}
+    {foreachelse}
+    <tr><td class="no-records" colspan="7">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td>
+      <input name="remove" type="submit" id="btnSubmit" value="{$lang.drop}" class="button" disabled="true" />
+      <input name="act" type="hidden" value="batch" />
+    </td>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+</form>
+
+<script type="text/javascript" language="javascript">
+  <!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+  function search_suppliers()
+  {
+        listTable.filter['suppliers_name'] = Utils.trim(document.forms['searchForm'].elements['suppliers_name'].value);
+		listTable.filter['cid'] = Utils.trim(document.forms['searchForm'].elements['cid'].value);
+		listTable.filter['city_id'] = Utils.trim(document.forms['searchForm'].elements['city_id'].value);
+		listTable.filter['page'] = 1;
+        
+        listTable.loadList();
+ }
+
+  {literal}
+  
+  onload = function()
+  {
+      // 开始检查订单
+      startCheckOrder();
+  }
+  {/literal}
+  //-->
+  var imgPlus = new Image();
+imgPlus.src = "images/tree_plus.gif";
+
+/**
+ * 折叠分类列表
+ */
+function rowClicked(obj)
+{
+  // 当前图像
+  img = obj;
+  // 取得上二级tr>td>img对象
+  obj = obj.parentNode.parentNode;
+  // 整个分类列表表格
+  var tbl = document.getElementById("list-table");
+  // 当前分类级别
+  var lvl = parseInt(obj.className);
+  // 是否找到元素
+  var fnd = false;
+  var sub_display = img.src.indexOf('tree_minus.gif') > 0 ? 'none' : (Browser.isIE) ? 'block' : 'table-row' ;
+  // 遍历所有的分类
+  for (i = 0; i < tbl.rows.length; i++)
+  {
+      var row = tbl.rows[i];
+      if (row == obj)
+      {
+          // 找到当前行
+          fnd = true;
+          //document.getElementById('result').innerHTML += 'Find row at ' + i +"<br/>";
+      }
+      else
+      {
+          if (fnd == true)
+          {
+              var cur = parseInt(row.className);
+              var icon = 'icon_' + row.id;
+              if (cur > lvl)
+              {
+                  row.style.display = sub_display;
+                  if (sub_display != 'none')
+                  {
+                      var iconimg = document.getElementById(icon);
+                      iconimg.src = iconimg.src.replace('tree_minus.gif', 'tree_minus.gif');
+                  }
+              }
+              else
+              {
+                  fnd = false;
+                  break;
+              }
+          }
+      }
+  }
+
+  for (i = 0; i < obj.cells[0].childNodes.length; i++)
+  {
+      var imgObj = obj.cells[0].childNodes[i];
+      if (imgObj.tagName == "IMG" && imgObj.src != 'images/tree_arrow.gif')
+      {
+          imgObj.src = (imgObj.src == imgPlus.src) ? 'images/tree_minus.gif' : imgPlus.src;
+      }
+  }
+}
+
+</script>
+{include file="pagefooter.htm"}
+{/if}

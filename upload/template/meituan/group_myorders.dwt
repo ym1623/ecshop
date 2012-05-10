@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!-- #BeginLibraryItem "/library/group_user_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">我的订单</h1>
+<table class="carttable">
+<tr>
+<th height="40">订单号</th>
+<th>下单时间</th>
+<th>订单总额 / 已付</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+<!--{foreach from=$orders item=item}-->
+<tr>
+<td align="center"><a href="myorders.php?act=info&id={$item.order_id}">{$item.order_sn}</a></td>
+<td align="center">{$item.order_time}</td>
+<td align="center"><strong>{$item.formated_total_fee} / {$item.formated_pay_fee}</strong></td>
+<td align="center">{$item.order_status}</td>
+<td align="center">{$item.handler}</td>
+</tr>
+<!--{/foreach}-->
+</table>
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock uside-top">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>我已支付成功，为什么没有{$group_cardname}？</strong>
+<p>因为还没有到达最低团购人数，一旦凑够人数，您就会看到{$group_cardname}了。</p>
+<strong>什么是已过期订单？</strong>
+<p>如果某个订单未及时付款，那么等团购结束时就无法再付款了，这种订单就是过期订单。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/sideblock-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+
+</html>

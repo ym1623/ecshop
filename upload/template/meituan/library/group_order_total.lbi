@@ -1,0 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--{if $cart_goods.pay_money gt '0'}-->
+使用帐户余额：<strong>{$cart_goods.formated_user_money}</strong>，使用代金券：<strong>{$cart_goods.formated_bonus_money}</strong> ，还需支付 <strong>{$cart_goods.formated_pay_money}</strong>。请选择支付方式：
+<!--{else}-->
+使用帐户余额：<strong>{$cart_goods.formated_user_money}</strong>，使用代金券：<strong>{$cart_goods.formated_bonus_money}</strong>， 您已完成本次付款。
+<!--{/if}-->

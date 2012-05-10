@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="asktoday">
+<a href="{$group_buy.url}">» 返回本团购</a>
+<h1 class="title2">{$group_buy.group_name|escape:html}</h1>
+<div class="deal-price">
+<strong>{$group_buy.formated_group_price}</strong>
+<span style="*top:0;_top:18px;">
+<!--{if $group_buy.is_finished eq '0'}-->
+<form action="buy.php" method="post" name="ecgroupon_frm" id="ecgroupon_frm">
+<input type="image" src="images/buy.png" id="group_butn" />
+<input name="number" type="hidden" id="number" value="1" size="4" />
+<input name="a" type="hidden" id="a" value="buy" size="4" />
+<input type="hidden" name="group_id" value="{$group_buy.group_id}" />
+</form>
+<!--{else}-->
+<a href="{$group_buy.url}"><img src="images/buy.png"></a>
+<!--{/if}-->
+</span></div>
+</div>
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">{$group_shopname}答疑</h1>
+<ul class="asklist">
+<!-- {foreach from=$comments item=comment} -->  
+<li>
+<p class="user"><strong><!-- {if $comment.username} -->{$comment.username|truncate:"8":"***"|escape:html}<!-- {else} -->{$lang.anonymous}<!-- {/if} --></strong><span>{$comment.add_time}</span></p>
+<p class="text">{$comment.content}</p>
+<p class="reply"><strong>回复：</strong>{$comment.re_content}</p>
+</li>
+<!-- {/foreach} -->
+</ul>
+<!--/ask-list-->
+<div class="pages">
+<!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+<h1 class="title2">我要提问</h1>
+<div class="askform">
+ <!-- {if $uid gt '0'}-->
+  <form name="formMsg" method="post" action="ask.php" id="formMsg">
+<table class="dataTab" width="100%">
+<tbody>
+<tr>
+<td>
+<textarea class="area" rows="5" cols="120" id="msg_content" name="msg_content"></textarea>
+</td></tr>
+<tr><td>
+<input type="hidden" value="add_ask" name="act" />
+<input type="hidden" value="{$group_buy.group_id}" name="id" />
+<input type="submit" value="好了，提交" class="but" />
+</td></tr>
+</tbody>
+</table>
+</form>
+<!--{else}-->
+请先<a href="login.php">登录</a>或<a href="signup.php">注册</a>再提问
+<!--{/if}-->
+</div>
+<!--askform-->
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_ing.lbi" --><!-- #EndLibraryItem -->
+<!--/side-today-->
+<div class="sideblock side-yaoqing">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">邀请有奖</h1>
+<p>每邀请一位好友首次购买，您将获<span>{$group_buy.formated_goods_rebate}</span>元返利</p>
+<a href="{$invite_url}">» 点击获取您的专用邀请链接</a>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-yaoqing-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

@@ -1,0 +1,43 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="team-about lf">
+<!--{if $group_buy.status eq '1'}-->
+<!--正在进行-->
+<div class="deal-discount bor">
+    <form action="buy.php" method="post" name="ecgroupon_frm" id="ecgroupon_frm">
+<p class="deal-price"><strong>
+{$group_buy.formated_group_price}</strong><span> <input type="image"  src="images/buy.png" id="group_butn"></span></p>
+ <input name="number" type="hidden"  id="number" value="1" size="4" />
+  <input name="a" type="hidden"  id="a" value="buy" size="4" />
+  <input type="hidden" name="group_id" value="{$group_buy.group_id}" />
+</form>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p>限量超值，下单要快哦</p>
+<p class="over"><img src="images/hot-open.gif" /></p>
+<p class="deal-buy-on"><img src="images/start.gif" /><strong>商品限量热销中！</strong></p>
+</em></p>
+</div>
+<!--正在进行-->
+<!--{elseif $group_buy.status eq '5'}-->
+<!--商品售完-->
+<div class="deal-discount bor">
+<p class="deal-price"><strong>{$group_buy.formated_group_price}</strong><span><a href="#"><img src="images/but-over.gif"></a></span></p>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p class="over"><img src="images/kong.gif" /></p>
+<p class="time">商品售完于：<em>{$group_buy.closed_time_date}</em></p>
+</div>
+<!--商品售完-->
+<!--{/if}-->
+</div>
+<!--search end-->

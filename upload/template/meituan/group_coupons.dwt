@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!-- #BeginLibraryItem "/library/group_user_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">我的{$group_cardname}<span>分类：<a href="coupons.php"{if $action eq 'coupons'} class="on"{/if}>未使用</a><a href="coupons.php?act=used"{if $action eq 'used'} class="on"{/if}>已使用</a><a href="coupons.php?act=expired"{if $action eq 'expired'} class="on"{/if}>已过期</a></span></h1>
+<!--未使用-->
+<!--{if $action eq 'coupons'}-->
+<table class="carttable">
+<tr>
+<th height="40" width="120">团购项目</th>
+<th>券编号</th>
+<th>券密码</th>
+<th>有效日期</th>
+<th>操作</th>
+</tr>
+<!--订单详情循环开始-->
+<!--{foreach from=$coupons_list item=coupons}-->
+<tr>
+<td align="center">
+<a target="_blank" href="{$coupons.group_url}"><img width="100" src="{$coupons.group_image}" /></a>
+</td>
+<td align="center" class="c1">{$coupons.card_sn}</td>
+<td align="center" class="c1">{$coupons.card_password}</td>
+<td align="center">{$coupons.end_date}</td>
+<td align="center"><a href="#" onclick="make_sms({$coupons.card_id});javascript:return false;">补发到手机</a>｜<a href="coupons.php?act=print&card_id={$coupons.card_id}" target="_blank">打印</a>
+</td>
+</tr>
+<!--{/foreach}-->
+</table>
+<!--{/if}-->
+<!--已使用-->
+<!--{if $action eq 'used'}-->
+<table class="carttable">
+<tr>
+<th height="40" width="120">团购项目</th>
+<th>券编号</th>
+<th>消费日期</th>
+</tr>
+<!--订单详情循环开始-->
+<!--{foreach from=$coupons_list item=coupons}-->
+<tr>
+<td align="center"><a target="_blank" href="#"><img width="100" src="{$coupons.group_image}" /></a></td>
+<td align="center">{$coupons.card_sn}</td>
+<td align="center">{$coupons.use_date}</td>
+</tr>
+<!--{/foreach}-->
+</table>
+<!--{/if}-->
+<!--已过期-->
+<!--{if $action eq 'expired'}-->
+<table class="carttable">
+<tr>
+<th height="40" width="120">团购项目</th>
+<th>券编号</th>
+<th>过期日期</th>
+</tr>
+<!--{foreach from=$coupons_list item=coupons}-->
+<tr>
+<td align="center"><a target="_blank" href="#"><img width="100" src="{$coupons.group_image}" /></a></td>
+<td align="center">{$coupons.card_sn}</td>
+<td align="center">{$coupons.end_date}</td>
+</tr>
+<!--{/foreach}-->
+<!--订单详情循环结束-->
+</table>
+<!--{/if}-->
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock uside-top">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>什么是{$group_cardname}？</strong>
+<p>{$group_cardname}是当团购成功后，您以手机短信方式获取，或者自行下载打印使用的消费凭证（其中包含唯一优惠密码）。</p>
+<strong>如何使用{$group_cardname}？</strong>
+<p>当您去消费时，出示该短信或者打印的{$group_cardname}即可。打印版{$group_cardname}上通常还包含更详细的使用说明。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/sideblock-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

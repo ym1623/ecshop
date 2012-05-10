@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="slides.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,group.js,slides.js,jquery.lightbox.js,countdown.pack.js,jquery-ecg.js'}
+<script type=text/javascript>
+$(function(){
+if($(".slide-pic li").length > 1){
+	slides();
+	}
+});
+</script>
+</head>
+<body id="indexbody">
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<!-- {insert name='last_order'}-->
+<div class="mainboxleft lf">
+<!-- #BeginLibraryItem "/library/group_share.lbi" --><!-- #EndLibraryItem -->
+<div id="todayteam" class="clearfix">
+<h1 id="teamtitle"><span>今日{$type_name}：</span>{$group_buy.group_name}</a></h1>
+<!-- {insert name='group_stats' group_id=$group_buy.group_id}-->
+<!--/team-about-->
+<div class="team-pic rf">
+<!--幻灯-->
+<div class="slides">
+<ul class="slide-pic">
+<!--{foreach from=$img_list item=img key=key}-->
+<!--{if $key eq '0'}-->
+<li><img alt="{$img.img_desc}" src="{$img.img_url}" /></li>
+<!--{else}-->
+<li style="display: none;"><img alt="{$img.img_desc}" src="{$img.img_url}" /></li>
+<!--{/if}-->
+<!--{/foreach}-->
+</ul>
+<ul class="slide-li slide-txt op">
+<!--{foreach from=$img_count item=id}-->
+<!--{if $id eq '1'}-->
+<li class="cur">1</li>
+<!--{else}-->
+<li>{$id}</li>
+<!--{/if}-->
+<!--{/foreach}-->
+</ul>
+</div>
+<!--幻灯-->
+<div class="oneview">
+{$group_buy.small_desc}
+</div>
+</div>
+<!--/team-pic-->
+</div>
+<!--/todayteam-->
+<div class="maininfo">
+<div class="box-top"></div>
+<div class="infobox clearfix">
+<div class="main lf">
+<div id="xiangqing">
+{$group_buy.group_desc}
+</div>
+<!--/xiangqing-->
+<div id="friendsay">
+<h1>网友们说</h1>
+<ul>
+<!--{foreach from=$friend_comment item=comment}-->
+<li>{$comment.friend_desc}<span>——{$comment.friend_name}（<a href="{$comment.friend_url}" target="_blank">{$comment.friend_web}</a>）</span></li>
+<!--{/foreach}-->
+</ul>
+</div>
+<!--/friendsay-->
+</div>
+<!--/main-->
+<div class="shangjia rf">
+<div class="store">
+<h5>{$suppliers_arr.suppliers_name}</h5>
+<div class="dizhi">
+{if $suppliers_arr.address neq ''}
+<strong>地址：</strong>{$suppliers_arr.address}<br />
+{/if}
+{if $suppliers_arr.phone neq ''}
+<strong>电话：</strong>{$suppliers_arr.phone}<br />
+{/if}
+{if $suppliers_arr.website neq ''}
+<strong>网址：</strong><a href="{$suppliers_arr.website}" target="_blank" title="{$suppliers_arr.website}">{$suppliers_arr.website|truncate:22}</a>
+{/if}
+{if $suppliers_arr.suppliers_desc neq ''}
+<p>{$suppliers_arr.suppliers_desc}</p>
+{/if}
+{if $suppliers_arr.suppliers_area neq ''}
+<div class="maps bor">
+{$suppliers_arr.suppliers_area}
+</div>
+{/if}
+</div>
+</div>
+<!--{if $small_suppliers}-->
+<!--{foreach from=$small_suppliers item=suppliers_arr}-->
+<div class="store">
+<h5>{$suppliers_arr.suppliers_name}</h5>
+<div class="dizhi">
+<strong>地址：</strong>{$suppliers_arr.address}<br />
+<strong>电话：</strong>{$suppliers_arr.phone}<br />
+<strong>网址：</strong><a href="{$suppliers_arr.website}" target="_blank" title="{$suppliers_arr.website}">{$suppliers_arr.website|truncate:22}</a>
+<p>{$suppliers_arr.suppliers_desc}</p>
+<div class="maps bor">
+{$suppliers_arr.suppliers_area}
+</div>
+</div>
+</div>
+<!--{/foreach}-->
+<!--{/if}-->
+</div>
+<!--/shangjia-->
+</div>
+<!--infobox-->
+<div class="box-bottom clear"></div>
+</div>
+<!--/maininfo-->
+</div>
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_ing.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_ask.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_gonggao.lbi" --><!-- #EndLibraryItem -->
+<div class="sideblock side-yaoqing">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">邀请有奖</h1>
+<p>每邀请一位好友首次购买，您将获<span>{$group_buy.formated_goods_rebate}</span>元返利</p>
+<a href="{$invite_url}">» 点击获取您的专用邀请链接</a>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-yaoqing-->
+<!-- #BeginLibraryItem "/library/group_dream.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_seller.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_vote.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!--/box-->
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+<!--{if $group_buy.activity_type neq '3'}-->
+<script type="text/javascript">
+$(function(){
+$("#leftTime_{$group_buy.group_id}").countdown({until:new Date({insert name='now_time' end_date=$group_buy.end_date start_date=$group_buy.start_date act_type=$group_buy.activity_type}),serverSync:serverTime});
+});
+//缓存服务器时间函数
+function serverTime() { 
+    var time = null; 
+    $.ajax({url: 'serverTime.php', 
+        async: false, dataType: 'text',
+        success: function(text) { 
+            time = new Date(text); 
+        }, error: function(http, message, exc) { 
+            time = new Date(); 
+    }});
+    return time; 
+}
+</script>
+<!--{/if}-->
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<table width="100%" cellpadding="3" cellspacing="1">
+  <tr>
+    <th scope="col" align="center" width="400" height="18"><strong>{$lang.goods_name_brand}</strong></th>
+    <th scope="col" align="center"><strong>{$lang.goods_price}</strong></th>
+    <th scope="col" align="center"><strong>{$lang.goods_number}</strong></th>
+    <th scope="col" align="center"><strong>{$lang.goods_attr}</strong></th>
+    <th scope="col" align="center"><strong>{$lang.storage}</strong></th>
+    <th scope="col" align="center"><strong>{$lang.subtotal}</strong></th>
+  </tr>
+  {foreach from=$goods_list item=goods}
+  <tr>
+    {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+    <td><a href="../team.php?id={$goods.goods_id}" target="_blank">{$goods.goods_name|truncate:60} {if $goods.brand_name}[ {$goods.brand_name} ]{/if}
+    {if $goods.is_gift}{if $goods.goods_price > 0}{$lang.remark_favourable}{else}{$lang.remark_gift}{/if}{/if}
+    {if $goods.parent_id > 0}{$lang.remark_fittings}{/if}</a></td>
+    {else}
+    <td>{$goods.goods_name}{$lang.remark_package}</td>
+    {/if}
+    <td align="center">{$goods.formated_goods_price}</td>
+    <td align="center">{$goods.goods_number}</td>
+    <td align="center">{$goods.goods_attr|nl2br}</td>
+    <td align="center">{$goods.storage}</div></td>
+    <td align="center">{$goods.formated_subtotal}</td>
+  </tr>
+  {/foreach}
+</table>

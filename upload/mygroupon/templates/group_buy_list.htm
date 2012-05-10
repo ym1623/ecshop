@@ -1,0 +1,147 @@
+<!-- $Id: group_buy_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js,../js/transport.js,../js/region.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<div class="form-div" style="padding:20px;">
+<form action="javascript:searchGroup()" name="searchForm">
+{$lang.label_group_name} 
+<input type="text" name="keyword" size="40" />&nbsp;&nbsp;&nbsp;&nbsp;
+<select name="activity_type">
+    <!--{foreach from=$lang.label_activity_type item=type_name key=type_id}-->
+    <option value="{$type_id}">{$type_name}</option>
+    <!--{/foreach}-->
+   </select>
+   &nbsp;&nbsp;&nbsp;&nbsp;
+<select name="suppliers_id">
+<option value="0">{$lang.select_suppliers}</option>
+<!--{foreach from=$suppliers_list_name item=suppliers}-->
+ <option value="{$suppliers.suppliers_id}">{$suppliers.suppliers_name}</option>
+<!--{/foreach}--->
+</select>&nbsp;&nbsp;&nbsp;&nbsp;
+<select name="group_stat"><option value="-1" selected="selected">{$lang.select_stat}</option>
+<!--{foreach from=$lang.gbs item=stat key=stat_id}-->
+<option value="{$stat_id}">{$stat}</option>
+<!--{/foreach}-->
+</select>&nbsp;&nbsp;&nbsp;&nbsp;
+<select name="cat_id"><option value="0">{$lang.goods_cat}</option>
+<!-- {foreach from=$cat_list item=cat} -->
+<option value="{$cat.cid}">{$cat.class_name}</option>
+<!-- {/foreach} -->
+</select>&nbsp;&nbsp;&nbsp;&nbsp;
+<select name="city_id" style="border:1px solid #ccc;">
+<option value="0">{$lang.please_select_city}</option>
+<!-- {foreach from=$city_list item=city} -->
+<option value="{$city.city_id}">{$city.city_name}</option>
+<!-- {/foreach} -->
+</select>
+<br /><br />
+{$lang.label_start_date}<input name="start_time" type="text" id="start_time" size="22" value='{$group_buy.formated_start_date}' readonly="readonly" /><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time', '%Y-%m-%d %H:%M', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button"/>&nbsp;&nbsp;&nbsp;&nbsp;
+{$lang.label_end_date}<input name="end_time" type="text" id="end_time" size="22" value='{$group_buy.formated_end_date}' readonly="readonly" /><input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M', '24', false, 'selbtn2');" value="{$lang.btn_select}" class="button"/>
+<div style="padding-top:20px;"><input type="submit" value="{$lang.button_search}" class="button" /></div>
+</form>
+</div>
+<form method="post" action="group_buy.php?act=batch_drop" name="listForm" onsubmit="return confirm(batch_drop_confirm);">
+<!-- start group_buy list -->
+<div class="list-div" id="listDiv">
+{/if}
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th style="width:50px;text-align:left;padding:0 10px;">
+        <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" />
+        <a href="javascript:listTable.sort('group_id'); ">{$lang.record_id}</a>{$sort_act_id}
+      </th>
+      <th>{$lang.group_order}</th>
+      <th>{$lang.group_name}</th>
+      <th>{$lang.current_status}</th>
+      <th>{$lang.start_date}/{$lang.end_date}</th>
+      <th>{$lang.upper_orders}</th>
+      <!-- <th><a href="javascript:listTable.sort('gift_integral'); ">{$lang.gift_integral}</a>{$sort_gift_integral}</th> -->
+      <th align="left" style="padding-left:10px">{$lang.label_order_qty}</th>
+      <th>{$lang.current_price}</th>
+      <th align="left" style="padding-left:10px;">{$lang.label_goods_qty}</th>
+      <th align="left" style="padding-left:10px;">{$lang.label_isshow}</th>
+
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$group_buy_list item=group_buy}
+    <tr>
+      <td><input value="{$group_buy.group_id}" name="checkboxes[]" type="checkbox">{$group_buy.group_id}</td>
+      <td width="30" align="center"><span onclick="listTable.edit(this, 'edit_sort_order', {$group_buy.group_id})">{if $group_buy.sort_order gt ''}{$group_buy.sort_order}{else}0{/if}</span></td>
+
+      <td><a href="../team.php?id={$group_buy.group_id}" target="_blank">{$group_buy.group_name|escape:html}</a></td>
+      <td width="54" align="center" style="color:#3A6EA5;">{$group_buy.cur_status}</font></td>
+      <td align="center" width="110">开始：{$group_buy.start_time}<br />结束：{$group_buy.end_time}</td>
+      <td align="center" width="30">{$group_buy.upper_orders}</td>
+      <!-- <td align="right">{$group_buy.gift_integral}</td> -->
+      <td align="left" width="120">订单：{$group_buy.actual_order} / {$group_buy.total_order} <font color="#999999">/ {$group_buy.ss_order}</font><br />商品：{$group_buy.actual_goods} / {$group_buy.total_goods} <font color="#999999">/ {$group_buy.ss_goods}</font></td>
+      <td align="center" width="40">{$group_buy.cur_price}</td>
+      <td align="left" width="100">余额：{$group_buy.actual_surplus}<br />红包：{$group_buy.actual_bonus}<br />现金：{$group_buy.actual_money}<br />总计：{$group_buy.actual_amount}</td>
+        <td align="center"><img src="images/{if $group_buy.is_show}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'toggle_is_show', {$group_buy.group_id})" /></td>
+      <td align="right" width="36">
+<a href="../team.php?id={$group_buy.group_id}" target="_blank"><img src="images/icon_view.gif" title="{$lang.view_group}" border="0" height="16" width="16" /></a>
+<a href="group_buy.php?act=edit&amp;id={$group_buy.group_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+<a href="order.php?act=list&amp;group_buy_id={$group_buy.group_id}"><img src="images/icon_view_d.gif" title="{$lang.view_order}" border="0" height="16" width="16" /></a>
+<a href="order.php?act=get_excel_order&amp;group_buy_id={$group_buy.group_id}"><img src="images/icon_down_d.gif" title="{$lang.down_order}" border="0" height="16" width="16" /></a>
+<!--{if $group_buy.goods_type eq '1'}-->
+<a href="group_card.php?act=list&amp;group_id={$group_buy.group_id}"><img src="images/icon_view_j.gif" title="{$lang.view_card}" border="0" height="16" width="16" /></a>
+<a href="group_buy.php?act=get_excel&amp;group_id={$group_buy.group_id}"><img src="images/icon_down_j.gif" title="{$lang.down_card}" border="0" height="16" width="16" /></a>
+<!--{/if}-->
+<!--{if $group_buy.goods_type eq '3'}-->
+<a href="group_card.php?act=list&amp;group_id={$group_buy.group_id}"><img src="images/icon_view_j.gif" title="{$lang.view_card}" border="0" height="16" width="16" /></a>
+<a href="group_buy.php?act=get_excel&amp;group_id={$group_buy.group_id}"><img src="images/icon_down_j.gif" title="{$lang.down_card}" border="0" height="16" width="16" /></a>
+<a href="import_card.php?act=import_card&amp;group_id={$group_buy.group_id}"><img src="images/icon_up_j.gif" title="{$lang.import_card}" border="0" height="16" width="16" /></a>
+<a href="import_card.php?act=append_card&amp;group_id={$group_buy.group_id}"><img src="images/icon_add_j.gif" title="{$lang.into_card}" border="0" height="16" width="16" /></a>
+<!--{/if}-->
+<a href="group_buy.php?act=copy&amp;id={$group_buy.group_id}"><img src="images/icon_copy.gif" title="复制" border="0" height="16" width="16" /></a>
+<a href="javascript:;" onclick="listTable.remove({$group_buy.group_id},'{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a>
+      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+  <table cellpadding="4" cellspacing="0">
+    <tr>
+      <td><input type="submit" name="drop" id="btnSubmit" value="{$lang.drop}" class="button" disabled="true" /></td>
+      <td align="right">{include file="page.htm"}</td>
+    </tr>
+  </table>
+{if $full_page}
+</div>
+<!-- end group_buy list -->
+</form>
+<script type="text/javascript" language="JavaScript">
+  region.isAdmin = true;
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+  {literal}
+  onload = function()
+  {
+    document.forms['searchForm'].elements['keyword'].focus();
+    startCheckOrder();
+  }
+  /**
+   * 搜索团购活动
+   */
+    function searchGroup()
+    {
+        listTable.filter['cat_id'] = document.forms['searchForm'].elements['cat_id'].value;
+        listTable.filter['city_id'] = document.forms['searchForm'].elements['city_id'].value;
+		listTable.filter['start_time'] = document.forms['searchForm'].elements['start_time'].value;
+		listTable.filter['end_time'] = document.forms['searchForm'].elements['end_time'].value;
+        listTable.filter['suppliers_id'] = document.forms['searchForm'].elements['suppliers_id'].value;
+		listTable.filter['group_stat'] = document.forms['searchForm'].elements['group_stat'].value;
+		listTable.filter['activity_type'] = document.forms['searchForm'].elements['activity_type'].value;
+        listTable.filter['keyword'] = Utils.trim(document.forms['searchForm'].elements['keyword'].value);
+        listTable.filter['page'] = 1;
+        listTable.loadList();
+    }
+  {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

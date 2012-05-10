@@ -1,0 +1,38 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- {if $vote} -->
+<div class="sideblock" id="ECS_VOTE">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">在线调查</h1>
+    <form id="formvote" name="ECS_VOTEFORM" method="post" action="javascript:submit_vote()">
+	<table class="vote">
+	<tr><td>
+    <!-- {foreach from=$vote item=title} -->
+     <strong>{$title.vote_name}</strong><br />({$lang.vote_times}:{$title.vote_count})
+     <!-- {/foreach} -->
+	 </td></tr>
+	 <tr><td class="voteli">
+     <!-- {foreach from=$vote item=title} -->
+          <!-- {foreach from=$title.options item=item} -->
+            <!-- {if $title.can_multi eq 0} -->
+            <input type="checkbox" name="option_id" value="{$item.option_id}" />
+            {$item.option_name} ({$item.percent}%)<br />
+            <!-- {else} -->
+            <input type="radio" name="option_id" value="{$item.option_id}" />
+            {$item.option_name} ({$item.percent}%)<br />
+            <!-- {/if} -->
+            <!-- {/foreach} -->
+            <input type="hidden" name="type" value="{$title.can_multi}" />
+     <!-- {/foreach} -->
+	 </td></tr>
+	 <tr><td align="center">
+     <input type="hidden" name="id" value="{$vote_id}" />
+     <input type="submit" name="submit" value="{$lang.submit}"  class="but" />
+     <input type="reset" value="{$lang.reset}" class="but" />
+	 </td></tr>
+	 </table>
+     </form>
+  </div>
+  <div class="sbox-bottom"></div>
+ </div>
+<!-- {/if} -->

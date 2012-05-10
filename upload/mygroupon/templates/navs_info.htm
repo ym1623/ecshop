@@ -1,0 +1,71 @@
+<!-- $Id: nav_info.htm 16752 2009-10-20 09:59:38Z wangleisvn $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form action="group_navigation.php" method="post" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table width="100%" id="general-table">
+  <tr>
+    <td class="label"><a href="javascript:showNotice('LogoNameNotic');" title="{$lang.form_notice}">
+      <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.nav_name}</td>
+    <td>
+      <input type="text" name="nav_name" value="{$nav_arr.nav_name|escape:html}" size="30"  />
+      <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="LogoNameNotic">{$lang.nav_name_desc}</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.nav_url}</td>
+    <td>
+      <input type='text' name='nav_url' value='{$nav_arr.nav_url}' size="30"  />带有'http://'不会被地址重写
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.show_order}</td>
+    <td>
+      <input type='text' name='show_order' {if $nav_arr.show_order} value="{$nav_arr.show_order}" {else} value="0" {/if} size="30"  />
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.is_show}</td>
+    <td>
+     <input type="radio" name="is_show" value="1" {if $nav_arr.is_show}checked="checked"{/if}/>{$lang.show[1]}&nbsp;&nbsp; <input type="radio" name="is_show" value="0" {if !$nav_arr.is_show}checked="checked"{/if}/>{$lang.show[0]}
+
+    </td>
+  </tr>
+  <tr>
+    <td class="label">&nbsp;</td>
+    <td>
+      <input type="submit" value="{$lang.button_submit}" class="button" />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+      <input type="hidden" name="act" value="{$form_act}" />
+      <input type="hidden" name="id" value="{$nav_arr.nav_id}" />
+      <input type="hidden" name="type" value="{$type}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+<script language="JavaScript">
+<!--
+
+{literal}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("nav_name",      nav_name_empty);
+    validator.required("nav_url",       nav_url_empty);
+    validator.isNumber("show_order",     show_order_type);
+    return validator.passed();
+}
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+{/literal}
+//-->
+</script>
+{include file="pagefooter.htm"}

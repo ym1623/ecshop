@@ -1,0 +1,33 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--底部导航 start-->
+<div class="footer clear">
+<!--{if $txt_links}-->
+<div class="flink">
+<table width="100%">
+	<tr>
+		<td align="left" height="54"><strong>友情链接：</strong>
+    <!-- {if $txt_links} -->
+    <!--开始文字类型的友情链接{foreach from=$txt_links item=link}-->
+    <a href="{$link.url}" target="_blank" title="{$link.name}">{$link.name}</a>
+    <!--结束文字类型的友情链接{/foreach}--> <a href="links.php" target="_blank">更多>></a>
+    <!-- {/if} --></td>
+		<td align="right" width="130"><strong>ECGROUPON 3.0</strong></td>
+	</tr>
+</table>
+</div>
+<!--{/if}-->
+<ul class="subnav clearfix">
+<!--{foreach from=$group_help item=help}-->
+<li>
+<h3>{$help.cat_name}</h3>
+<!--{foreach from=$help.article item=article}--> 
+<a href="{$article.url}">{$article.title}</a>
+<!--{/foreach}-->
+</li>
+<!--{/foreach}-->
+<li class="end">
+<a href="{$index_url}"><img src="images/logo.png" width="200" /></a>
+</li>
+</ul>
+<div class="copyright"></div>
+</div>

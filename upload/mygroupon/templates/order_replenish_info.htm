@@ -1,0 +1,62 @@
+<!-- $Id: replenish_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+
+<div class="main-div">
+<form method="post" action="import_order.php" name="theForm"  onsubmit="return validate()">
+<table width="100%" >
+  <tr>
+    <td class="label">订单号</td>
+    <td><input type="text" name="order_sn" maxlength="60" size="40"  />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">发货单号</td>
+    <td><input type="text" name="invoice_no" maxlength="60" size="40" /></td>
+  </tr>
+      <tr>
+    <td class="label" style="width:100">发送提示短信</td>
+    <td>          <input type="radio" name="is_sendsms" value="1" />发送&nbsp;&nbsp;<input type="radio" name="is_sendsms" value="0" checked="checked"/>不发送
+</td>
+  </tr>
+  <tr>
+    <td class="label"><input type="hidden" name="act" value="action" /></td>
+    <td><input type="submit" value="{$lang.button_submit}" class="button"  /></td>
+  </tr>
+
+</table>
+
+</form>
+</div>
+
+<script language="javascript" src="js/validator.js"></script>
+<script language="JavaScript">
+<!--
+{literal}
+document.forms['theForm'].elements['card_sn'].focus();
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+  var frm = document.forms['theForm'];
+  if ((frm.elements['order_sn'].value.length > 0) || (frm.elements['invoice_no'].value.length > 0))
+  {
+    return true;
+  }
+  else
+  {
+    alert('请输入订单号和快递单号');
+    return false;
+  }
+}
+//-->
+{/literal}
+</script>
+
+{include file="pagefooter.htm"}

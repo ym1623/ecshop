@@ -1,0 +1,14 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<form name="" action="coupons.php" method="POST" target="_blank">
+<table class="dataTab" width="100%">
+<tr><td>请核对或填写您的手机号是否正确？</td></tr>
+<tr><td>
+<input type="text" value="{$mobile}" class="txt" name="mobile" id='mobile' size="45" /></td></tr>
+<tr><td>
+<input type="hidden" name="act" value="send_sms" />
+<input type="hidden" name="card_id" value="{$card_id}" id='card_id' />
+<input type="button" id="tj" class="but" value="确认无误，发送" onClick="send_sms();" />
+</td></tr>
+<tr><td><p id="tip" class="tip">提示：<span class="c1" style="display:inline;">短信可能延迟，请耐心等待几分钟！</span></p></td></tr>
+</table>
+</form>

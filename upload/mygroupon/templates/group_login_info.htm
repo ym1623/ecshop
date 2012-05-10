@@ -1,0 +1,99 @@
+<!-- $Id: brand_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/transport.js,../js/region.js"}
+
+<div class="main-div">
+<form method="post" action="group_login.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.web_name}：</td>
+    <td>
+        <input name="web_name" value="{$login.web_name}"/></input>
+</td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.web_from}：</td>
+    <td><input name='web_from' value='{$login.web_from}' type='text'></input>
+    <span class="notice-span">{$lang.webfrom_desc}</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.web_url}：</td>
+    <td>
+        <input name="web_url" value="{$login.web_url}" size="50"/></input>   
+</td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.app_key}：</td>
+    <td><input name='app_key' value='{$login.app_key}' type='text' size="50"></input></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.app_secret}：</td>
+    <td><input name='app_secret' value='{$login.app_secret}' type='text' size="50"></input></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.web_login}：</td>
+    <td><input name='web_login' value='{$login.web_login}' type='text' size="50"></input></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.login_img}：</td>
+    <td><input name='login_img' value='{$login.login_img}' type='text' size="50"></input></td>
+  </tr>
+     <tr>
+    <td class="label">{$lang.sort_order}：</td>
+    <td><input name='sort_order' value='{$login.sort_order}' type='text'></input> <span class="notice-span">{$lang.sort_order_desc}</span></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.app_encrypt}：</td>
+    <td><input name='app_encrypt' value='{$login.app_encrypt}' type='text' size="50" {if $login.app_encrypt neq ''}disabled="disabled"{/if}></input>
+     <span class="notice-span">{$lang.appencrypt_desc}</span>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="label">{$lang.is_open}：</td>
+    <td><input type="radio" name="is_open" value="1" {if $login.is_open eq 1}checked="checked"{/if} /> {$lang.yes}
+        <input type="radio" name="is_open" value="0" {if $login.is_open eq 0}checked="checked"{/if} /> {$lang.no}
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="old_web_name" value="{$login.web_name}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$login.config_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+region.isAdmin = true;
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+	var web_name = document.forms['theForm']['web_name'].value;
+	if (web_name == '')
+	{
+	    alert('请输入网站名称');
+		return false;
+	}
+	return true;
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2" style="margin-bottom:30px;">立即注册</h1>
+<form action="signup.php" method="post" name="formUser1" id="registerForm">
+<table class="dataTab signup">
+<tr>
+<td align="right" valign="top" width="130"><strong>Email</strong></td>
+<td>
+<input type="text" value="" class="txt" size="52" name="useremail" id="useremail"><span>请输入有效的Email地址，登录及找回密码用，不会公开。</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>用户名</strong></td>
+<td><input type="text" value="" class="txt" size="52" name="username" id="username"><span>4-16 个字符，一个汉字为两个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>密码</strong></td>
+<td>
+<input type="password" class="txt" size="52" name="password" id="password">
+<span>最少 4 个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>确认密码</strong></td>
+<td>
+<input type="password" class="txt" size="52" name="confirm_password" id="confirm_password"><span>重新输入密码</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>手机号码</strong></td>
+<td>
+<input type="text" class="txt" name="mobile_phone" id="mobile_phone"><span>手机号码是我们联系你的最重要的联系方式，并用于{$group_cardname}的短信通知</span>
+</td>
+</tr>
+<tr><td align="right" valign="top"><strong>所在城市</strong></td><td><select class="f-city" name="city_id">
+<!--{foreach from=$group_city item=city}-->
+<option value="{$city.city_id}" {if $city.city_id eq $city_info.city_id}selected="selected"{/if}>{$city.city_name}</a>
+<!--{/foreach}-->
+</select></td></tr>
+<tr>
+<td></td>
+<td><input type="checkbox" checked="checked" class="f-check" name="is_book" value="1">
+<input type="hidden" value="act_register" name="act">
+订阅每日最新团购信息<br /><input type="submit" class="but" value="注册">
+</td>
+</tr>
+</table>
+</form>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock side-login">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">已经有{$group_shopname}账户？</h1>
+<p><a href="signup.php"><a href="login.php">立即登录</a> | 享受超低价格团购！</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-login-->
+<div class="sideblock side-login">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2" style="margin-bottom:15px;">使用其他账号登陆</h1>
+<div class="onekey">
+<!--{foreach from=$loginopen item=login}-->	
+<a target="_blank" href="{$login.web_login}"><img border="0" src="{$login.login_img}" /></a>
+<!--{/foreach}-->
+</div>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-login-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

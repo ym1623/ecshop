@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /mygroupon/
+Disallow: /cert/
+Disallow: /data/
+Disallow: /includes/
+Disallow: /install/
+Disallow: /languages/
+Disallow: /templates/
+Disallow: /upgrade/
+Disallow: /api/
+Disallow: /js/
+Disallow: /upgrade.php
+Disallow: /region.php
+Disallow: /respond.php

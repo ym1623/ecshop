@@ -1,0 +1,25 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--{if $today_group}-->
+<div class="sideblock side-today" style="margin-top:0;">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">
+<strong>
+<!--{if $group_buy.activity_type eq '1'}-->
+进行中的团购
+<!--{elseif $group_buy.activity_type eq '2'}-->
+进行中的秒杀
+<!--{else}-->
+热销商品
+<!--{/if}-->
+</strong></h1>
+<ul>
+<!--{foreach from=$today_group item=group}-->
+<li><a href="{$group.url}">{$group.group_name|truncate:30}</a><a href="{$group.url}"><img width="210" src="{$group.group_image}" /></a>
+<span class="rightPrice clearfix">{$type_name}价：<em>{$group.formated_group_price}</em> | 已购：<em><!-- {insert name='groupsaled' group_id=$group.group_id}--></em> 人<a href="{$group.url}"><img width="54" src="images/min-buy.png" /></a></span></li>
+<!--{/foreach}-->
+</ul>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--{/if}-->

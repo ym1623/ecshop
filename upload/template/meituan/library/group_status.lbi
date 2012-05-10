@@ -1,0 +1,101 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="team-about lf">
+<!--{if $group_buy.status eq '1'}-->
+<!--正在进行-->
+<div class="deal-discount bor">
+    <form action="buy.php" method="post" name="ecgroupon_frm" id="ecgroupon_frm">
+<p class="deal-price"><strong>
+{$group_buy.formated_group_price}</strong><span> <input type="image"  src="images/buy.png" id="group_butn"></span></p>
+ <input name="number" type="hidden"  id="number" value="1" size="4" />
+  <input name="a" type="hidden"  id="a" value="buy" size="4" />
+  <input type="hidden" name="group_id" value="{$group_buy.group_id}" />
+</form>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p>数量有限，下单要快哦</p>
+<!--{if $is_succes eq '1'}-->
+<p class="deal-buy-on"><img src="images/start.gif" /><strong>团购成功！继续购买</strong></p>
+<!--{else}-->
+<p class="deal-buy-on"><img src="images/start.gif" /><strong>团购已经开始，正在进行！</strong></p>
+<!--{/if}-->
+<p class="time">距离结束：<em><span class="time" id="leftTime_{$group_buy.group_id}">{$lang.please_waiting}</span>
+</em></p>
+<!--{if $group_buy.succeed_time gt '0'}-->
+<p>{$group_buy.succeed_time_date}达到最低团购人数：{$group_buy.lower_orders} 人</p>
+<!--{/if}-->
+</div>
+<!--正在进行-->
+<!--{elseif $group_buy.status eq '2'}-->
+<!--团购成功-->
+<div class="deal-discount bor">
+<p class="deal-price"><strong>{$group_buy.formated_group_price}</strong><span><a href="#"><img src="images/but-over.gif"></a></span></p>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p class="over"><img src="images/over.gif" /></p>
+<p class="time">本团结束于：<em>{$group_buy.closed_time_date}</em></p>
+<!--{if $group_buy.succeed_time gt '0'}-->
+<p>{$group_buy.succeed_time_date}达到最低团购人数：{$group_buy.lower_orders} 人</p>
+<!--{/if}-->
+</div>
+<!--团购成功-->
+<!--{elseif $group_buy.status eq '5'}-->
+<!--卖光了-->
+<div class="deal-discount bor">
+<p class="deal-price"><strong>{$group_buy.formated_group_price}</strong><span><a href="#"><img src="images/but-over.gif"></a></span></p>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p class="over"><img src="images/kong.gif" /></p>
+<p class="time">本团结束于：<em>{$group_buy.closed_time_date}</em></p>
+<!--{if $group_buy.succeed_time gt '0'}-->
+<p>{$group_buy.succeed_time_date}达到最低团购人数：{$group_buy.lower_orders} 人</p>
+<!--{/if}-->
+</div>
+<!--卖光了-->
+<!--{elseif $group_buy.status eq '0'}-->
+<!--未开始-->
+<div class="deal-discount bor">
+<p class="deal-price"><strong>{$group_buy.formated_group_price}</strong><span><a href="#"><img src="images/but-over.gif"></a></span></p>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p>数量有限，下单要快哦</p>
+<p class="time">距离结束：<em><span>还未开始</span></em></p>
+</div>
+<!--未开始-->
+<!--{elseif $group_buy.status eq '4'}-->
+<!--团购失败-->
+<div class="deal-discount bor">
+<p class="deal-price"><strong>{$group_buy.formated_group_price}</strong><span><a href="#"><img src="images/but-over.gif"></a></span></p>
+<table width="100%">
+<tr><th>原价</th><th>折扣</th><th>节省</th></tr>
+<tr><td>{$group_buy.formated_market_price}</td><td>{$group_buy.group_rebate}折</td><td>{$group_buy.formated_lack_price}</td></tr>
+</table>
+</div>
+<div class="deal-status">
+<p><em>{$group_buy.orders_num}</em> <strong>人已购买</strong></p>
+<p class="over"><img src="images/over-sb.gif" /></p>
+<p class="time">本团结束于：<em>{$group_buy.closed_time_date}</em></p>
+</div>
+<!--团购失败-->
+<!--{/if}-->
+</div>
+<!--search end-->

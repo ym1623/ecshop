@@ -1,0 +1,48 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+var city_name = '{$city_info.city_name}';
+</script>
+<!--[if lte IE 6]>
+<script src="js/iepngfix_tilebg.js" type="text/javascript"></script>
+<![endif]-->
+<div id="header">
+<div id="top">
+<a href="{$index_url}"><img class="logo" src="images/logo.png" /></a>
+<div id="city" class="lf">
+{$city_info.city_name}<br />
+<a href="#" class="thiscity" onclick="openHtml('.thiscity','#evercity','480','选择所在城市');return false;">[切换城市]</a>
+<div class="disnone">
+	<div id="evercity" >
+	<!--{foreach from=$group_city item=city}-->
+	<a href="{$city.url}"{if $city.city_id eq $cityid} class="on"{/if}>{$city.city_name}</a>
+	<!--{/foreach}-->
+	</div>
+</div>
+</div>
+<div class="rss">
+<p>想知道明天的团购是什么吗？</p>
+<form id="validator" method="post" action="subscribe.php">
+<input type="text" id="email" datatype="email" require="true" size="20" value="" name="email" />
+<select name="city_id" class="lf">
+<!--{foreach from=$group_city item=city}-->
+	<option value="{$city.city_id}"{if $city.city_id eq $cityid} selected="selected"{/if}>{$city.city_name}</option>
+<!--{/foreach}-->
+</select>
+<input type="hidden" value="add_email" name="act" />
+<input type="hidden" value="add" name="do" />
+<input type="image" value="订阅" src="images/but1.gif">
+</form>
+<p><a href="#" rel="addrss" class="phonerss" onclick="javascript:return false">» 短信订阅，免费！</a>  <a href="#" rel="delrss" class="phonerss" onclick="javascript:return false">» 取消手机订阅</a></p>
+</div>
+</div>
+<div id="nav">
+<ul class="lf">
+<!--{foreach from=$navigation key=nav item=navdesc}-->
+<li{if $where eq $nav} class="on"{/if}><a href="{$navdesc.url}">{$navdesc.name}</a></li>
+<!--{/foreach}-->
+</ul>
+<div id="menubox" class="userbut rf">
+{insert name='group_member_info'}
+</div>
+</div>
+</div>

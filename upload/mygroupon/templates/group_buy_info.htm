@@ -1,0 +1,675 @@
+<!-- $Id: group_buy_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="validator.js,../js/utils.js,../js/transport.js,../js/region.js,selectzone.js,colorselector.js,listtable.js"}
+
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+
+<!-- 商品搜索 -->
+
+<form method="post" action="group_buy.php?act=insert_update" name="theForm" onsubmit="return validate();" enctype="multipart/form-data">
+<div class="main-div">
+    <div id="tabbar-div">
+      <p>
+        <span class="tab-front" id="group-tab">{$lang.tab_group_name}</span>
+       <span class="tab-back" id="friend_comment-tab">{$lang.tab_friend_comment}</span>
+       <span class="tab-back" id="gallery-tab">{$lang.tab_gallery}</span>
+
+       <span class="tab-back" id="group_properties-tab">{$lang.label_group_properties}</span>
+        <span class="tab-back" id="tab_seo-tab">{$lang.tab_seo}</span>
+        <span class="tab-back" id="group_detail-tab">{$lang.tab_group_detail}</span>
+       <span class="tab-back" id="group_information-tab">{$lang.tab_other_information}</span>
+       <span class="tab-back" id="group_suppliers-tab">{$lang.tab_other_suppliers}</span>
+      </p>
+    </div>
+    <div id="tabbody-div">
+<style type="text/css">
+#group-table{border-collapse:collapse;}
+#group-table td{padding:3px 10px;border:1px solid #eee;}
+</style>
+<table id="group-table"  width="90%">
+    <tr>
+    <td class="label" width="180">{$lang.activity_type_name}</td>
+    <td><select name="activity_type" onchange="set_activity_type(this.value)">
+    <!--{foreach from=$lang.label_activity_type item=type_name key=type_id}-->
+    <option value="{$type_id}" {if $group_buy.activity_type eq $type_id}selected="selected"{/if}>{$type_name}</option>
+    <!--{/foreach}-->
+   </select></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_group_name}</td>
+    <td><textarea name="group_name" rows="4" style="width:400px">{$group_buy.group_name}</textarea></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_goods_name}</td>
+    <td><input type="text" name='goods_name' value="{$group_buy.goods_name}" size="40"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_group_image}</td>
+    <td><input type="file" name='group_image' size="40"/>{if $group_buy.group_image}<a href="../{$group_buy.group_image}" target="_blank"><img src="images/yes.gif" border="0" /></a>{else}<img src="images/no.gif" />{/if}<span class="notice-span">{$lang.notice_group_imge}</span></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_market_price}</td>
+    <td><input type="text" name="market_price" value="{$group_buy.market_price}" size="40" /></td>
+  </tr>
+ {foreach from=$group_buy.price_ladder key=key item=item}
+  {if $key eq 0}
+  <tr>
+    <td class="label">{$lang.label_price_ladder}</td>
+    <td id='aa'>{$lang.notice_ladder_amount} <input type="text" name="ladder_amount[]" value="{$item.amount}" size="8" />&nbsp;&nbsp;
+      {$lang.notice_ladder_price} <input type="text" name="ladder_price[]" value="{$item.price}" size="8" />
+      <a href="javascript:;" onclick="addLadder(this,'group-table')"> <strong>[+]</strong></a><span class="notice-span">必须设置数量达到1时,享受的价格是多少</span></td>
+  </tr>
+  {else}
+  <tr>
+    <td class="label">&nbsp;</td>
+    <td>{$lang.notice_ladder_amount} <input type="text" name="ladder_amount[]" value="{$item.amount}" size="8" />&nbsp;&nbsp;
+      {$lang.notice_ladder_price} <input type="text" name="ladder_price[]" value="{$item.price}" size="8" />
+    <a href="javascript:;" onclick="removeLadder(this,'group-table')"> <strong>[-]</strong></a></td>
+  </tr>
+  {/if}
+  {/foreach}
+  <tr>
+    <td class="label">{$lang.label_type_name}：</td>
+    <td>
+		<input type="radio" value="1" name="group_type"{if $group_buy.group_type eq 1} checked="checked"{/if} />是&nbsp;&nbsp;<input type="radio" value="2" name="group_type"{if $group_buy.group_type eq 2} checked="checked"{/if}/>否
+	</td>
+  </tr>
+  <tr>
+    <td class="label" >{$lang.label_goods_type}</td>
+    <td><select name="goods_type">
+      <!--{foreach from=$lang.label_goods_type_name item=type_name key=type_id}-->
+      <option value="{$type_id}" {if $group_buy.goods_type eq $type_id}selected="selected"{/if}>{$type_name}</option>
+      <!--{/foreach}-->
+    </select></td>
+    </tr>
+  <tr>
+    <td class="label">{$lang.label_start_date}</td>
+    <td><input name="start_time" type="text" id="start_time" size="40" value='{$group_buy.formated_start_date}' {if $group_buy.activity_type ge 3}readonly="readonly"{/if}/><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time', '%Y-%m-%d 00:00', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_end_date}</td>
+    <td><input name="end_time" type="text" id="end_time" size="40" value='{$group_buy.formated_end_date}' {if $group_buy.activity_type ge 3}readonly="readonly"{/if}/><input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('end_time', '%Y-%m-%d 00:00', '24', false, 'selbtn2');" value="{$lang.btn_select}" class="button" /></td>
+</tr>
+  <tr>
+    <td class="label">{$lang.label_past_time}</td>
+     <td id="selbtn3"><input name="past_time" type="text" id="past_time" size="40" value='{$group_buy.formated_past_date}' /><input name="selbtn1" type="button"  onclick="return showCalendar('past_time', '%Y-%m-%d 00:00', '24', false, 'selbtn3');" value="{$lang.btn_select}" class="button"/></td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_city_name}</td>
+    <td>
+    <select name="city_id" style="border:1px solid #ccc;" onchange="del_othercity(this.value)">
+        <option value="0">{$lang.please_select_city}</option>
+        <!-- {foreach from=$city_list item=city} -->
+        <option value="{$city.city_id}" {if $group_buy.city_id eq $city.city_id}selected="selected"{/if}>{$city.city_name}</option>
+        <!-- {/foreach} -->
+    </select>
+</td>
+</tr>
+  <tr>
+    <td class="label">{$lang.label_expand_city}</td>
+       <td>
+     <input type="checkbox" onclick="listTable.selectAll(this,'other_city')" /> 全选
+  
+      <!-- {foreach from=$city_list item=city} -->
+      {if $group_buy.city_id eq $city.city_id}
+       <input type="checkbox" name="other_city[]" value="{$city.city_id}" disabled="disabled"/>{$city.city_name}</input>
+       {else}
+       <input type="checkbox" name="other_city[]" value="{$city.city_id}" {if $city.selected eq 1}checked="checked"{/if}/>{$city.city_name}</input>
+      {/if} 
+       <!-- {/foreach} -->
+</td>
+  </tr>
+  <tr>
+       <td class="label">{$lang.label_is_limit}</td>
+    <td><input type="radio" value="0" name="is_limit" {if $group_buy.is_limit eq 0}checked="checked"{/if} />{$lang.is_limit[0]}&nbsp;&nbsp;<input type="radio" value="1" name="is_limit" {if $group_buy.is_limit eq 1}checked="checked"{/if}/>{$lang.is_limit[1]}</td>
+  </tr>
+    <tr>
+       <td class="label">{$lang.label_is_show}</td>
+    <td><input type="radio" value="0" name="is_show" {if $group_buy.is_show eq 0}checked="checked"{/if}/>{$lang.is_show[0]}&nbsp;&nbsp;<input type="radio" value="1" name="is_show" {if $group_buy.is_show eq 1}checked="checked"{/if} />{$lang.is_show[1]}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.lab_group_cat}</td>
+    <td><select name="cat_id" onchange="hideCatDiv()" ><option value="0">{$lang.select_please}</option>
+    <!--{foreach from=$cat_list item=cat}-->
+       <option value="{$cat.cid}" {if $cat.cid eq $group_buy.cat_id} selected="selected"{/if}>{$cat.class_name}</option>
+       <!--{/foreach}-->
+</select></td>
+</tr>
+  <tr>
+    <td class="label">{$lang.label_suppliers}</td>
+    <td><select name="suppliers_id" id="suppliers_id">
+        <option value="0">{$lang.suppliers_no}</option>
+<!--{foreach from=$suppliers_list_name item=supp}-->
+         <option value="{$supp.suppliers_id}" {if $group_buy.suppliers_id eq $supp.suppliers_id} selected="selected"{/if}>{$supp.suppliers_name}</option>
+        <!--{/foreach}-->
+      </select></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_group_need}</td>
+    <td><select name="group_need" style="border:1px solid #ccc;" onchange="changeRange(this.value)" id='group_need'>
+        <!-- {foreach from=$lang.group_need item=need key=need_id} -->
+        <option value="{$need_id}" {if $group_buy.group_need eq $need_id}selected="selected"{/if}>{$need}</option>
+        <!-- {/foreach} -->
+      </select></td>
+	  </tr>
+  <tr id="label_group_stock" {if $group_buy.group_need eq 1}style="display:none"{/if}>
+    <td class="label">{$lang.label_group_stock}</td>
+    <td><input type="text" name="group_stock" value="{$group_buy.group_stock|default:0}" size="40" /></td>
+  </tr>
+  <tr id='all_group_limit'>
+    <td class="label">{$lang.label_upper_orders}</td>
+    <td><input type="text" name="upper_orders" value="{$group_buy.upper_orders|default:0}" size="40" /><span class="notice-span">{$lang.notice_upper_orders}</span></td>
+	</tr>
+  <tr>
+    <td class="label">{$lang.label_lower_orders}</td>
+    <td><input type="text" name="lower_orders" id="lower_orders" value="{$group_buy.lower_orders|default:0}" size="40" {if $group_buy.activity_type ge 2}readonly="readonly"{/if}/><span class="notice-span">{$lang.notice_lower_orders}</span></td>
+    </tr>
+  <tr>
+     <td class="label">{$lang.label_already_orders}</td>
+    <td><input type="text" name="already_orders" id="already_orders" value="{$group_buy.already_orders|default:0}" size="40" /><span class="notice-span">{$lang.notice_already_orders}</span></td>
+	</tr>
+  <tr>
+    <td class="label">{$lang.sel_group_restricted}</td>
+    <td><input type="text" name="group_restricted" value="{$group_buy.group_restricted|default:0}" size="40" /><span class="notice-span">{$lang.notice_group_restricted}</span></td>
+   
+    </tr>
+  <tr>
+    <td class="label">{$lang.label_group_rebate}</td>
+    <td><input type="text" name="goods_rebate" value="{$group_buy.goods_rebate|default:0}" size="40" /></td>
+	</tr>
+  <tr>
+    <td class="label">{$lang.label_gift_integral}</td>
+    <td><input type="text" name="gift_integral" value="{$group_buy.gift_integral|default:0}" size="40" /></td>
+    </tr>
+     <tr>
+    <td class="label">{$lang.label_goods_weight}</td>
+    <td><input type="text" name="goods_weight" value="{$group_buy.goods_weight|default:0}" size="40" />
+        <span class="notice-span">{$lang.notice_goods_unit}</span>
+    </td>
+	</tr>
+	<tr>
+       <td class="label">{$lang.label_is_hdfk}</td>
+    <td><input type="radio" value="0" name="is_hdfk" {if $group_buy.is_hdfk eq 0}checked="checked"{/if} />{$lang.is_hdfk[0]}&nbsp;&nbsp;<input type="radio" value="1" name="is_hdfk" {if $group_buy.is_hdfk eq 1}checked="checked"{/if}/>{$lang.is_hdfk[1]}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_shipping_name}</td>
+    <td><select name="shipping_id" style="border:1px solid #ccc;" onchange="change_shipping(this.value)">
+               <option value="0">{$lang.label_select}</option>
+        <!-- {foreach from=$shipping_list item=shipping} -->
+        <option value="{$shipping.shipping_id}" {if $group_buy.shipping_id eq $shipping.shipping_id}selected="selected"{/if}>{$shipping.shipping_name}</option>
+        <!-- {/foreach} -->
+      </select></td>
+    </tr>
+  <tr{if $group_buy.shipping_id gt '0'} style="display:none"{/if} id='group_freight'>
+    <td class="label">{$lang.label_group_freight}</td>
+    <td><input type="text" name="group_freight" value="{$group_buy.group_freight}" size="40" />
+    </td>
+	</tr>
+  <tr {if $group_buy.shipping_id gt '0'} style="display:none"{/if} id='pos_express'>
+    <td class="label">{$lang.label_pos_express}</td>
+    <td><input type="text" name="pos_express" value="{$group_buy.pos_express|default:0}" size="40" /><span class="notice-span">{$lang.notice_pos_express}</span></td>
+    </tr>
+         <tr>
+    <td class="label">排序：</td>
+    <td><input type="text" name="sort_order" value="{$group_buy.sort_order|default:0}" size="40" />
+        <span class="notice-span">数字越大越靠前</span>
+    </td>
+	</tr>
+</table>
+<table id="group_detail-table" width="80%" style="display:none">
+  <tr>
+    <td>{$FCKeditor}</td>
+  </tr>
+</table>
+<table id="friend_comment-table" width="80%" style="display:none">
+    <tr>
+     <td class="label">{$lang.tab_friend_comment}：</td>
+    <td>
+     <!--{if $friend_comment}-->
+      <!--{foreach from=$friend_comment key=key item=item}-->
+        <!--{if $key eq 0}-->
+        <a href="javascript:;" onclick="addLadder(this,'friend_comment-table')"><strong>[+]</strong></a>
+        <!--{else}-->
+         <a href="javascript:;" onclick="removeLadder(this,'friend_comment-table')"><strong>[-]</strong></a>
+        <!--{/if}-->
+    <table>
+    <tr>
+    <td>
+    <textarea name="friend_desc[]" cols="85" rows="6">{$item.friend_desc}</textarea></td></tr>
+    <tr><td>{$lang.friend_name}<input name="friend_name[]" type="text" value="{$item.friend_name}"/>{$lang.friend_url}<input name="friend_url[]" type="text" value="{$item.friend_url}"/>{$lang.friend_web}<input name="friend_web[]" type="text" value="{$item.friend_web}"/></td>
+    </tr>
+    </table>
+    <!--{/foreach}-->
+    <!--{else}-->
+        <a href="javascript:;" onclick="addLadder(this,'friend_comment-table')"><strong>[+]</strong></a>
+    <table>
+    <tr>
+    <td>
+    <textarea name="friend_desc[]" cols="90" rows="6">{$item.friend_desc}</textarea></td></tr>
+    <tr><td>{$lang.friend_name}<input name="friend_name[]" type="text" value="{$item.friend_name}"/>&nbsp;&nbsp;{$lang.friend_url}<input name="friend_url[]" type="text" value="{$item.friend_url}"/>&nbsp;&nbsp;{$lang.friend_web}<input name="friend_web[]" type="text" value="{$item.friend_web}"/></td>
+    </tr>
+    </table>
+    <!--{/if}-->
+    </td>
+   </tr>
+</table>
+<table id="tab_seo-table" width="80%" style="display:none">
+  <tr>
+     <td class="label">{$lang.label_group_seo}</td>
+    <td><textarea name="group_keywords" cols="50" rows="5">{$group_buy.group_keywords}</textarea></td>
+  </tr>
+      <tr>
+     <td class="label">{$lang.label_group_seo_desc}</td>
+    <td><textarea name="group_description" cols="50" rows="10">{$group_buy.group_description}</textarea></td>
+  </tr>
+</table>
+
+<table id="group_information-table" width="80%" style="display:none">
+ <tr>
+ <td class="label">{$lang.lab_small_desc}</td><td>
+ <textarea name="small_desc" cols="50" rows="5">{$group_buy.small_desc}</textarea>
+ </td>
+ </tr>
+  <tr>
+     <td class="label">{$lang.label_goods_comment}</td>
+    <td>{$goods_comment}</td>
+  </tr>
+      <tr>
+     <td class="label">{$lang.label_group_comment}</td>
+    <td>{$group_comment}</td>
+  </tr>
+  </tr>
+      <tr>
+     <td class="label">{$lang.label_group_brief}</td>
+    <td>{$group_brief}</td>
+  </tr>
+
+</table>
+ <table width="90%" id="group_suppliers-table" style="display:none" align="center">
+         <tr>
+              <td class="label" width="15%">商家总店：</td>
+              <td width="85%">
+                <select name="ss" onchange="getSuppList(this.value,{$group_buy.group_id});">
+        <option value="0">{$lang.suppliers_no}</option>
+        <!--{foreach from=$suppliers_list_name item=supp}-->
+         <option value="{$supp.suppliers_id}" {if $group_buy.suppliers_id eq $supp.suppliers_id} selected="selected"{/if}>{$supp.suppliers_name}</option>
+        <!--{/foreach}-->
+                </select>
+             </td>
+          </tr>
+          <tr>
+            <td id="tbody-groupSupp" colspan="2" style="padding:0">{$group_supp_html}</td>
+          </tr>
+        </table>
+  <!-- 属性与规格 -->
+        {if $group_attr_list}
+        <table width="90%" id="group_properties-table" style="display:none" align="center">
+         <tr>
+              <td class="label" width="15%"><a href="javascript:('noticeGoodsType');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.lab_goods_type}</td>
+              <td width="85%">
+                <select name="group_attr" onchange="getAttrList({$group_buy.group_id})">
+                  <option value="0">{$lang.sel_goods_type}</option>
+                  {$group_attr_list}
+                </select><br />
+              <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeGoodsType">{$lang.notice_goods_type}</span></td>
+          </tr>
+          <tr>
+            <td id="tbody-groupAttr" colspan="2" style="padding:0">{$group_attr_html}</td>
+          </tr>
+        </table>
+        {/if}
+        <table width="90%" id="gallery-table" style="display:none" align="center">
+          <!-- 图片列表 -->
+          <tr>
+            <td>
+              {foreach from=$img_list item=img key=i}
+              <div id="gallery_{$img.img_id}" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:2px;">
+                <a href="javascript:;" onclick="if (confirm('{$lang.drop_img_confirm}')) dropImg('{$img.img_id}')">[-]</a><br />
+                <a href="goods.php?act=show_image&amp;img_url={$img.img_url}" target="_blank">
+                <img src="../{$img.img_url}"  border="0" withd='100' height='100'/>
+                </a><br />
+                <input type="text" value="{$img.img_desc|escape}" size="15" name="old_img_desc[{$img.img_id}]" />
+                
+              </div>
+              {/foreach}
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <!-- 上传图片 -->
+          <tr>
+            <td>
+              <a href="javascript:;" onclick="addImg(this)">[+]</a>
+              {$lang.img_desc} <input type="text" name="img_desc[]" size="20" />
+              {$lang.img_url} <input type="file" name="img_url[]" />
+              <input type="text" size="40" value="{$lang.img_file}" style="color:#aaa;" onfocus="if (this.value == '{$lang.img_file}'){this.value='http://';this.style.color='#000';}" name="img_file[]"/>(图片大小:460*290)
+            </td>
+          </tr>
+            
+        </table>       
+ <table>
+  <tr>
+    <td class="label">&nbsp;</td>
+    <td>
+      <input name="group_id" type="hidden" id="group_id" value="{$group_buy.group_id}">
+      <input name="old_end_time" type="hidden" id="old_end_time" value="{$group_buy.end_time}">
+      <input name="post_type" type="hidden" id="post_type" value="{$post_type}">
+      <input type="submit" name="submit" value="{$lang.button_submit}" class="button" />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+     </td>
+  </tr>
+
+</table>
+       
+</div>
+</div>
+</form>
+<script language="JavaScript">
+<!--
+{literal}
+region.isAdmin = true;
+// 检查新订单
+startCheckOrder();
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+  var msg = '';
+  var eles = document.forms['theForm'].elements;
+  if (eles['group_name'].value == '')
+  {
+  	msg +=  "- " + error_group_name + "\n";
+  }
+
+  if (eles['market_price'].value <= 0 || ! Utils.isNumber(eles['market_price'].value))
+  {
+  	msg +=  "- " + error_market_price + "\n";
+  }
+  /*if (eles['ladder_amount[]'].value != '1');
+  {
+  	msg += '- 请设置数量达到1时,享受的价格是多少\n';
+  }*/
+  if(eles['ladder_price[]'].value == '')
+  {
+     msg +=  "- " + error_group_price + "\n";
+  }
+  else
+  {  
+     var j = 0;
+     for(i=0; i < eles['ladder_price[]'].length; i++)
+     {
+  	    if (eles['ladder_price[]'][i].value == '')
+	   {
+	     j++;	
+	  }
+     }
+	 if (j == eles['ladder_price[]'].length)
+     {
+  	   msg +=  "- " + error_group_price + "\n";
+     }
+  }
+ if (eles['activity_type'].value != 3 && eles['start_time'].value == '')
+  {
+  	msg +=  "- " + error_start_time + "\n";
+  }
+  if (eles['activity_type'].value != 3 && eles['end_time'].value == '')
+  {
+  	msg +=  "- " + error_end_time + "\n";
+  }
+  if (eles['goods_type'].value == 1)
+  {
+    if (eles['past_time'].value == '')
+	{	  
+  	  msg +=  "- " + error_past_time + "\n";
+	}
+	if (eles['goods_name'].value == '')
+	{	  
+  	  msg +=  "- " + error_goods_name + "\n";
+	}
+  }
+  if (eles['suppliers_id'].value == 0)
+  {
+  	msg +=  "- " + error_suppliers_id + "\n";
+  }
+  if (eles['city_id'].value == 0)
+  {
+  	msg +=  "- " + error_city_id + "\n";
+  }
+  if (eles['lower_orders'].value <= 0)
+  {
+  	msg +=  "- " + error_lower_orders + "\n";
+  }
+  if (eles['shipping_id'].value == 0 && eles['group_freight'].value == '')
+  {
+  	msg +=  "- " + error_group_shipping + "\n";
+  }
+
+  if (msg != '')
+  {
+	alert(msg);  
+  	return false;
+  }
+  else
+  {
+	return true;
+  }
+}
+  function addOtherCity(conObj)
+  {
+      var sel = document.createElement("SELECT");
+      var selCity = document.forms['theForm'].elements['city_id'];
+      for (i = 0; i < selCity.length; i++)
+      {
+          var opt = document.createElement("OPTION");
+          opt.text = selCity.options[i].text;
+          opt.value = selCity.options[i].value;
+          if (Browser.isIE)
+          {
+              sel.add(opt);
+          }
+          else
+          {
+              sel.appendChild(opt);
+          }
+      }
+      conObj.appendChild(sel);
+      sel.name = "other_city[]";
+      sel.onChange = function() {checkIsLeaf(this);};
+  }
+
+/**
+ * 新增一个价格阶梯
+ */
+function addLadder(obj,table_obj, amount, price)
+{
+  var src  = obj.parentNode.parentNode;
+  var idx  = rowindex(src);
+  var tbl  = document.getElementById(table_obj);
+  var row  = tbl.insertRow(idx + 1);
+  var cell = row.insertCell(-1);
+  cell.innerHTML = '';
+  var cell = row.insertCell(-1);
+  cell.innerHTML = src.cells[1].innerHTML.replace(/(.*)(addLadder)(.*)(\[)(\+)/i, "$1removeLadder$3$4-");;
+}
+
+/**
+ * 删除一个价格阶梯
+ */
+function removeLadder(obj,table_obj)
+{
+  var row = rowindex(obj.parentNode.parentNode);
+  var tbl = document.getElementById(table_obj);
+
+  tbl.deleteRow(row);
+}
+  /**
+   * 切换商品类型
+   */
+  function getAttrList(groupId)
+  {
+      var selGoodsType = document.forms['theForm'].elements['group_attr'];
+
+      if (selGoodsType != undefined)
+      {
+          var group_attr = selGoodsType.options[selGoodsType.selectedIndex].value;
+          Ajax.call('group_buy.php?is_ajax=1&act=get_attr', 'group_id=' + groupId + "&group_attr=" + group_attr, setAttrList, "GET", "JSON");
+      }
+  }
+
+  function setAttrList(result, text_result)
+  {
+    document.getElementById('tbody-groupAttr').innerHTML = result.content;
+  }
+
+  /**
+   * 新增一个规格
+   */
+  function addSpec(obj)
+  {
+      var src   = obj.parentNode.parentNode;
+      var idx   = rowindex(src);
+      var tbl   = document.getElementById('attrTable');
+      var row   = tbl.insertRow(idx + 1);
+      var cell1 = row.insertCell(-1);
+      var cell2 = row.insertCell(-1);
+      var regx  = /<a([^>]+)<\/a>/i;
+
+      cell1.className = 'label';
+      cell1.innerHTML = src.childNodes[0].innerHTML.replace(/(.*)(addSpec)(.*)(\[)(\+)/i, "$1removeSpec$3$4-");
+      cell2.innerHTML = src.childNodes[1].innerHTML.replace(/readOnly([^\s|>]*)/i, '');
+  }
+
+  /**
+   * 删除规格值
+   */
+  function removeSpec(obj)
+  {
+      var row = rowindex(obj.parentNode.parentNode);
+      var tbl = document.getElementById('attrTable');
+
+      tbl.deleteRow(row);
+  }
+
+  function addImg(obj)
+  {
+      var src  = obj.parentNode.parentNode;
+      var idx  = rowindex(src);
+      var tbl  = document.getElementById('gallery-table');
+      var row  = tbl.insertRow(idx + 1);
+      var cell = row.insertCell(-1);
+      cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addImg)(.*)(\[)(\+)/i, "$1removeImg$3$4-");
+  }
+
+  /**
+   * 删除图片上传
+   */
+  function removeImg(obj)
+  {
+      var row = rowindex(obj.parentNode.parentNode);
+      var tbl = document.getElementById('gallery-table');
+
+      tbl.deleteRow(row);
+  }
+
+  /**
+   * 删除图片
+   */
+  function dropImg(imgId)
+  {
+    Ajax.call('group_buy.php?is_ajax=1&act=drop_image', "img_id="+imgId, dropImgResponse, "GET", "JSON");
+  }
+
+  function dropImgResponse(result)
+  {
+      if (result.error == 0)
+      {
+          document.getElementById('gallery_' + result.content).style.display = 'none';
+      }
+  }
+
+function changeRange(rangeId)
+{
+  var row = document.getElementById('label_group_stock');
+  if (rangeId == 1)
+  {
+    row.style.display = 'none';
+  }
+  else
+  {
+    row.style.display = '';
+  }
+}
+function del_othercity(cityid)
+{
+  chk = 'other_city';
+  var elems = document.forms['theForm'].getElementsByTagName("INPUT");
+  for (var i=0; i < elems.length; i++)
+  {
+    if ((elems[i].name == chk || elems[i].name == chk + "[]") && elems[i].value == cityid)
+    {
+      elems[i].disabled="disabled";
+	  elems[i].checked = false;
+	}
+	else
+	{
+	  elems[i].disabled="";
+	}
+  }
+}
+function change_shipping(sid)
+{
+	if (sid > 0)
+	{
+	  document.getElementById('group_freight').style.display = 'none';
+	  document.getElementById('pos_express').style.display = 'none';
+	}
+	else
+	{
+	  document.getElementById('group_freight').style.display = '';
+	  document.getElementById('pos_express').style.display = '';
+	}
+}
+ function getSuppList(parent_id,groupId)
+  {
+      if (parent_id > 0)
+      {
+          Ajax.call('group_buy.php?is_ajax=1&act=get_Supp', 'group_id=' + groupId + '&parent_id=' + parent_id, setSuppList, "GET", "JSON");
+      }
+  }
+
+  function setSuppList(result, text_result)
+  {
+    document.getElementById('tbody-groupSupp').innerHTML = result.content;
+  }
+function set_activity_type(type)
+{
+  document.getElementById("lower_orders").removeAttribute("readOnly");
+  document.getElementById("end_time").removeAttribute("readOnly"); 
+  document.getElementById("start_time").removeAttribute("readOnly");
+  document.getElementById('selbtn1').disabled=false;
+  document.getElementById('selbtn2').disabled=false;
+
+  if (type == 2 || type == 3)
+  {	
+    document.getElementById('lower_orders').value= 1;
+	document.getElementById("lower_orders").setAttribute("readOnly","true"); 
+  }
+  if (type == 3)
+  {	
+    //document.getElementById('start_time').value= 1;
+	document.getElementById('selbtn1').disabled=true;
+	document.getElementById('selbtn2').disabled=true;
+    //document.getElementById("end_time").setAttribute("readOnly","true"); 
+	//document.getElementById("start_time").setAttribute("readOnly","true"); 
+  }
+
+}
+//-->
+{/literal}
+</script>
+{insert_scripts files="tab.js"}
+
+
+{include file="pagefooter.htm"}

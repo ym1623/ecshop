@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">{$article.title}</h1>
+<div class="helpmain">
+{$article.content}
+</div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock side-login">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<ul class="helpcenter">
+<!--{foreach from=$group_help item=help}-->
+<li>
+<!--{foreach from=$help.article item=article}--> 
+<a href="{$article.url}" {if $article.article_id eq $id}class="on"{/if}>{$article.title}</a>
+<!--{/foreach}-->
+</li>
+<!--{/foreach}-->
+</ul>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-login-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

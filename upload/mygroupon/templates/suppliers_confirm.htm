@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<div class="list-div" id="listDiv">
+  <form action="import_suppliers.php" method="post" onsubmit="return validate()" name="theForm">
+    <table cellspacing='1' cellpadding='3'>
+       <tr>
+        <th>总店</th>
+        <th colspan="3" align="left"><select name="parent_id">
+    <option value="0">请选择分店</option>
+    <!--{foreach from=$parent_suppliers item=p_suppliers}-->
+    <option value="{$p_suppliers.suppliers_id}">{$p_suppliers.suppliers_name}</option>
+    <!--{/foreach}-->
+    </select>
+</th>
+      </tr>
+
+      <tr>
+        <th><input type="checkbox" checked onclick="listTable.selectAll(this, 'checked')" />{$lang.lab_supp_id}</th>
+        <th>{$lang.lab_supp_name}</th>
+        <th>{$lang.lab_supp_phone}</th>
+        <th>{$lang.lab_supp_address}</th>
+      </tr>
+      {foreach from=$list key=key item=supp}
+      <tr align="center">
+        <td><input type="checkbox" name="checked[]" value="{$key}" checked /> {$key}</td>
+        <td><input type="text" name="suppname[{$key}]" value="{$supp.suppname}" size="15" /></td>
+        <td><input type="text" name="suppphone[{$key}]" value="{$supp.suppphone}" size="15" /></td>
+        <td><input type="text" name="suppaddress[{$key}]" value="{$supp.suppaddress}" size="60" /></td>
+
+      </tr>
+      {/foreach}
+      <tr align="center">
+        <td colspan="6">
+          <input type="hidden" name="act" value="batch_insert" />
+          <input type="submit" name="submit" value="{$lang.button_submit}" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script language="JavaScript">
+<!--
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+	if (document.getElementById('parent_id').value == 0)
+	{
+		alert('请选择分店');
+		return false;
+	}
+    return true;
+}
+//-->
+</script>
+
+{include file="pagefooter.htm"}

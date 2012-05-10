@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!--{if $class_list}-->
+<ul class="usernav clearfix">
+<li><a href="{$class_url}" {if $catid eq '0'}class="on"{/if}>所有<span></span></a></li>
+<!--{foreach from=$class_list item=class}-->
+<li><a href="{$class.url}" {if $class.cid eq $catid}class="on"{/if}>{$class.class_name}<span></span></a></li>
+<!--{/foreach}-->
+</ul>
+<!--{/if}-->
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">品牌商户</h1>
+<ul id="deals-list" class="clearfix">
+<!--{foreach from=$suppliers_list item=suppliers} -->
+<li class="par-list">
+<h4><a href="{$suppliers.url}">{$suppliers.suppliers_name|escape:html}</a></h4>
+<a href="{$suppliers.url}" class="thumb"><img src="{$suppliers.spread_img}" border="0"  width="200" height="121" alt="{$group_buy.group_name|escape:html}" /></a>
+<div class="info">参团：<strong>{$suppliers.group_num}</strong> 次<br>让利：{$suppliers.formated_save_amount}<br>购买：<strong>{$suppliers.person_num}</strong> 人次<p>电话：{$suppliers.phone}</p></div>
+</li>
+<!--{/foreach}--> 
+</ul>
+<!--/deals-list-->
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem --></div>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_seller.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

@@ -1,0 +1,15 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="sideblock side-ask" style="margin-top:0;">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">本单答疑</h1>
+<p class="link"><a href="{$ask_url}">查看全部({$comment_num})</a> | <a href="{$ask_url}">我要提问</a></p>
+<ul>
+<!--{foreach from=$group_comment item=comment}-->
+<li><a href="{$comment.url}">{$comment.content|truncate:30}</a></li>
+<!--{/foreach}-->
+</ul>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-ask-->

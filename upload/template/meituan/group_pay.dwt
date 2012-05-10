@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix" style="margin-top:20px;">
+<div class="box-top3"></div>
+<div class="messages" style="padding:0;">
+<h1 class="title2" style="padding-left:20px;">您的订单号是：{$order.order_sn}，应付总额：<font style="font-family:Helvetica,arial,sans-serif;">{$order.formated_order_amount}</font></h1>
+<div class="minfo" style="text-align:center;">
+<!-- {if $pay_online} -->{$pay_online}<!--{/if}-->
+<!--{if $order.order_amount gt '0'}-->              
+<a href="check.php?id={$order.order_id}" style="font-size:12px;color:#6C6C6C;margin-top:5px;display:block;">» 返回选择其他支付方式</a>
+<!--{else}-->
+<a href="myorders.php" style="font-size:12px;color:#6C6C6C;margin-top:5px;display:block;">» 返回用户中心，查看订单</a>
+<!--{/if}-->
+</div>
+</div>
+<!--/messages-->
+<div class="box-bottom3"></div>
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<ul class="usernav clearfix">
+<li><a href="topman.php?type=seconds" {if $type eq 'seconds'}class="on"{/if}>秒杀达人<span></span></a></li>
+<li><a href="topman.php?type=invite" {if $type eq 'invite'}class="on"{/if}>邀请达人<span></span></a></li>
+<li><a href="topman.php?type=expense" {if $type eq 'expense'}class="on"{/if}>消费达人<span></span></a></li>
+<li><a href="topman.php?type=today" {if $type eq 'today'}class="on"{/if}>今日达人<span></span></a></li>
+
+</ul>
+<div class="box-top2"></div>
+<div class="sect">
+<!--{if $type eq 'seconds'}-->
+<table class="topmanlist">
+	<tr>
+		<th width="50">排名</th>
+		<th width="200">用户名</th>
+		<th width="200">总共秒中</th>
+		<th>今日秒中</th>
+	</tr>
+    <!--{foreach from=$topmanlist item=user key=key}-->
+	<tr>
+		<td {if $key le 3}class="top"{/if}>{$key}</td>
+		<td>{$user.user_name}</td>
+		<td>{$user.goods_number}件商品</td>
+		<td>{$user.today_number}件商品</td>
+	</tr>
+    <!--{/foreach}-->
+</table>
+<!--{/if}-->
+<!--/秒杀达人-->
+<!--{if $type eq 'invite'}-->
+<table class="topmanlist">
+	<tr>
+		<th width="50">排名</th>
+		<th width="200">用户名</th>
+		<th width="200">邀请用户</th>
+		<th>获得返利</th>
+	</tr>
+   <!--{foreach from=$topmanlist item=user key=key}-->
+	<tr>
+		<td {if $key le 3}class="top"{/if}>{$key}</td>
+		<td>{$user.user_name}</td>
+		<td>{$user.user_num}</td>
+		<td>{$user.formated_all_rebate}</td>
+	</tr>
+    <!--{/foreach}-->
+
+</table>
+<!--{/if}-->
+<!--/邀请达人-->
+<!--{if $type eq 'expense'}-->
+<table class="topmanlist">
+	<tr>
+		<th width="50">排名</th>
+		<th width="200">用户名</th>
+		<th width="200">总购买</th>
+		<th>共节省</th>
+	</tr>
+	 <!--{foreach from=$topmanlist item=user key=key}-->
+	<tr>
+		<td {if $key le 3}class="top"{/if}>{$key}</td>
+		<td>{$user.user_name}</td>
+		<td>{$user.goods_number}件商品</td>
+		<td>{$user.formated_save_amount}</td>
+	</tr>
+    <!--{/foreach}-->
+</table>
+<!--/消费达人-->
+<!--{/if}-->
+<!--{if $type eq 'today'}-->
+<table class="topmanlist">
+<tr>
+    <td colspan="4" style="text-align:left;"><strong>消费达人</strong></td>
+</tr>
+	<tr>
+		<th width="50">排名</th>
+		<th width="200">用户名</th>
+		<th width="200">今日购买</th>
+		<th>共节省</th>
+	</tr>
+	 <!--{foreach from=$todaylist item=user key=key}-->
+	<tr>
+		<td {if $key le 3}class="top"{/if}>{$key}</td>
+		<td>{$user.user_name}</td>
+		<td>{$user.goods_number}件商品</td>
+		<td>{$user.formated_save_amount}</td>
+	</tr>
+    <!--{/foreach}-->
+</table>
+<table class="topmanlist">
+<tr>
+    <td colspan="4" style="text-align:left;"><strong>邀请达人</strong></td>
+</tr>
+	<tr>
+		<th width="50">排名</th>
+		<th width="200">用户名</th>
+		<th width="200">今日邀请</th>
+		<th>获得返利</th>
+	</tr>
+	 <!--{foreach from=$invitelist item=user key=key}-->
+	<tr>
+		<td {if $key le 3}class="top"{/if}>{$key}</td>
+		<td>{$user.user_name}</td>
+		<td>{$user.user_num}件商品</td>
+		<td>{$user.formated_all_rebate}</td>
+	</tr>
+    <!--{/foreach}-->
+</table>
+
+<!--/消费达人-->
+<!--{/if}-->
+
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_vote.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

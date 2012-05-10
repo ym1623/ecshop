@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='group.js,jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix" style="margin-top:20px;">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2" style="padding-left:20px;">邀请有奖</h1>
+<!--{if $uid eq '0'}-->
+<div class="minfo"  style="width:94%;margin:15px auto 0;">当好友接受您的邀请，在{$group_shopname}上首次成功购买，系统返还一定金额到您的{$group_shopname}电子账户，下次团购时可直接用于支付。没有数量限制，邀请越多，返利越多。<br /><br /><strong>请先 <a href="login.php">登录</a> 或者 <a href="signup.php">注册</a>，获取您的专用邀请链接。</strong></div>
+<!--{/if}-->
+<!--{if $uid gt '0'}-->
+<div style="padding:10px 20px;width:90%;margin:15px auto;border:1px solid #89B4D6;background:#EFFAFE;"><strong><a href="account.php?act=credit">查看我的邀请记录>></a></strong></div>
+<p style="padding:10px 20px;">当好友接受您的邀请，在{$group_shopname}上下单，系统将会在用户购买成功后返还 {$goods_rebate} 元到您的{$group_shopname}电子账户，下次团购时可直接用于支付。没有数量限制，邀请越多，返利越多。</p>
+<p style="padding:10px 20px;line-height:2;"><strong>这是您的专用邀请链接，请通过 MSN 或 QQ 发送给好友：</strong> <br /><input onfocus="this.select()" type="text" class="txt" size="60" value="{$intvite_url}" /></p>
+<h1 class="title2" style="padding-left:20px;border:none;font-size:14px;">>>返利列表</h1>
+<table class="topmanlist">
+	<tr>
+		<th>被邀请人</th>
+		<th>返利金额</th>
+		<th>时间</th>
+	</tr>
+<!--{foreach from=$invite_user item=user}-->    
+	<tr>
+		<td>{$user.user_name}</td>
+		<td>{$user.formated_goods_rebate}</td>
+		<td>{$user.formated_add_time}</td>
+	</tr>
+<!--{/foreach}-->    
+</table>
+<div class="pages"><!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem --></div>
+<!--{/if}-->
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock">
+<div class="sbox-top"></div>
+<div class="sidemain" style="line-height:2;">
+<strong>在哪里可以看到我的返利？</strong>
+<p>如果邀请成功，在本页面会看到成功邀请列表。在"帐户设置"页右侧，可看到您目前电子账户的余额。返利金额不返现，可在下次团购时用于支付。</p>
+<strong>好友已经注册过{$group_shopname}，邀请购买还有效么？</strong>
+<p>只要好友是首次购买，不管之前是否注册过{$group_shopname}账户都有效。</p>
+
+<strong>哪些情况会导致邀请返利失效？</strong>
+<p>1.好友点击邀请链接后超过 {$group_hours} 小时才购买<br />
+2.好友购买之前点击了其他人的邀请链接 <br />
+3.好友的本次购买不是首次购买 <br />
+4.由于最终团购人数没有达到人数下限，本次团购取消 <br />
+5.自己邀请自己也能获得返利吗？<br />
+6.不可以。我们会人工核查，对于查实的作弊行为，不返利。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-yaoqing-->
+</div>
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.validate.pack.js,group_region.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<!-- #BeginLibraryItem "/library/group_user_menu.lbi" --><!-- #EndLibraryItem -->
+<div class="box-top2"></div>
+<!--{if $action eq 'credit'}-->
+<div class="sect">
+<h1 class="title2">帐户余额</h1>
+<div style="padding:10px 20px;width:90%;margin:15px auto;border:1px solid #FFEC19;background:#FFFBCC;">充值到{$group_shopname}帐户，方便抢购！<a href="account.php?act=charge"> » 立即充值</a></div>
+<p class="dnum">您的账户余额是：<strong style="font-size:24px;font-family:Helvetica,Arial,sans-serif;">{$surplus_amount}</strong> 元</p>
+<table class="carttable">
+<tr>
+<th height="40" width="120">时间</th>
+<th>详情</th>
+<th>收支</th>
+<th>金额(元)</th>
+</tr>
+<!--订单详情循环开始-->
+<!--{foreach from=$account_log item=item}-->
+<tr>
+<td align="center">{$item.change_time}</td>
+<td>{$item.short_change_desc}</td>
+<td align="center">{$item.type}</td>
+<td align="center">{$item.amount}</td>
+</tr>
+<!--{/foreach}-->
+<!--订单详情循环结束-->
+</table>
+<div class="pages">
+<!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+</div>
+<!--/sect-->
+<!--{elseif $action eq 'settings'}-->
+<div class="sect">
+<h1 class="title2" style="margin-bottom:20px;">帐户设置</h1>
+<form name="formEdit" action="account.php" method="post" id="loginForm">
+<table class="dataTab" width="100%">
+<tr>
+<td align="right" valign="top" width="120"><strong>Email</strong></td>
+<td>
+<input type="text" value="{$profile.email}" class="txt" name="email" disabled="disabled" size="60" /><span>请输入有效的Email地址，登录及找回密码用，不会公开</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>用户名</strong></td>
+<td><input type="text" value="{$profile.user_name}" class="txt" disabled="disabled" size="60" /><span>4-16 个字符，一个汉字为两个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>密码</strong></td>
+<td>
+<input type="password" class="txt" name="new_password" id="new_password" size="60" /><span>最少 4 个字符</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>确认密码</strong></td>
+<td>
+<input type="password" class="txt" name="confirm_password" id="confirm_password" size="60" /><span>请重复输入密码</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>手机号码</strong></td>
+<td>
+<input type="text" class="txt" name="mobile_phone" value="{$profile.mobile_phone}" id="mobile_phone" /><span>手机号码是我们联系你的最重要的联系方式，并用于{$group_cardname}的短信通知</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>所在城市</strong></td>
+<td>
+<select class="f-city" name="city_id">
+<!--{foreach from=$group_city item=city}-->
+<option value="{$city.city_id}"{if $city.city_id eq $profile.city_id} selected="selected"{/if}>{$city.city_name}</option>
+<!--{/foreach}-->
+</select>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="checkbox" checked="checked" class="f-check" />
+<input name="act" type="hidden" value="act_settings" />
+订阅每日最新团购信息<br /><input type="submit" class="but" value="修改" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<!--{elseif $action eq 'address'}-->
+<div class="sect">
+<h1 class="title2" style="margin-bottom:20px;">配送地址</h1>
+<form name="formEdit" action="account.php" method="post" id="group_address">
+<table class="dataTab" width="100%">
+<tr>
+<td align="right" valign="top" width="120"><strong>收件人</strong></td>
+<td>
+<input type="text" value="{$consignee.consignee}" name="consignee" class="txt" size="60" id="consignee" /><span>这里填写您的真实姓名，仅作接收快递时使用。</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>手机号</strong></td>
+<td><input type="text" value="{$consignee.mobile}" name="mobile" class="txt" size="20" /><span>手机号码是我们联系你的最重要的联系方式</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>省市区</strong></td>
+<td>
+   <select name="country" id="selCountries" onchange="region.changed(this, 1, 'selProvinces')" style="border:1px solid #ccc;">
+        <option value="0">请选择国家</option>
+        <!-- {foreach from=$country_list item=country} -->
+        <option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="province" id="selProvinces" onchange="region.changed(this, 2, 'selCities')" style="border:1px solid #ccc;">
+        <option value="0">请选择省区</option>
+        <!-- {foreach from=$province_list item=province} -->
+        <option value="{$province.region_id}" {if $consignee.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="city" id="selCities" onchange="region.changed(this, 3, 'selDistricts')" style="border:1px solid #ccc;">
+        <option value="0">请选择城市</option>
+        <!-- {foreach from=$city_list item=city} -->
+        <option value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+        <!-- {/foreach} -->
+      </select>
+      <select name="district" id="selDistricts" {if $consignee.district lte '0'}style="display:none"{/if} onchange="region.set_address()">
+        <option value="0">请选择市区</option>
+                <!-- {foreach from=$district_list item=district} -->
+        <option value="{$district.region_id}" {if $consignee.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+        <!-- {/foreach} -->
+      </select></td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>收件地址</strong></td>
+<td>
+<input type="text" class="txt" size="60" name="address" value="{$consignee.address}" id="address" /><span>选择地区并补全地址</span>
+</td>
+</tr>
+<tr>
+<td align="right" valign="top"><strong>邮政编码</strong></td>
+<td>
+<input type="text" class="txt" name="zipcode" value="{$consignee.zipcode}" id="zipcode" /></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input name="act" type="hidden" value="act_address" />
+  <input type="hidden" name="address_id" value="{$consignee.address_id}" />
+<input type="submit" class="but" value="修改" />
+</td>
+</tr>
+</table>
+</form>
+</div>
+<!--{elseif $action eq 'charge'}-->
+<div class="sect">
+<h1 class="title2" style="margin-bottom:20px;">账户充值</h1>
+<form action="#" method="post" id="form_amount">
+<table class="dataTab" style="width:90%;margin:0 auto;">
+<tr>
+<td width="120"><strong>请输入充值金额：</strong></td>
+<td>
+<input type="text" name="amount"  class="txt" value="{$order.amount}" size="30" id="amount" /></td>
+</tr>
+<tr>
+<td></td>
+<td>
+<!-- {foreach from=$payment item=list} -->
+<input type="radio" name="payment_id" value="{$list.pay_id}" {if $pid eq $list.pay_id}checked="checked"{/if} /> {$list.pay_name}&nbsp;&nbsp;
+<!-- {/foreach} -->
+</td></tr>
+<tr>
+  <td></td>
+  <td>
+  <input type="hidden" name="rec_id" value="{$order.id}" />
+  <input type="hidden" name="act" value="act_charge" />
+  <input type="submit" class="but" value="确定，去充值" />
+  </td>
+</tr>
+</table>
+</form>
+<!--{if $account_log}-->
+<h1 class="title2">充值记录</h1>
+<table class="carttable">
+<tr>
+<th height="40" width="120">操作时间</th>
+<th>金额(元)</th>
+<th>管理员备注</th>
+<th>支付方式</th>
+<th>付款状态</th>
+<th>操作</th>
+</tr>
+ <!--{foreach from=$account_log item=item}-->
+          <tr>
+            <td align="center" >{$item.add_time}</td>
+            <td align="center">{$item.amount}</td>
+            <td align="center">{$item.short_admin_note}</td>
+            <td align="center">{$item.payment}</td>
+            <td align="center">{$item.pay_status}</td>
+            <td align="center" >{$item.handle}
+              <!-- {if ($item.is_paid eq 0) || $item.handle} -->
+              <a href="account.php?act=cancel&id={$item.id}" onclick="if (!confirm('{$confirm_remove_account}')) return false;">{$lang.is_cancel}</a>
+              <!-- {/if} -->
+			</td>
+          </tr>
+          <!--{/foreach}-->
+</table>
+<div class="pages">
+<!-- #BeginLibraryItem "/library/group_pages.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--{/if}-->
+</div>
+<!--{elseif $action eq 'act_charge'}-->
+<div class="sect">
+<h1 class="title2">充值金额：<strong style="font-size:24px;color:#f00;">{$order.order_amount}</strong> 元</h1>
+<!--出现被选择的一种支付方式-->
+<div class="minfo" style="text-align:center;"><br />
+{if $payment.pay_button}{$payment.pay_button}{else}{$payment.pay_desc}{/if}
+<a href="account.php?act=pay&id={$order.order_sn}" style="font-size:12px;color:#6C6C6C;margin-top:5px;display:block;">» 返回选择其他支付方式</a></div>
+</div>
+<!--{/if}-->
+<!--/sect-->
+<!--支付成功后在messages页面进行提示-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock uside-top">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<strong>什么是账户余额？</strong>
+<p>账户余额是你在{$group_shopname}团购时可用于支付的金额。</p>
+<strong>可以往账户里充值么？</strong>
+<p>请到<a href="account.php?act=credit">账户余额</a>菜单，在线充值。</p>
+<strong>那怎样才能有余额？</strong>
+<p>邀请好友获得返利将充值到账户余额，参加团购亦可获得返利。</p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/sideblock-->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+
+</html>

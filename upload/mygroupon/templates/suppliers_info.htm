@@ -1,0 +1,172 @@
+<!-- $Id: agency_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="validator.js,../js/transport.js,../js/region.js"}
+<div class="main-div">
+<form method="post" action="suppliers.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label" width="180">{$lang.label_suppliers_name}</td>
+    <td><input type="text" name="suppliers_name" maxlength="60" value="{$suppliers.suppliers_name}" />{$lang.require_field}</td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_parent_suppliers}</td>
+    <td>
+    <select name="parent_id">
+    <option value="0">{$lang.label_top_suppliers}</option>
+    <!--{foreach from=$parent_suppliers item=p_suppliers}-->
+    <option value="{$p_suppliers.suppliers_id}" {if $p_suppliers.suppliers_id eq $suppliers.parent_id} selected="selected"{/if}>{$p_suppliers.suppliers_name}</option>
+    <!--{/foreach}-->
+    </select>
+    </td>
+  </tr>
+   <tr>
+    <td class="label">{$lang.label_cat_suppliers}：</td>
+    <td>
+    <select name="cid">
+  <option value="0">{$lang.select_cat_suppliers}</option>
+<!-- {foreach from=$cat_list item=cat} -->
+<option value="{$cat.cid}" {if $suppliers.cid eq $cat.cid}selected="selected"{/if}>{$cat.class_name}</option>
+<!-- {/foreach} -->
+</select>
+    </td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.please_select_city}：</td>
+    <td>
+<select name="city_id" style="border:1px solid #ccc;">
+<option value="0">{$lang.please_select_city}</option>
+<!-- {foreach from=$city_list item=city} -->
+<option value="{$city.city_id}" {if $suppliers.city_id eq $city.city_id}selected="selected"{/if}>{$city.city_name}</option>
+<!-- {/foreach} -->
+</select>
+    </td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_east_way}</td>
+    <td><input type="text" name="east_way" maxlength="60" value="{$suppliers.east_way}" /></td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_west_way}</td>
+    <td><input type="text" name="west_way" maxlength="60" value="{$suppliers.west_way}" /></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_suppliers_site}</td>
+    <td><input type="text" name="suppliers_site" maxlength="60" value="{$suppliers.suppliers_site}" /><span class="notice-span">{$lang.suppliers_site_desc}</span></td>
+  </tr>
+ <tr>
+    <td class="label">{$lang.label_suppliers_area}</td>
+    <td>
+    <textarea type="text" name="suppliers_area" rows="5" cols="70">{$suppliers.suppliers_area}</textarea>
+    <span class="notice-span">{$lang.suppliers_area_desc}</span></td>
+  </tr>
+
+    <tr>
+    <td class="label">{$lang.label_user_name}</td>
+    <td><input type="text" name="user_name" maxlength="60" value="{$suppliers.user_name}" />{$lang.require_field}</td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_password}</td>
+    <td><input type="password" name="password" maxlength="60" value="" />{$lang.require_field}</td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_linkman}</td>
+    <td><input type="text" name="linkman" maxlength="60" value="{$suppliers.linkman}" /></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_phone}</td>
+    <td><input type="text" name="phone" maxlength="60" value="{$suppliers.phone}" /></td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_is_show}：</td>
+    <td><input type="radio" value="0" {if $suppliers.is_show eq '0'}checked="checked"{/if} name="is_show"/>{$lang.is_show[0]}&nbsp;&nbsp;
+    <input type="radio" value="1" name="is_show" {if $suppliers.is_show eq '1'}checked="checked"{/if}/>{$lang.is_show[1]}
+    </td>
+  </tr>
+   <tr>
+    <td class="label">{$lang.label_is_ship}：</td>
+    <td><input type="radio" value="0" {if $suppliers.is_ship eq '0'}checked="checked"{/if} name="is_ship"/>{$lang.is_ship[0]}&nbsp;&nbsp;
+    <input type="radio" value="1" name="is_ship" {if $suppliers.is_ship eq '1'}checked="checked"{/if}/>{$lang.is_ship[1]}
+    <span class="notice-span">{$lang.is_ship_desc}</span></td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_spread_img}</td>
+    <td><input type="file" name="spread_img" maxlength="60" value="{$suppliers.spread_img}" size="30"/>{if $suppliers.spread_img}<a href="../{$suppliers.spread_img}" target="_blank"><img src="images/yes.gif" border="0" /></a>{else}<img src="images/no.gif" />{/if}</td>
+  </tr>
+
+    <tr>
+    <td class="label">{$lang.label_address_img}</td>
+    <td><input type="file" name="address_img" maxlength="60" value="{$suppliers.address_img}" size="30"/>{if $suppliers.address_img}<a href="../{$suppliers.address_img}" target="_blank"><img src="images/yes.gif" border="0" /></a>{else}<img src="images/no.gif" />{/if}</td>
+  </tr>
+
+    <tr>
+    <td class="label">{$lang.label_open_banks}</td>
+    <td><input type="text" name="open_banks" maxlength="60" value="{$suppliers.open_banks}" size="40"/></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_banks_user}</td>
+    <td><input type="text" name="banks_user" maxlength="60" value="{$suppliers.banks_user}" size="40"/></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.label_banks_account}</td>
+    <td><input type="text" name="banks_account" maxlength="60" value="{$suppliers.banks_account}" size="40"/></td>
+  </tr>
+        <tr>
+    <td class="label">{$lang.label_website}</td>
+    <td><input type="text" name="website" maxlength="60" value="{$suppliers.website}" size="50"/></td>
+  </tr>
+      <tr>
+    <td class="label">{$lang.label_address}</td>
+    <td><input type="text" name="address" maxlength="60" value="{$suppliers.address}" size="50"/></td>
+  </tr>
+
+  <tr>
+    <td class="label">{$lang.label_suppliers_desc}</td>
+    <td>{$suppliers_desc}</td>
+  </tr>
+  <tr>
+    <td class="label">
+    <a href="javascript:showNotice('noticeAdmins');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.label_admins}</td>
+    <td>{foreach from=$suppliers.admin_list item=admin}
+      <input type="checkbox" name="admins[]" value="{$admin.user_id}" {if $admin.type eq "this"}checked="checked"{/if} />
+      {$admin.user_name}{if $admin.type eq "other"}(*){/if}&nbsp;&nbsp;
+    {/foreach}<br />
+    <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeAdmins">{$lang.notice_admins}</span></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$suppliers.suppliers_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['suppliers_name'].focus();
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("suppliers_name",  no_suppliers_name);
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

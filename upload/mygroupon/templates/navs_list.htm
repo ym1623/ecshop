@@ -1,0 +1,59 @@
+<!-- $Id: nav_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+<form method="post" action="" name="listForm">
+<!-- start ads list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th><a href="javascript:listTable.sort('nav_name'); ">{$lang.nav_name}</a>{$sort_nav_name}</th>
+    <th><a href="javascript:listTable.sort('nav_url'); ">{$lang.nav_url}</a>{$sort_nav_url}</th>
+    <th><a href="javascript:listTable.sort('is_show'); ">{$lang.is_show}</a>{$sort_is_show}</th>
+    <th><a href="javascript:listTable.sort('show_order'); ">{$lang.show_order}</a>{$sort_show_order}</th>
+    <th>{$lang.handler}</th>
+  </tr>
+  <tr>
+  {foreach from=$navs_list item=nav}
+  <tr>
+    <td class="first-cell"><span onclick="listTable.edit(this, 'edit_nav_name', {$nav.nav_id})">{$nav.nav_name|escape:html}</span></td>
+    <td align="left"><span><a href="{$nav.nav_url}" target="_blank">{$nav.nav_url|escape:html}</a></span></td>
+    <td align="center"><img src="images/{if $nav.is_show}yes{else}no{/if}.gif" onclick="listTable.toggle(this, 'edit_is_show', {$nav.nav_id})" /></td>
+    <td align="right"><span onclick="listTable.edit(this, 'edit_show_order', {$nav.nav_id})">{$nav.show_order}</span></td>
+    <td align="center"><span>
+    <a href="group_navigation.php?act=edit&id={$nav.nav_id}" title="{$lang.edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>&nbsp;
+    <a href="javascript:;" onclick="listTable.remove({$nav.nav_id}, '{$lang.drop_confirm}')" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a></span></td>
+  </tr>
+  {foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_navs}</td></tr>
+  {/foreach}
+  <tr>
+    <td align="right" nowrap="true" colspan="10">{include file="page.htm"}</td>
+  </tr>
+</table>
+
+{if $full_page}
+</div>
+<!-- end ad_position list -->
+</form>
+
+<script type="text/javascript" language="JavaScript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+  {literal}
+  onload = function()
+  {
+    // 开始检查订单
+    startCheckOrder();
+  }
+  {/literal}
+</script>
+{include file="pagefooter.htm"}
+{/if}

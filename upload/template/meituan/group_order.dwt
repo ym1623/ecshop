@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,group.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<form action="buy.php?a=pay" method="post" name="theForm" id="theForm" onsubmit="return checkOrder(this);">
+<div class="mainbox clearfix">
+<div class="maininfo lf">
+<div class="box-top2"></div>
+<div class="sect">
+<h1 class="title2">您的订单</h1>
+<table class="carttable" width="100%">
+<tr>
+<th height="40">项目</th>
+<th>数量</th>
+<th>&nbsp;</th>
+<th>价格</th>
+<th>&nbsp;</th>
+<th>总价</th>
+</tr>
+<tr>
+<td align="left" style="width:260px;">{$group_arr.goods_name}<!--{if $group_arr.goods_attr neq ''}-->&nbsp;&nbsp;(选中{$group_arr.goods_attr})<!--{/if}--></td>
+<td align="center">
+{$group_arr.goods_number}
+</td>
+<td align="center">x</td>
+<td align="center">{$group_arr.formated_goods_price}</td>
+<td align="center" style="width:30px;">=</td>
+<td align="center" style="width:80px;"><strong>{$group_arr.formated_subtotal}</strong></td>
+</tr>
+<tr>
+<td><strong>快递：</strong><span id="free_money"><!--{if $group_arr.free_money gt 0}-->满{$group_arr.formated_free_money}免邮费<!--{/if}--></span></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">=</td>
+<td align="center"><strong>{$group_arr.formated_shipping_fee}</strong></td>
+</tr>
+<tr>
+<td><strong>订单总额：</strong></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td align="center">=</td>
+<td align="center"><strong>{$group_arr.formated_all_amount}</strong></td>
+</tr>
+</table>
+<h1 class="title2">在线支付</h1>
+<table class="dataTab" width="100%">
+<!--{if $group_arr.pay_money gt '0'}-->
+<tr>
+<td>
+<!--{if $group_arr.bonus gt '0'}-->
+<div id="pay_money" class="tip">您的账户余额：<strong class="c1">{$group_arr.formated_used_money}</strong>， 使用代金券：<strong class="c1">{$group_arr.formated_bonus}</strong> ，您还需支付 <strong>{$group_arr.formated_pay_money}</strong>。
+<!--{if $group_secondspay eq '0'}-->您可以在线支付 或 <a href="account.php?act=charge" target="_blank">立即充值</a><!--{else}-->请选择支付方式：<!--{/if}--></div>
+<!--{else}-->
+<div id="pay_money" class="tip">您的账户余额：<strong class="c1">{$group_arr.formated_used_money}</strong>， 不够完成本次付款，还需支付 <strong class="c1">{$group_arr.formated_pay_money}</strong>。<!--{if $group_secondspay eq '0'}-->您可以在线支付 或 <a href="account.php?act=charge" target="_blank">立即充值</a><!--{else}-->请选择支付方式：<!--{/if}--></div>
+<!--{/if}-->
+</td>
+</tr>
+<tr>
+<td style="padding:10px;">
+<b style="font-size:14px;">选择支付方式：</b>
+<div id="payment" class="clearfix">
+<!-- {foreach from=$payment_list item=payment} -->
+<span>
+<input type="radio" name="payment" value="{$payment.pay_id}"{if $group_arr.pay_id eq $payment.pay_id} checked="checked"{/if} />
+<img src="images/{$payment.pay_code}.gif" alt="{$payment.pay_name}" height="35" />{$payment.pay_name}
+</span>
+<!--{/foreach}-->
+</div>
+</td>
+</tr>
+<!--{else}-->
+<tr>
+<td>
+<!--{if $group_arr.bonus gt '0'}-->
+<div id="pay_money" class="tip">使用帐户余额：<strong class="c1">{$group_arr.formated_used_money}</strong>，使用代金券：<strong class="c1">{$group_arr.formated_bonus}</strong> ， 您已完成本次付款。</div>
+<!--{else}-->
+<div id="pay_money" class="tip">使用帐户余额：<strong class="c1">{$group_arr.formated_used_money}</strong> ，您的余额已完成本次付款。</div>
+<!--{/if}-->
+</td>
+<input type="radio" name="payment" value="-1" checked style="display:none" />
+</tr>
+<!--{/if}-->
+<tr>
+  <td style="padding-top:10px;">
+   <input name="act" value="{$act}" type="hidden" />
+   <input name="orderid" id="orderid"  value="{$order_id|default:0}" type="hidden" />
+  <input type="submit" class="but" value="提交订单" />
+  <!--{if $act eq 'insert'}-->
+  &nbsp;&nbsp;<a href="buy.php?a=cart">返回修改订单</a>
+  <!--{/if}-->
+    </td>
+</tr>
+</table>
+</div>
+<!--/sect-->
+<div class="box-bottom2"></div>
+</div>
+<!--/maininfo-->
+<div class="sidebox rf">
+<div class="sideblock side-flow">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">账户余额</h1>
+<p>您的帐户余额：<span>{$group_arr.formated_user_money}</span></p>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-flow-->
+<div class="sideblock side-flow">
+<div class="sbox-top"></div>
+<div class="sidemain">
+<h1 class="title2">您有代金券吗？</h1>
+<p>可代现金最多为：<span id='bonus_money'>{$group_arr.formated_bonus}</span></p>
+<p>使用代金券不找零，不退余额</p>
+<table class="dataTab">
+<tr><td>
+<input name="bonus_sn" type="text" class="txt" value="" id="bonus_sn" {if $group_arr.is_use_bonus eq '1'}disabled="disabled"{/if} size="30" />
+</td></tr>
+<tr><td>
+<input type="button" class="but" value="确定" onclick="check_bonus()" />
+</td></tr>
+</table>
+</div>
+<div class="sbox-bottom"></div>
+</div>
+<!--/side-flow-->
+</div>
+<!--/sidebox-->
+</div>
+</form>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

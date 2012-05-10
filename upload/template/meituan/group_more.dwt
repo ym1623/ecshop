@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$city_info.city_title}</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="slides.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,group.js,jquery.lightbox.js,countdown.pack.js,jquery-ecg.js'}
+</head>
+<body id="indexbody">
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix">
+<!-- {insert name='last_order'}-->
+<div class="mainboxleft lf">
+<!--{foreach from=$more_group item=group_buy key=id}-->
+<!-- #BeginLibraryItem "/library/group_share.lbi" --><!-- #EndLibraryItem -->
+<div id="todayteam" class="clearfix">
+<h1 id="teamtitle"><span>今日团购：</span><a href="{$group_buy.url}">{$group_buy.group_name}</a></h1>
+<!-- {insert name='group_stats' group_id=$group_buy.group_id}-->
+<!--/team-about-->
+<div class="team-pic rf">
+<div class="slides">
+<ul class="slide-pic">
+<li><a href="{$group_buy.url}"><img alt="{$group_buy.group_name}" src="{$group_buy.group_image}" /></a></li>
+</ul>
+</div>
+</div>
+<!--/team-pic-->
+</div>
+<!--{/foreach}-->
+</div>
+<!-- /mainboxleft -->
+<div class="sidebox rf">
+<!-- #BeginLibraryItem "/library/group_ask.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_gonggao.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_dream.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_seller.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_online.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/group_vote.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!--/sidebox-->
+</div>
+<!--/mainbox-->
+</div>
+<!--/box-->
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+$(function(){
+<!--{foreach from=$more_group item=group_buy}-->
+$("#leftTime_{$group_buy.group_id}").countdown({until:new Date({$group_buy.endtime}),serverSync:serverTime});
+<!--{/foreach}-->
+});
+//缓存服务器时间函数
+function serverTime() { 
+    var time = null; 
+    $.ajax({url: 'serverTime.php', 
+        async: false, dataType: 'text',
+        success: function(text) { 
+            time = new Date(text); 
+        }, error: function(http, message, exc) { 
+            time = new Date(); 
+    }});
+    return time; 
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$group_shopname} - 友情链接</title>
+<meta name="description" content="{$city_info.city_desc}" />
+<meta name="keywords" content="{$city_info.city_keyword}" />
+{if $auto_redirect}
+<meta http-equiv="refresh" content="3;URL={$message.back_url}" />
+{/if}
+<!-- TemplateBeginEditable name="doctitle" -->
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="lightbox.css" rel="stylesheet" type="text/css" />
+{insert_scripts files='jquery.min.js,jquery.lightbox.js,jquery-ecg.js'}
+</head>
+<body>
+<div id="box">
+<!-- #BeginLibraryItem "/library/group_header.lbi" --><!-- #EndLibraryItem -->
+<div class="mainbox clearfix" style="margin-top:20px;">
+<div class="box-top3"></div>
+<div class="messages">
+<h1 class="title2">友情链接</h1>
+<div class="minfo">
+<div class="flinkbox">
+<!--{if $img_links}-->
+<h2 class="title">图片链接</h2>
+<table class="dataTab carttable" width="100%"><tr><td class="top">
+<!--{foreach from=$img_links item=link}-->
+<a href="{$link.url}" title="{$link.name}" target="_blank"><img src="{$link.logo}" alt="{$link.name}" /></a> 
+<!--{/foreach}-->
+</td></tr></table>
+<!--{/if}-->
+<!--{if $txt_links}-->
+<h2 class="title">文字链接</h2>
+<table class="dataTab carttable" width="100%"><tr><td class="bottom">
+<!--{foreach from=$txt_links item=link}-->
+<a href="{$link.url}" target="_blank">{$link.name}</a>
+<!--{/foreach}-->
+</td></tr></table>
+<!--{/if}-->
+</div>
+</div>
+</div>
+<!--/messages-->
+<div class="box-bottom3"></div>
+</div>
+<!--/mainbox-->
+</div>
+<!-- #BeginLibraryItem "/library/group_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>
